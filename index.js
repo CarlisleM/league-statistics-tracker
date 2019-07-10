@@ -12,6 +12,9 @@ express()
   .get('/about', (req, res) => res.send(showTimes()))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
+// testFunc();
+// getData();
+
 showTimes = () => {
   let result = ''
   const times = process.env.TIMES || 5
@@ -19,4 +22,8 @@ showTimes = () => {
     result += i + ' '
   }
   return result;
+}
+
+function testFunc(){
+  console.log('test');
 }
