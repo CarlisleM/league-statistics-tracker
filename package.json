@@ -21,7 +21,9 @@
   },
   "devDependencies": {
     "request": "^2.81.0",
-    "tape": "^4.7.0"
+    "tape": "^4.7.0",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
   },
   "repository": {
     "type": "git",

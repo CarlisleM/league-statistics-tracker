@@ -31,6 +31,7 @@ function fetchJSONFile(path, callback) {
 }
 
 function change_team_options() {
+
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
 
