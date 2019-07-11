@@ -25,27 +25,32 @@
 function getData() {
 
     const { Pool, Client } = require('pg')
-    const connectionString = 'postgres://djpoucmhkewvrh:e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c@ec2-174-129-209-212.compute-1.amazonaws.com:5432/d24ubplectbqas'
 
     const pool = new Pool({
-        connectionString: connectionString,
+      user: 'djpoucmhkewvrh',
+      host: 'ec2-174-129-209-212.compute-1.amazonaws.com',
+      database: 'd24ubplectbqas',
+      password: 'e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c',
+      port: 5432,
     })
 
     pool.query('SELECT NOW()', (err, res) => {
-        console.log(err, res)
-        pool.end()
+      console.log(err, res)
+      pool.end()
     })
 
     const client = new Client({
-        connectionString: connectionString,
+      user: 'djpoucmhkewvrh',
+      host: 'ec2-174-129-209-212.compute-1.amazonaws.com',
+      database: 'd24ubplectbqas',
+      password: 'e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c',
+      port: 5432,
     })
     client.connect()
 
     client.query('SELECT NOW()', (err, res) => {
-        console.log(err, res)
-        client.end()
+      console.log(err, res)
+      client.end()
     })
-
-    console.log('test');
 
 }
