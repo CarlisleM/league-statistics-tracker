@@ -18,7 +18,16 @@ express()
 
   console.log("trying to connect");
 
-  var pgClient = new pg.Client(connectionString);
+//  var pgClient = new pg.Client(connectionString);
+
+  var pgClient = new pg.Client({
+      user: 'djpoucmhkewvrh',
+      host: 'ec2-174-129-209-212.compute-1.amazonaws.com',
+      database: 'd24ubplectbqas',
+      password: 'e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c',
+      port: 5432,
+      ssl: true
+  }); 
 
   pgClient.connect();
 
@@ -30,4 +39,4 @@ express()
       result.addRow(row);
   });
 
-  console.log(result);
+//  console.log(result);
