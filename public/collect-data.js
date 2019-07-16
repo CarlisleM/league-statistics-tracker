@@ -17,7 +17,7 @@ function getData(callback) {
     
     pgClient.query('SELECT game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_data where id = game_id', (err, result) => {
       
-      pgClient.end()
+      pgClient.end();
     })
 
     // var query = pgClient.query("SELECT game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_data where id = game_id");
