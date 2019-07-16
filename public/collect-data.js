@@ -27,7 +27,7 @@ function getData(callback) {
      // console.log(JSON.stringify(result.rows, null, "    "));
     });
 
-    pgClient.end()
+    pgClient.end();
 
 }
 
