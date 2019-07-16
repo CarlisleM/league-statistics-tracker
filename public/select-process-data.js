@@ -28,7 +28,7 @@ function fetchJSONFile(path, callback) {
             }
         }
     };
-    httpRequest.open('GET', 'league-statistics-tracker.herokuapp.com/games');
+    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
     // httpRequest.open('GET', 'https://api.myjson.com/bins/12fvuj');
     // https://api.myjson.com/bins/iuo1f
     // http://localhost:5000/games
