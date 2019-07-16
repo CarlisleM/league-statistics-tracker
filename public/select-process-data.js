@@ -1,5 +1,7 @@
 document.head = document.head || document.getElementsByTagName('head')[0];
 
+var db = require('./public/collect-data')
+
 // Site logo
 function changeFavicon(src) {
     var link = document.createElement('link'),
@@ -26,7 +28,10 @@ function fetchJSONFile(path, callback) {
             }
         }
     };
-    httpRequest.open('GET', 'https://api.myjson.com/bins/12fvuj');
+    httpRequest.open('GET', 'league-statistics-tracker.herokuapp.com/games');
+    // httpRequest.open('GET', 'https://api.myjson.com/bins/12fvuj');
+    // https://api.myjson.com/bins/iuo1f
+    // http://localhost:5000/games
     httpRequest.send(); 
 }
 
@@ -184,85 +189,86 @@ function change_team_one_select(sel) {
     var k = 0;
     var table_one_body = '<table border="1" id="team_two_table"><thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
-            for(j in data) {
-                if (data[k].blue_team == sel || data[k].red_team == sel) {
-                    table_one_body += '<tr class="one">';
+        for(j in data.matches) {
+            if (data.matches[k].blue_team == sel || data.matches[k].red_team == sel) {
 
-                    table_one_body += '<td>';
-                    table_one_body += data[k].game_date;
-                    table_one_body += '</td>';
+                table_one_body += '<tr class="one">';
 
-                    table_one_body += '<td>';
-                    if (sel == data[k].blue_team) {
-                        table_one_body += data[k].red_team;
-                    } else { 
-                        table_one_body += data[k].blue_team;
-                    }
-                    table_one_body += '</td>';
+                table_one_body += '<td>';
+                table_one_body += data.matches[k].game_date.split("T")[0];
+                table_one_body += '</td>';
 
-                    table_one_body += '<td style="display:none;">';
-                    if (sel == data[k].blue_team) {
-                        table_one_body += data[k].blue_team;
-                    } else { 
-                        table_one_body += data[k].red_team;
-                    }
-                    table_one_body += '</td>';
+                table_one_body += '<td>';
+                if (sel == data.matches[k].blue_team) {
+                    table_one_body += data.matches[k].red_team;
+                } else { 
+                    table_one_body += data.matches[k].blue_team;
+                }
+                table_one_body += '</td>';
 
-                    if (sel == data[k].first_blood) {
-                        table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_one_body += '✓';
-                    } else {
-                        table_one_body += '<td style="background-color:red;color:black;">';
-                        table_one_body += '✘';
-                    }
-                    table_one_body += '</td>';
+                table_one_body += '<td style="display:none;">';
+                if (sel == data.matches[k].blue_team) {
+                    table_one_body += data.matches[k].blue_team;
+                } else { 
+                    table_one_body += data.matches[k].red_team;
+                }
+                table_one_body += '</td>';
 
-                    if (sel == data[k].first_tower) {
-                        table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_one_body += '✓';
-                    } else {
-                        table_one_body += '<td style="background-color:red;color:black;">';
-                        table_one_body += '✘';
-                    }
-                    table_one_body += '</td>';
+                if (sel == data.matches[k].first_blood) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_one_body += '✓';
+                } else {
+                    table_one_body += '<td style="background-color:red;color:black;">';
+                    table_one_body += '✘';
+                }
+                table_one_body += '</td>';
 
-                    if (sel == data[k].first_dragon) {
-                        table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_one_body += '✓';
-                    } else {
-                        table_one_body += '<td style="background-color:red;color:black;">';
-                        table_one_body += '✘';
-                    }
-                    table_one_body += '</td>';
+                if (sel == data.matches[k].first_tower) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_one_body += '✓';
+                } else {
+                    table_one_body += '<td style="background-color:red;color:black;">';
+                    table_one_body += '✘';
+                }
+                table_one_body += '</td>';
 
-                    if (sel == data[k].first_inhibitor) {
-                        table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_one_body += '✓';
-                    } else {
-                        table_one_body += '<td style="background-color:red;color:black;">';
-                        table_one_body += '✘';
-                    }
-                    table_one_body += '</td>';
+                if (sel == data.matches[k].first_dragon) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_one_body += '✓';
+                } else {
+                    table_one_body += '<td style="background-color:red;color:black;">';
+                    table_one_body += '✘';
+                }
+                table_one_body += '</td>';
 
-                    if (sel == data[k].first_baron) {
-                        table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_one_body += '✓';
-                    } else {
-                        table_one_body += '<td style="background-color:red;color:black;">';
-                        table_one_body += '✘';
-                    }
-                    table_one_body += '</td>';
+                if (sel == data.matches[k].first_inhibitor) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_one_body += '✓';
+                } else {
+                    table_one_body += '<td style="background-color:red;color:black;">';
+                    table_one_body += '✘';
+                }
+                table_one_body += '</td>';
 
-                    if (sel == data[k].winner) {
-                        table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_one_body += '✓';
-                    } else {
-                        table_one_body += '<td style="background-color:red;color:black;">';
-                        table_one_body += '✘';
-                    }
-                    table_one_body += '</td>';
+                if (sel == data.matches[k].first_baron) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_one_body += '✓';
+                } else {
+                    table_one_body += '<td style="background-color:red;color:black;">';
+                    table_one_body += '✘';
+                }
+                table_one_body += '</td>';
 
-                    table_one_body += '</tr>';
+                if (sel == data.matches[k].winner) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_one_body += '✓';
+                } else {
+                    table_one_body += '<td style="background-color:red;color:black;">';
+                    table_one_body += '✘';
+                }
+                table_one_body += '</td>';
+
+                table_one_body += '</tr>';
             }
             k++;
         }
@@ -282,85 +288,86 @@ function change_team_two_select(sel) {
     var k = 0;
     var table_two_body = '<table border="1" id="team_two_table"><thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
-            for(j in data) {
-                if (data[k].blue_team == sel || data[k].red_team == sel) {
-                    table_two_body += '<tr class="two">';
+        for(j in data.matches) {
+            if (data.matches[k].blue_team == sel || data.matches[k].red_team == sel) {
 
-                    table_two_body += '<td>';
-                    table_two_body += data[k].game_date;
-                    table_two_body += '</td>';
+                table_two_body += '<tr class="one">';
 
-                    table_two_body += '<td>';
-                    if (sel == data[k].blue_team) {
-                        table_two_body += data[k].red_team;
-                    } else { 
-                        table_two_body += data[k].blue_team;
-                    }
-                    table_two_body += '</td>';
+                table_two_body += '<td>';
+                table_two_body += data.matches[k].game_date.split("T")[0];
+                table_two_body += '</td>';
 
-                    table_two_body += '<td style="display:none;">';
-                    if (sel == data[k].blue_team) {
-                        table_two_body += data[k].blue_team;
-                    } else { 
-                        table_two_body += data[k].red_team;
-                    }
-                    table_two_body += '</td>';
+                table_two_body += '<td>';
+                if (sel == data.matches[k].blue_team) {
+                    table_two_body += data.matches[k].red_team;
+                } else { 
+                    table_two_body += data.matches[k].blue_team;
+                }
+                table_two_body += '</td>';
 
-                    if (sel == data[k].first_blood) {
-                        table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_two_body += '✓';
-                    } else {
-                        table_two_body += '<td style="background-color:red;color:black;">';
-                        table_two_body += '✘';
-                    }
-                    table_two_body += '</td>';
+                table_two_body += '<td style="display:none;">';
+                if (sel == data.matches[k].blue_team) {
+                    table_two_body += data.matches[k].blue_team;
+                } else { 
+                    table_two_body += data.matches[k].red_team;
+                }
+                table_two_body += '</td>';
 
-                    if (sel == data[k].first_tower) {
-                        table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_two_body += '✓';
-                    } else {
-                        table_two_body += '<td style="background-color:red;color:black;">';
-                        table_two_body += '✘';
-                    }
-                    table_two_body += '</td>';
+                if (sel == data.matches[k].first_blood) {
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_two_body += '✓';
+                } else {
+                    table_two_body += '<td style="background-color:red;color:black;">';
+                    table_two_body += '✘';
+                }
+                table_two_body += '</td>';
 
-                    if (sel == data[k].first_dragon) {
-                        table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_two_body += '✓';
-                    } else {
-                        table_two_body += '<td style="background-color:red;color:black;">';
-                        table_two_body += '✘';
-                    }
-                    table_two_body += '</td>';
+                if (sel == data.matches[k].first_tower) {
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_two_body += '✓';
+                } else {
+                    table_two_body += '<td style="background-color:red;color:black;">';
+                    table_two_body += '✘';
+                }
+                table_two_body += '</td>';
 
-                    if (sel == data[k].first_inhibitor) {
-                        table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_two_body += '✓';
-                    } else {
-                        table_two_body += '<td style="background-color:red;color:black;">';
-                        table_two_body += '✘';
-                    }
-                    table_two_body += '</td>';
+                if (sel == data.matches[k].first_dragon) {
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_two_body += '✓';
+                } else {
+                    table_two_body += '<td style="background-color:red;color:black;">';
+                    table_two_body += '✘';
+                }
+                table_two_body += '</td>';
 
-                    if (sel == data[k].first_baron) {
-                        table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_two_body += '✓';
-                    } else {
-                        table_two_body += '<td style="background-color:red;color:black;">';
-                        table_two_body += '✘';
-                    }
-                    table_two_body += '</td>';
+                if (sel == data.matches[k].first_inhibitor) {
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_two_body += '✓';
+                } else {
+                    table_two_body += '<td style="background-color:red;color:black;">';
+                    table_two_body += '✘';
+                }
+                table_two_body += '</td>';
 
-                    if (sel == data[k].winner) {
-                        table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                        table_two_body += '✓';
-                    } else {
-                        table_two_body += '<td style="background-color:red;color:black;">';
-                        table_two_body += '✘';
-                    }
-                    table_two_body += '</td>';
+                if (sel == data.matches[k].first_baron) {
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_two_body += '✓';
+                } else {
+                    table_two_body += '<td style="background-color:red;color:black;">';
+                    table_two_body += '✘';
+                }
+                table_two_body += '</td>';
 
-                    table_two_body += '</tr>';
+                if (sel == data.matches[k].winner) {
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_two_body += '✓';
+                } else {
+                    table_two_body += '<td style="background-color:red;color:black;">';
+                    table_two_body += '✘';
+                }
+                table_two_body += '</td>';
+
+                table_two_body += '</tr>';
             }
             k++;
         }
