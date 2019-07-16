@@ -10,25 +10,30 @@ var pgClient = new pg.Client({
     ssl: true
 }); 
 
+
 function getData(callback) {
 
     pgClient.connect();
     
-    var query = pgClient.query("SELECT game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_data where id = game_id");
+    pgClient.query('SELECT game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_data where id = game_id', (err, result) => {
+      
+      pgClient.end()
+    })
 
-    query.on("row", function (row, result) {
-        result.addRow(row);
-    });
+    // var query = pgClient.query("SELECT game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_data where id = game_id");
 
-    query.on("end", function (result) {
-     // callback(result.rows, null, "    ");
-        callback(result.rows, null);
-        pgClient.end();
-     // callback(JSON.stringify(result.rows, null));
-     // console.log(JSON.stringify(result.rows, null, "    "));
-    });
+    // query.on("row", function (row, result) {
+    //     result.addRow(row);
+    // });
 
-  //  pgClient.end();
+    // query.on("end", function (result) {
+    //  // callback(result.rows, null, "    ");
+    //     callback(result.rows, null);
+    //  // callback(JSON.stringify(result.rows, null));
+    //  // console.log(JSON.stringify(result.rows, null, "    "));
+    // });
+
+    // pgClient.end();
 
 }
 
