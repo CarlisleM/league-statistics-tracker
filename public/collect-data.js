@@ -23,6 +23,7 @@ function getData(callback) {
     query.on("end", function (result) {
      // callback(result.rows, null, "    ");
         callback(result.rows, null);
+        pgClient.end();
      // callback(JSON.stringify(result.rows, null));
      // console.log(JSON.stringify(result.rows, null, "    "));
     });
