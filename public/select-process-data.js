@@ -28,18 +28,13 @@ function fetchJSONFile(path, callback) {
         }
     };
 
-    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/query');
-   // httpRequest.open('GET', 'https://api.myjson.com/bins/iuo1f');
-    // httpRequest.open('GET', 'https://api.myjson.com/bins/12fvuj');
-    // https://api.myjson.com/bins/iuo1f
-    // http://localhost:5000/games
+    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
+ // httpRequest.open('GET', 'https://api.myjson.com/bins/iuo1f');
+ //   httpRequest.open('GET', 'http://localhost:5000/query');
     httpRequest.send(); 
 }
 
 function change_team_options(leaguename) {
-
-//    document.write(leaguename);
-
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
 
@@ -188,17 +183,6 @@ function change_team_options(leaguename) {
     }
 }
 
-function testFunc() {
-    const thElements = document.getElementsByTagName('th'),
-          tdElements = document.getElementsByTagName('td');
-
-    for (let i = 0; i < thElements.length; i++) {
-        const widerElement = thElements[i].offsetWidth > tdElements[i].offsetWidth ? thElements[i] : tdElements[i],
-        width = window.getComputedStyle(widerElement).width;
-        thElements[i].style.width = tdElements[i].style.width = width;
-    }
-}
-
 // Table one
 function change_team_one_select(selected_team) {
     var k = 0;
@@ -289,7 +273,14 @@ function change_team_one_select(selected_team) {
             x.style.display = "block";
         }      
 
-        testFunc();
+        const thElements = tableDiv.getElementsByTagName('th'),
+              tdElements = tableDiv.getElementsByTagName('td');
+
+        for (let i = 0; i < thElements.length; i++) {
+            const widerElement = thElements[i].offsetWidth > tdElements[i].offsetWidth ? thElements[i] : tdElements[i],
+            width = window.getComputedStyle(widerElement).width;
+            thElements[i].style.width = tdElements[i].style.width = width;
+        }
     });
 }
 
@@ -383,6 +374,13 @@ function change_team_two_select(selected_team) {
             x.style.display = "block";
         }
 
-        testFunc();    
+        const thElements = tableDiv2.getElementsByTagName('th'),
+              tdElements = tableDiv2.getElementsByTagName('td');
+
+        for (let i = 0; i < thElements.length; i++) {
+            const widerElement = thElements[i].offsetWidth > tdElements[i].offsetWidth ? thElements[i] : tdElements[i],
+            width = window.getComputedStyle(widerElement).width;
+            thElements[i].style.width = tdElements[i].style.width = width;
+        }
     });
 } 
