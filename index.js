@@ -13,12 +13,12 @@ const app = express()
   app.set('view engine', 'ejs') 
   app.get('/', (req, res) => res.render('pages/index'))
 
-app.get('/games', (req, res) => {
-  db.getData(function(result) {
-     // console.log(result);
-     res.json({ matches: result })
-  });
-})
+// app.get('/games', (req, res) => {
+//   db.getData(function(result) {
+//      // console.log(result);
+//      res.json({ matches: result })
+//   });
+// })
 
 app.get('/games', async (req, res) => {
   const client = new Client({
