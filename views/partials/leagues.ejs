@@ -1,40 +1,35 @@
 <div class="sideBar">
-    <center>
-        <select id="select_league" onchange="change_team_options(this.value)">
-            <option value="">Choose an option:</option>
-            <option value="LCK" selected>LCK</option>
-            <option value="LEC">LEC</option>
-            <option value="OPL">OPL</option>
-            <option value="LFL">LFL</option>
-            <option value="LVP">LVP</option>
-            <option value="LMS" disabled>LMS</option>
-            <option value="AllLeagues">All Leagues</option>
-        </select>
-    </center>
 
     <div class="sideBarLeague">
-        Image
-        
+        <img id="LMS" onclick="change_team_options(this.id)" src="images/LMS.jpg" width="100%" height="100%" alt="LMS">
     </div>
 
     <div class="sideBarLeague">
-
+        <img id="LEC" onclick="change_team_options(this.id)" src="images/LEC.png" width="100%" height="100%" alt="LEC">
     </div>
 
     <div class="sideBarLeague">
-
-    </div>
-    
-    <div class="sideBarLeague">
-
+        <img id="LVP" onclick="change_team_options(this.id)" src="images/LVP.png" width="100%" height="100%" alt="LVP">
     </div>
 
     <div class="sideBarLeague">
-
+        <img id="LCK" onclick="change_team_options(this.id)" src="images/LCK.png" width="100%" height="100%" alt="LCK">
     </div>
 
     <div class="sideBarLeague">
+        <img id="LFL" onclick="change_team_options(this.id)" src="images/LFL.png" width="100%" height="100%" alt="NA">
+    </div>
 
+    <div class="sideBarLeague">
+        <img id="OPL" onclick="change_team_options(this.id)" src="images/OPL.jpg" width="100%" height="100%" alt="OPL">
+    </div>
+
+    <div class="sideBarLeague">
+        <img id="CBLOL" onclick="change_team_options(this.id)" src="images/CBLOL.jpg" width="100%" height="100%" alt="CB">
+    </div>
+
+    <div class="sideBarLeague">
+        <img id="NA" onclick="change_team_options(this.id)" src="images/NALCS.jpg" width="100%" height="100%" alt="NA">
     </div>
 
 </div>

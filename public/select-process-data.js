@@ -17,7 +17,6 @@ function changeFavicon(src) {
 
 changeFavicon('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3773894d-0ef2-416b-b2b8-dd34a5086e30/datwehc-379c8f4a-786b-40cd-979f-b22cd7b59782.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzM3NzM4OTRkLTBlZjItNDE2Yi1iMmI4LWRkMzRhNTA4NmUzMFwvZGF0d2VoYy0zNzljOGY0YS03ODZiLTQwY2QtOTc5Zi1iMjJjZDdiNTk3ODIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.CGJoLp7X540QYBJeyOFiedL0ljbK1tr3dTB-jr_GqSQ');
 
-// Get json data
 function fetchJSONFile(path, callback) {
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
@@ -29,7 +28,7 @@ function fetchJSONFile(path, callback) {
         }
     };
 
-    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
+    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/query');
    // httpRequest.open('GET', 'https://api.myjson.com/bins/iuo1f');
     // httpRequest.open('GET', 'https://api.myjson.com/bins/12fvuj');
     // https://api.myjson.com/bins/iuo1f
@@ -37,7 +36,10 @@ function fetchJSONFile(path, callback) {
     httpRequest.send(); 
 }
 
-function change_team_options() {
+function change_team_options(leaguename) {
+
+//    document.write(leaguename);
+
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
 
@@ -56,8 +58,8 @@ function change_team_options() {
            document.querySelector('#team_two_select').remove(1);
         }
     }
-
-    if (document.querySelector('#select_league').selectedOptions[0].text == 'LCK') {
+    
+    if (leaguename == 'LCK') {
         var teams = {
             skt : 'SK Telecom T1',
             jag : 'Jin Air Green Wings',
@@ -70,7 +72,7 @@ function change_team_options() {
             kt : 'KT Rolster',
             kz : 'KINGZONE DragonX'
         };
-    }  else if (document.querySelector('#select_league').selectedOptions[0].text == 'LEC') {
+    }  else if (leaguename == 'LEC') {
         var teams = {
             fnc : 'Fnatic',
             g2 : 'G2 Esports',
@@ -83,7 +85,7 @@ function change_team_options() {
             rge : 'Rogue',
             spy : 'Splyce'
         };
-    } else if (document.querySelector('#select_league').selectedOptions[0].text == 'OPL') {
+    } else if (leaguename == 'OPL') {
         var teams = {
             av : 'Avant Gaming',
             dw : 'Dire Wolves',
@@ -94,7 +96,7 @@ function change_team_options() {
             bmr : 'Bombers',
             chf : 'Chiefs Esports Club'
         };
-    } else if (document.querySelector('#select_league').selectedOptions[0].text == 'LFL') {
+    } else if (leaguename == 'LFL') {
         var teams = {
             ldlc : 'LDLC',
             'vit.b' : 'Vitality.Bee',
@@ -105,7 +107,7 @@ function change_team_options() {
             sly : 'Solary',
             mces : 'Team MCES'
         };
-    } else if (document.querySelector('#select_league').selectedOptions[0].text == 'LVP') {
+    } else if (leaguename == 'LVP') {
         var teams = {
             g2h : 'G2 Heretics',
             s2v : 'S2V Esports',
@@ -119,7 +121,7 @@ function change_team_options() {
             svp : 'Splyce Vipers',
             tq : 'Team Queso'
         };
-    } else if (document.querySelector('#select_league').selectedOptions[0].text == 'LMS') {
+    } else if (leaguename == 'LMS') {
         var teams = {
 
         };
@@ -186,37 +188,41 @@ function change_team_options() {
     }
 }
 
+function testFunc() {
+    const thElements = document.getElementsByTagName('th'),
+          tdElements = document.getElementsByTagName('td');
+
+    for (let i = 0; i < thElements.length; i++) {
+        const widerElement = thElements[i].offsetWidth > tdElements[i].offsetWidth ? thElements[i] : tdElements[i],
+        width = window.getComputedStyle(widerElement).width;
+        thElements[i].style.width = tdElements[i].style.width = width;
+    }
+}
+
 // Table one
-function change_team_one_select(sel) {
+function change_team_one_select(selected_team) {
     var k = 0;
-    var table_one_body = '<table border="1" id="team_two_table"><thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
+    var table_one_body = '<table border="0" cellpadding="0" cellspacing="0" id="team_one_table">';
+    table_one_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
-            if (data.matches[k].blue_team == sel || data.matches[k].red_team == sel) {
+            if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
 
-                table_one_body += '<tr class="one">';
+                table_one_body += '<tr>';
 
                 table_one_body += '<td>';
                 table_one_body += data.matches[k].game_date.split("T")[0];
                 table_one_body += '</td>';
 
                 table_one_body += '<td>';
-                if (sel == data.matches[k].blue_team) {
+                if (selected_team == data.matches[k].blue_team) {
                     table_one_body += data.matches[k].red_team;
                 } else { 
                     table_one_body += data.matches[k].blue_team;
                 }
                 table_one_body += '</td>';
 
-                table_one_body += '<td style="display:none;">';
-                if (sel == data.matches[k].blue_team) {
-                    table_one_body += data.matches[k].blue_team;
-                } else { 
-                    table_one_body += data.matches[k].red_team;
-                }
-                table_one_body += '</td>';
-
-                if (sel == data.matches[k].first_blood) {
+                if (selected_team == data.matches[k].first_blood) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_one_body += '✓';
                 } else {
@@ -225,7 +231,7 @@ function change_team_one_select(sel) {
                 }
                 table_one_body += '</td>';
 
-                if (sel == data.matches[k].first_tower) {
+                if (selected_team == data.matches[k].first_tower) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_one_body += '✓';
                 } else {
@@ -234,7 +240,7 @@ function change_team_one_select(sel) {
                 }
                 table_one_body += '</td>';
 
-                if (sel == data.matches[k].first_dragon) {
+                if (selected_team == data.matches[k].first_dragon) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_one_body += '✓';
                 } else {
@@ -243,7 +249,7 @@ function change_team_one_select(sel) {
                 }
                 table_one_body += '</td>';
 
-                if (sel == data.matches[k].first_inhibitor) {
+                if (selected_team == data.matches[k].first_inhibitor) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_one_body += '✓';
                 } else {
@@ -252,7 +258,7 @@ function change_team_one_select(sel) {
                 }
                 table_one_body += '</td>';
 
-                if (sel == data.matches[k].first_baron) {
+                if (selected_team == data.matches[k].first_baron) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_one_body += '✓';
                 } else {
@@ -261,7 +267,7 @@ function change_team_one_select(sel) {
                 }
                 table_one_body += '</td>';
 
-                if (sel == data.matches[k].winner) {
+                if (selected_team == data.matches[k].winner) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_one_body += '✓';
                 } else {
@@ -282,40 +288,35 @@ function change_team_one_select(sel) {
         if (x.style.display == "none") {
             x.style.display = "block";
         }      
+
+        testFunc();
     });
 }
 
 // Table two
-function change_team_two_select(sel) {
+function change_team_two_select(selected_team) {
     var k = 0;
-    var table_two_body = '<table border="1" id="team_two_table"><thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
+    var table_two_body = '<table border="0" cellpadding="0" cellspacing="0" id="team_two_table">';
+    table_two_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
-            if (data.matches[k].blue_team == sel || data.matches[k].red_team == sel) {
+            if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
 
-                table_two_body += '<tr class="one">';
+                table_two_body += '<tr>';
 
                 table_two_body += '<td>';
                 table_two_body += data.matches[k].game_date.split("T")[0];
                 table_two_body += '</td>';
 
                 table_two_body += '<td>';
-                if (sel == data.matches[k].blue_team) {
+                if (selected_team == data.matches[k].blue_team) {
                     table_two_body += data.matches[k].red_team;
                 } else { 
                     table_two_body += data.matches[k].blue_team;
                 }
                 table_two_body += '</td>';
 
-                table_two_body += '<td style="display:none;">';
-                if (sel == data.matches[k].blue_team) {
-                    table_two_body += data.matches[k].blue_team;
-                } else { 
-                    table_two_body += data.matches[k].red_team;
-                }
-                table_two_body += '</td>';
-
-                if (sel == data.matches[k].first_blood) {
+                if (selected_team == data.matches[k].first_blood) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_two_body += '✓';
                 } else {
@@ -324,7 +325,7 @@ function change_team_two_select(sel) {
                 }
                 table_two_body += '</td>';
 
-                if (sel == data.matches[k].first_tower) {
+                if (selected_team == data.matches[k].first_tower) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_two_body += '✓';
                 } else {
@@ -333,7 +334,7 @@ function change_team_two_select(sel) {
                 }
                 table_two_body += '</td>';
 
-                if (sel == data.matches[k].first_dragon) {
+                if (selected_team == data.matches[k].first_dragon) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_two_body += '✓';
                 } else {
@@ -342,7 +343,7 @@ function change_team_two_select(sel) {
                 }
                 table_two_body += '</td>';
 
-                if (sel == data.matches[k].first_inhibitor) {
+                if (selected_team == data.matches[k].first_inhibitor) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_two_body += '✓';
                 } else {
@@ -351,7 +352,7 @@ function change_team_two_select(sel) {
                 }
                 table_two_body += '</td>';
 
-                if (sel == data.matches[k].first_baron) {
+                if (selected_team == data.matches[k].first_baron) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_two_body += '✓';
                 } else {
@@ -360,7 +361,7 @@ function change_team_two_select(sel) {
                 }
                 table_two_body += '</td>';
 
-                if (sel == data.matches[k].winner) {
+                if (selected_team == data.matches[k].winner) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                     table_two_body += '✓';
                 } else {
@@ -380,6 +381,8 @@ function change_team_two_select(sel) {
         var x = document.getElementById("tableDiv2");
         if (x.style.display == "none") {
             x.style.display = "block";
-        }      
+        }
+
+        testFunc();    
     });
 } 
