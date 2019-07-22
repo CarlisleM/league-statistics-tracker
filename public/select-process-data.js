@@ -1,7 +1,5 @@
 document.head = document.head || document.getElementsByTagName('head')[0];
 
-var db = require('./public/collect-data')
-
 // Site logo
 function changeFavicon(src) {
     var link = document.createElement('link'),
@@ -28,9 +26,8 @@ function fetchJSONFile(path, callback) {
         }
     };
 
-    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
- // httpRequest.open('GET', 'https://api.myjson.com/bins/iuo1f');
- //   httpRequest.open('GET', 'http://localhost:5000/query');
+ //   httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
+    httpRequest.open('GET', 'http://localhost:5000/games');
     httpRequest.send(); 
 }
 
@@ -186,7 +183,7 @@ function change_team_options(leaguename) {
 // Table one
 function change_team_one_select(selected_team) {
     var k = 0;
-    var table_one_body = '<table border="0" cellpadding="0" cellspacing="0" id="team_one_table">';
+    var table_one_body = '<table class="team_results" id="team_one_table" border="0" cellpadding="0" cellspacing="0">';
     table_one_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
@@ -252,10 +249,10 @@ function change_team_one_select(selected_team) {
                 table_one_body += '</td>';
 
                 if (selected_team == data.matches[k].winner) {
-                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_one_body += '<td style="background-color: DeepSkyBlue; color:black; border-right: 1px solid black;">';
                     table_one_body += '✓';
                 } else {
-                    table_one_body += '<td style="background-color:red;color:black;">';
+                    table_one_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_one_body += '✘';
                 }
                 table_one_body += '</td>';
@@ -281,13 +278,17 @@ function change_team_one_select(selected_team) {
             width = window.getComputedStyle(widerElement).width;
             thElements[i].style.width = tdElements[i].style.width = width;
         }
+
+        var objDiv = document.getElementById('tableDiv');   
+        objDiv.scrollTop = objDiv.scrollHeight;
+
     });
 }
 
 // Table two
 function change_team_two_select(selected_team) {
     var k = 0;
-    var table_two_body = '<table border="0" cellpadding="0" cellspacing="0" id="team_two_table">';
+    var table_two_body = '<table class="team_results" id="team_two_table" border="0" cellpadding="0" cellspacing="0">';
     table_two_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
@@ -353,10 +354,10 @@ function change_team_two_select(selected_team) {
                 table_two_body += '</td>';
 
                 if (selected_team == data.matches[k].winner) {
-                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
                     table_two_body += '✓';
                 } else {
-                    table_two_body += '<td style="background-color:red;color:black;">';
+                    table_two_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_two_body += '✘';
                 }
                 table_two_body += '</td>';

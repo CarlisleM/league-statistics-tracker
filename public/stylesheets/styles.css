@@ -34,9 +34,46 @@
 }
 */  
 
+.leftTable {
+  width: 50%; 
+  float: left; 
+}
 
-.leftTable { width: 50%; float: left; }
-.rightTable {width: 50%; float: right; }
+.rightTable {
+  width: 50%; 
+  float: right; 
+}
+
+#tableDiv {
+  margin-left: 10%;
+  margin-top: 40px; 
+  text-align:center;
+}
+
+#tableDiv2 {
+  margin-left: 5%;
+  margin-top: 40px; 
+  text-align:center;
+}
+
+#historyDiv {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#bet_history_table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.historyTable {
+  width: 40.5%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 /*.container { overflow: hidden; }*/
 
@@ -49,10 +86,6 @@
   width: 75%;
   height: 200px;
   float: left;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 .sideBar {
@@ -73,56 +106,61 @@
   height: 20%;
 }
 
-.scrollingContainer {
-  margin-left: 10%;
-  width: 50%;
-  height: 50%;
-  border-left: solid;
-  border-color: black;
+body { 
+  font-family: sans-serif; 
+  width: 100%;
 }
 
-button{
-  border-radius: 10px;
-  height: 45px;
-  width: 150px;
-  text-align: center;
-  background-color: #5499C7;
-  font-size: 15px;
-  color: #ffffff;
-}
-input{
-  height: 35px;
-  font-size: 15px;
-}
-
-body { font-family: sans-serif; }
-
-tbody {
+.team_results tbody {
   display: block;
-  max-height: 400px;
+  max-height: 500px;
   overflow-x: auto;
   width: 100%
 }
 
-thead {
+.team_results thead {
   display: inline-block;
   width: 100%;
 }
 
-table {
-  font: 14px Verdana;
+.team_results table {
+  font: 15px Verdana;
   border-collapse: collapse;
   border-spacing: 1px
 }
 
+.team_results th {
+  padding: 7px;
+  border-width: 1px 0px 1px 1px;
+  border-color: black;
+}
+
+.team_results td {
+  padding: 7px;
+  border-style: solid;
+  border-width: 0px 0px 1px 1px;
+  border-color: black;
+}
+
+.team_results th:last-child {
+  border-width: 1px 1px 1px 1px;
+}
+
+.team_results tr:hover {
+  background-color: #f5f5f5;
+}
+
 th {
-  padding: 5px;
-  border: 1px solid #888888;
+  padding: 7px;
+  border: 1px;
+  border-style: solid;
+  border-color: black;
 }
 
 td {
-  padding: 5px;
+  padding: 7px;
+  border: 1px;
   border-style: solid;
-  border-width: 0px 1px 1px 1px;
-  border-color: #888888;
+  border-color: black;
 }
+
