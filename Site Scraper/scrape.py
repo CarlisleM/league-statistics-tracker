@@ -382,7 +382,7 @@ time.sleep(15)
 
 print('Starting to post to the database')
 
-conn = psycopg2.connect(user = "user", password = "password", host = "host", port = "5432", database = "database", sslmode = 'require')
+conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
 cur = conn.cursor()
 
 cur.execute("SELECT COUNT(*) FROM games")

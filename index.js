@@ -28,10 +28,10 @@ app.get('/bets', function(req, res) {
 
 app.get('/games', async (req, res) => {
   const client = new Client({
-    user: 'user',
-    host: 'host',
-    database: 'database',
-    password: 'password',
+    user: 'djpoucmhkewvrh',
+    host: 'ec2-174-129-209-212.compute-1.amazonaws.com',
+    database: 'd24ubplectbqas',
+    password: 'e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c',
     port: 5432,
     ssl: true
   })
