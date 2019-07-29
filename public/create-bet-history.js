@@ -6,15 +6,20 @@ var days = 0;
 var new_week = true;
 var week = 1;
 var bets = [];
-bets.push(['2019-06-28','SKT vs KZ','First Dragon','$20','$12']);    
-bets.push(['2019-06-30','JAG vs DWG','First Turret','$20','$0']); 
-bets.push(['2019-07-02','SKT vs JAG','First Dragon','$20','$15']);
-bets.push(['2019-07-05','JAG vs KZ','First Dragon','$20','$10']);
-bets.push(['2019-07-06','SKT vs DWG','First Blood','$20','$0']);
-bets.push(['2019-07-11','GEN.G vs KZ','First Baron','$20','$13']);
-bets.push(['2019-07-12','SKT vs KZ','First Dragon','$20','$12']); 
-bets.push(['2019-07-13','JAG vs KZ','First Dragon','$20','$10']);
-bets.push(['2019-07-15','DWG vs GEN.G','First Turret','$20','$22']);
+bets.push(['2019-07-24','Origen BCN vs Team Queso','OBCN First Blood','$20','$0']);    
+bets.push(['2019-07-25','SKT vs GEN.G','SKT First Turret','$20','$0']); 
+bets.push(['2019-07-27','Kingzone DragonX vs Afreeca Freecs','KZ First Dragon','$20','$0']); 
+bets.push(['2019-07-27','Splyce vs S04','SPY First Dragon','$20','$16.80']); 
+bets.push(['2019-07-28','Optic vs Golden Guardians','OPT First Tower','$6','$0']); 
+bets.push(['2019-07-28','Team Liquid vs Cloud9','TL First Dragon','$30','$21.30']); 
+bets.push(['2019-07-28','Clutch Gaming vs Flyquest','CG First Tower','$20','$15.60']); 
+bets.push(['2019-07-29','G2 Heretics vs Movistar Riders','G2 First Blood','$20','$15.20']); 
+bets.push(['2019-08-01','DAMWON Gaming vs Afreeca Freecs','DWG First Dragon','$20','$0']); 
+bets.push(['2019-08-02','Griffin vs SANDBOX Gaming','GRF First Tower','$20','$0']);
+bets.push(['2019-08-02','Fnatic vs Schalke 04','FNC First Blood','$2.90','$0']);
+bets.push(['2019-08-03','G2 vs Fnatic','G2 First Tower','$20','$0']);
+bets.push(['2019-08-03','Schalke 04 vs Origen','S04 First Dragon','$20','$0']);
+bets.push(['2019-08-03','Schalke 04 vs Origen','S04 First Baron','$20','$0']);
 
 function create_history() {
     var history_table = '<table id="bet_history_table">';
@@ -120,9 +125,9 @@ function create_history() {
 
         history_table += '<td>';
         if (bets[i][4].split("$")[1] > 0) {
-            history_table += total_money = +total_money + +bets[i][4].split("$")[1];
+            history_table += total_money = +total_money.toFixed(2) + +bets[i][4].split("$")[1];
         } else {
-            history_table += total_money = +total_money - +bets[i][3].split("$")[1];
+            history_table += total_money = +total_money.toFixed(2) - +bets[i][3].split("$")[1];
         }
         history_table += '</td>';
 

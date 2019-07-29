@@ -88,13 +88,51 @@ get_lms_name = {
   'dg' : 'Dragon Gate'
 }
 
+get_lcs_name = {
+  'tl' : 'Team Liquid',
+  'clg' : 'Counter Logic Gaming',
+  'c9' : 'Cloud9',
+  'tsm' : 'Team SoloMid',
+  'ggs' : 'Golden Guardians',
+  'opt' : 'OpTic Gaming',
+  '100' : '100 Thieves',
+  'cg' : 'Clutch Gaming',
+  'fly' : 'FlyQuest',
+  'fox' : 'Echo Fox'
+}
+
+get_lla_name = {
+  'isg' : 'Isurus Gaming',
+  'ak' : 'All Knights',
+  'fg' : 'Furious Gaming',
+  'inf' : 'Infinity Esports',
+  'r7' : 'Rainbow7',
+  'xten' : 'XTEN Esports',
+  'klg' : 'Kaos Latin Gamers',
+  'pix' : 'Pixel Esports Club'
+}
+
+get_ultraliga_name = {
+  'rec' : 'Rogue Esports Club',
+  'dv1' : 'devils.one',
+  'prd' : 'PRIDE',
+  'ave' : 'AVEZ Esport',
+  'ihg' : 'Illuminar Gaming',
+  'apr' : 'piratesports',
+  'pct' : 'ACTINA PACT',
+  'wp' : 'Wisla Plock eSports'
+}
+
 get_league = {
   'LCK' : '1',
   'LEC' : '2',
   'OPL' : '3',
   'LFL' : '4',
   'LVP_SuperLiga_Orange' : '5',
-  'LMS' : '6'
+  'LMS' : '6',
+  'LCS' : '7',
+  'LLA' : '8',
+  'Ultraliga' : '9'
 }
 
 get_split = {
@@ -103,7 +141,10 @@ get_split = {
   'OPL' : '3',
   'LFL' : '4',
   'LVP_SuperLiga_Orange' : '5',
-  'LMS' : '6'
+  'LMS' : '6',
+  'LCS' : '7',
+  'LLA' : '8',
+  'Ultraliga' : '9'
 }
 
 get_name = {
@@ -161,7 +202,33 @@ get_name = {
   'alf' : 'Alpha Esports',
   'jt' : 'J Team',
   'grx' : 'G-Rex',
-  'dg' : 'Dragon Gate'
+  'dg' : 'Dragon Gate',
+  'tl' : 'Team Liquid',
+  'clg' : 'Counter Logic Gaming',
+  'c9' : 'Cloud9',
+  'tsm' : 'Team SoloMid',
+  'ggs' : 'Golden Guardians',
+  'opt' : 'OpTic Gaming',
+  '100' : '100 Thieves',
+  'cg' : 'Clutch Gaming',
+  'fly' : 'FlyQuest',
+  'fox' : 'Echo Fox',
+  'isg' : 'Isurus Gaming',
+  'ak' : 'All Knights',
+  'fg' : 'Furious Gaming',
+  'inf' : 'Infinity Esports',
+  'r7' : 'Rainbow7',
+  'xten' : 'XTEN Esports',
+  'klg' : 'Kaos Latin Gamers',
+  'pix' : 'Pixel Esports Club',
+  'rec' : 'Rogue Esports Club',
+  'dv1' : 'devils.one',
+  'prd' : 'PRIDE',
+  'ave' : 'AVEZ Esport',
+  'ihg' : 'Illuminar Gaming',
+  'apr' : 'piratesports',
+  'pct' : 'ACTINA PACT',
+  'wp' : 'Wisla Plock eSports'
 }
 
 def get_league_id(league):

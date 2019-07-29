@@ -28,16 +28,16 @@ app.get('/bets', function(req, res) {
 
 app.get('/games', async (req, res) => {
   const client = new Client({
-    user: 'djpoucmhkewvrh',
-    host: 'ec2-174-129-209-212.compute-1.amazonaws.com',
-    database: 'd24ubplectbqas',
-    password: 'e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c',
+    user: 'user',
+    host: 'host',
+    database: 'database',
+    password: 'password',
     port: 5432,
     ssl: true
   })
   client.connect()
 
-  const result = await client.query('SELECT game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_data where id = game_id')
+  const result = await client.query('SELECT league_id, game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_data where id = game_id')
   await client.end()
   res.json({ matches: result.rows })
 })

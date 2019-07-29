@@ -47,11 +47,12 @@ def get_page_source (link):
 def check_if_match_exists (game_date, game_count, blue_team, red_team):
     with open('matches_played.json') as json_file:
         data = json.load(json_file)
-        for game in data:
-            db_date = (game['game_date'])
+        for game in data['matches']:
+            db_date = (game['game_date'].split('T')[0])
             game_number = (game['game_count'])
             team_one = (game['blue_team'])
             team_two = (game['red_team'])
+
             if (db_date == game_date) and ((team_one == blue_team) or (team_two == blue_team)) and (game_number == game_count) and ((team_two == red_team) or (team_one == red_team)):                
                 print(db_date + ' ' + team_one + ' ' + team_two)
                 does_exist = True
@@ -78,31 +79,37 @@ def process_data (split_objective_data, blue_team, red_team):
 def convert_month(month_name):
     return get_month[month_name]         
 
-def load_db_team_names ():
-    collect_teams = ['curl https://lck-tracking.herokuapp.com/api/v1/teams | json_pp > teams.json']
-
 def load_db_match_history ():
-    earliest_split_start_date = '2019-01-01'
-    latest_split_end_date = '2019-12-31'
-    collect_game_history = ["curl ", "'", "https://lck-tracking.herokuapp.com/api/v1/games?start=", earliest_split_start_date, "&end=", latest_split_end_date, "'", " | json_pp > gamesPlayed.json"]
-    os.system(''.join(collect_game_history))   
+    os.system('curl https://league-statistics-tracker.herokuapp.com/games | json_pp > matches_played.json')   
 
 start = timeit.default_timer()
 # Downloads the database of matches already committed
 print("Loading teams from database")
 #load_db_team_names()
 print("Loading match history from database")
-#load_db_match_history()
+load_db_match_history()
 
 list_of_leagues_to_scrape = [
-    # 'https://lol.gamepedia.com/OPL/2019_Season/Split_2',
-    # 'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2019_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/LCK/2019_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/LFL/2019_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/LEC/2019_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/LMS/2019_Season/Summer_Season'
-    'https://lol.gamepedia.com/LMS/2019_Season/Spring_Season'
+    'https://lol.gamepedia.com/OPL/2019_Season/Split_2',
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2019_Season/Summer_Season',
+    'https://lol.gamepedia.com/LCK/2019_Season/Summer_Season',
+    'https://lol.gamepedia.com/LFL/2019_Season/Summer_Season',
+    'https://lol.gamepedia.com/LEC/2019_Season/Summer_Season',
+    'https://lol.gamepedia.com/LMS/2019_Season/Summer_Season',
+    'https://lol.gamepedia.com/LCS/2019_Season/Summer_Season',
+    'https://lol.gamepedia.com/LLA/2019_Season/Closing_Season',
+    'https://lol.gamepedia.com/Ultraliga/Season_2'
 ]
+
+post_lck = 'false';
+post_lec = 'false';
+post_opl = 'false';
+post_lfl = 'false';
+post_lvp = 'false';
+post_lms = 'false';
+post_lcs = 'false';
+post_lla = 'false';
+post_ultraliga = 'false';
 
 for league_url in list_of_leagues_to_scrape:
 
@@ -126,6 +133,12 @@ for league_url in list_of_leagues_to_scrape:
          get_team_name_from_league = get_lvp_name
     elif league == 'LMS':
          get_team_name_from_league = get_lms_name
+    elif league == 'LCS':
+        get_team_name_from_league = get_lcs_name
+    elif league == 'LLA':
+        get_team_name_from_league = get_lla_name
+    elif league == 'Ultraliga':
+        get_team_name_from_league = get_ultraliga_name
 
     outfile = "./" + league + " Data.csv"
     outfile = open(outfile, "w")
@@ -333,10 +346,31 @@ for league_url in list_of_leagues_to_scrape:
                     else:
                         writer.writerows(game_data)
                     print('Done')
+
+                    if league == 'LCK':
+                        post_lck = 'true';
+                    elif league == 'LEC':
+                        post_lec = 'true';
+                    elif league == 'OPL':
+                        post_opl = 'true';
+                    elif league == 'LFL':
+                         post_lfl = 'true';
+                    elif league == 'LVP_SuperLiga_Orange':
+                         post_lvp = 'true';
+                    elif league == 'LMS':
+                         post_lms = 'true';
+                    elif league == 'LCS':
+                        post_lcs = 'true';
+                    elif league == 'LLA_Clausura':
+                        post_lla = 'true';
+                    elif league == 'Ultraliga':
+                        post_ultraliga = 'true';
                 else:
                     print('Skipped')
     else:
         print("It seems a matchhistory link for one of the games is missing")
+        print(len(soup.find_all('a', attrs={'href': re.compile("matchhistory")}))-altered)
+        print(len(match_data))
 
 print('Finished')
 stop = timeit.default_timer()
@@ -348,7 +382,7 @@ time.sleep(15)
 
 print('Starting to post to the database')
 
-conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
+conn = psycopg2.connect(user = "user", password = "password", host = "host", port = "5432", database = "database", sslmode = 'require')
 cur = conn.cursor()
 
 cur.execute("SELECT COUNT(*) FROM games")
@@ -357,25 +391,29 @@ unique_id = unique_id[0]
 #Maybe check id of the last entry here to ensure this works even with deleted entries
 
 input_file = {
-     'LCK Data.csv',
-     'LEC Data.csv',
-     'OPL Data.csv',
-     'LFL Data.csv',
-     'LVP_SuperLiga_Orange Data.csv'
-    #'LMS Data.csv'
+    'LCK Data.csv',
+    'LEC Data.csv',
+    'OPL Data.csv',
+    'LFL Data.csv',
+    'LVP_SuperLiga_Orange Data.csv',
+    'LMS Data.csv',
+    'LCS Data.csv',
+    'LLA Data.csv',
+    'Ultraliga Data.csv'
 }
 
 for file in input_file:
-    print("Adding matches from " + file + ' to the database')
-    with open(file, 'r') as f:
-        reader = csv.reader(f)
-        next(reader) # Skip the header row
-
-        for (index, row) in enumerate(reader):
-            print(index)
-            unique_id = unique_id+1
-            cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)",row[:6])
-            cur.execute("INSERT INTO match_data VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")",row[6:])
+  #  if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'LMS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
+        print("Adding matches from " + file + ' to the database')
+        with open(file, 'r') as f:
+            reader = csv.reader(f)
+            next(reader) # Skip the header row
+            # Do something here to check if file is empty
+            for (index, row) in enumerate(reader):
+                print(index)
+                unique_id = unique_id+1
+                cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)",row[:6])
+                cur.execute("INSERT INTO match_data VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")",row[6:])
 
 print("Commiting files to the database")
 conn.commit()

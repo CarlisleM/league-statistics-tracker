@@ -52,6 +52,7 @@ function change_team_options(leaguename) {
     }
     
     if (leaguename == 'LCK') {
+        document.getElementById("league").innerHTML = "LCK";
         var teams = {
             skt : 'SK Telecom T1',
             jag : 'Jin Air Green Wings',
@@ -65,6 +66,7 @@ function change_team_options(leaguename) {
             kz : 'KINGZONE DragonX'
         };
     }  else if (leaguename == 'LEC') {
+        document.getElementById("league").innerHTML = "LEC";
         var teams = {
             fnc : 'Fnatic',
             g2 : 'G2 Esports',
@@ -78,6 +80,7 @@ function change_team_options(leaguename) {
             spy : 'Splyce'
         };
     } else if (leaguename == 'OPL') {
+        document.getElementById("league").innerHTML = "OPL";
         var teams = {
             av : 'Avant Gaming',
             dw : 'Dire Wolves',
@@ -89,6 +92,7 @@ function change_team_options(leaguename) {
             chf : 'Chiefs Esports Club'
         };
     } else if (leaguename == 'LFL') {
+        document.getElementById("league").innerHTML = "LFL";
         var teams = {
             ldlc : 'LDLC',
             'vit.b' : 'Vitality.Bee',
@@ -100,6 +104,7 @@ function change_team_options(leaguename) {
             mces : 'Team MCES'
         };
     } else if (leaguename == 'LVP') {
+        document.getElementById("league").innerHTML = "LVP";
         var teams = {
             g2h : 'G2 Heretics',
             s2v : 'S2V Esports',
@@ -114,10 +119,57 @@ function change_team_options(leaguename) {
             tq : 'Team Queso'
         };
     } else if (leaguename == 'LMS') {
+        document.getElementById("league").innerHTML = "LMS";
         var teams = {
-
+            mad : 'MAD Team',
+            fw : 'Flash Wolves',
+            jt : 'J Team',
+            ahq : 'ahq e-Sports Club',
+            hka : 'Hong Kong Attitude',
+            grx : 'G-Rex',
+            alf : 'Alpha Esports',
+            dg : 'Dragon Gate Team'
         };
-    } else {
+    } else if (leaguename == 'LCS') {
+        document.getElementById("league").innerHTML = "LCS";
+        var teams = {
+          tl : 'Team Liquid',
+          clg : 'Counter Logic Gaming',
+          c9 : 'Cloud9',
+          tsm : 'Team SoloMid',
+          ggs : 'Golden Guardians',
+          opt : 'OpTic Gaming',
+          '100' : '100 Thieves',
+          cg : 'Clutch Gaming',
+          fly : 'FlyQuest',
+          fox : 'Echo Fox'
+        };
+    } else if (leaguename == 'LLA') {
+        document.getElementById("league").innerHTML = "LLA";
+        var teams = {
+          isg : 'Isurus Gaming',
+          ak : 'All Knights',
+          fg : 'Furious Gaming',
+          inf : 'Infinity Esports',
+          r7 : 'Rainbow7',
+          xten : 'XTEN Esports',
+          klg : 'Kaos Latin Gamers',
+          pix : 'Pixel Esports Club'
+        };
+    } else if (leaguename == 'Ultraliga') {
+        document.getElementById("league").innerHTML = "Ultraliga";
+        var teams = {
+          rec : 'Rogue Esports Club',
+          dv1 : 'devils.one',
+          prd : 'PRIDE',
+          ave : 'AVEZ Esport',
+          ihg : 'Illuminar Gaming',
+          apr : 'piratesports',
+          pct : 'ACTINA PACT',
+          wp : 'Wisla Plock eSports'
+        };
+    }  else {
+        document.getElementById("league").innerHTML = "All Leagues";
         var teams = {
             skt : 'SK Telecom T1',
             jag : 'Jin Air Green Wings',
@@ -182,13 +234,35 @@ function change_team_options(leaguename) {
 
 // Table one
 function change_team_one_select(selected_team) {
+    if (document.getElementById("league").innerHTML == "LCK") {
+        var league = 1;
+    } else if (document.getElementById("league").innerHTML == "LEC") { 
+        var league = 2;
+    } else if (document.getElementById("league").innerHTML == "OPL") { 
+        var league = 3;
+    } else if (document.getElementById("league").innerHTML == "LFL") { 
+        var league = 4;
+    } else if (document.getElementById("league").innerHTML == "LVP") { 
+        var league = 5;
+    } else if (document.getElementById("league").innerHTML == "LMS") { 
+        var league = 6;
+    } else if (document.getElementById("league").innerHTML == "LCS") { 
+        var league = 7;
+    }  else if (document.getElementById("league").innerHTML == "LLA") { 
+        var league = 8;
+    }  else if (document.getElementById("league").innerHTML == "Ultraliga") { 
+        var league = 9;
+    }  else {
+        var league = 0;
+    }
+
     var k = 0;
     var table_one_body = '<table class="team_results" id="team_one_table" border="0" cellpadding="0" cellspacing="0">';
     table_one_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
+        //console.log(league);
         for(j in data.matches) {
-            if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
-
+            if ((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) {
                 table_one_body += '<tr>';
 
                 table_one_body += '<td>';
@@ -287,12 +361,34 @@ function change_team_one_select(selected_team) {
 
 // Table two
 function change_team_two_select(selected_team) {
+    if (document.getElementById("league").innerHTML == "LCK") {
+        var league = 1;
+    } else if (document.getElementById("league").innerHTML == "LEC") { 
+        var league = 2;
+    } else if (document.getElementById("league").innerHTML == "OPL") { 
+        var league = 3;
+    } else if (document.getElementById("league").innerHTML == "LFL") { 
+        var league = 4;
+    } else if (document.getElementById("league").innerHTML == "LVP") { 
+        var league = 5;
+    } else if (document.getElementById("league").innerHTML == "LMS") { 
+        var league = 6;
+    } else if (document.getElementById("league").innerHTML == "LCS") { 
+        var league = 7;
+    }  else if (document.getElementById("league").innerHTML == "LLA") { 
+        var league = 8;
+    }  else if (document.getElementById("league").innerHTML == "Ultraliga") { 
+        var league = 9;
+    }  else {
+        var league = 0;
+    }
+
     var k = 0;
     var table_two_body = '<table class="team_results" id="team_two_table" border="0" cellpadding="0" cellspacing="0">';
     table_two_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
-            if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
+            if ((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) {
 
                 table_two_body += '<tr>';
 
