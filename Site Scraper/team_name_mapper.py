@@ -8,9 +8,9 @@ get_month = {
   'May' : '05',
   'June' : '06',
   'July' : '07',
-  'Auguest'    : '08',
+  'August' : '08',
   'September': '09',
-  'October'    : '10',
+  'October' : '10',
   'November' : '11',
   'December' : '12'
 }

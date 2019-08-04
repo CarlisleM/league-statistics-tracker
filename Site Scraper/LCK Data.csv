@@ -1,0 +1,15 @@
+League,Split,Date,Game,Blue Team,Red Team,First Blood,First Tower,First Dragon,First Inhibitor,First Baron,Winner,Loser
+1,1,2019/08/02,1,kt,hle,kt,kt,kt,kt,kt,kt,hle
+1,1,2019/08/02,2,hle,kt,hle,hle,kt,kt,hle,kt,hle
+1,1,2019/08/02,1,sb,grf,sb,grf,grf,grf,grf,grf,sb
+1,1,2019/08/02,2,grf,sb,sb,grf,sb,grf,sb,sb,grf
+1,1,2019/08/02,3,sb,grf,sb,sb,sb,grf,grf,grf,sb
+1,1,2019/08/03,1,jag,gen,gen,jag,jag,jag,jag,jag,gen
+1,1,2019/08/03,2,gen,jag,gen,jag,gen,gen,gen,gen,jag
+1,1,2019/08/03,3,jag,gen,gen,gen,gen,gen,gen,gen,jag
+1,1,2019/08/03,1,skt,af,af,af,af,skt,skt,skt,af
+1,1,2019/08/03,2,af,skt,af,af,af,skt,skt,skt,af
+1,1,2019/08/04,1,hle,dwg,hle,hle,hle,hle,hle,hle,dwg
+1,1,2019/08/04,2,dwg,hle,hle,dwg,dwg,,hle,hle,dwg
+1,1,2019/08/04,1,kz,sb,kz,kz,sb,sb,sb,sb,kz
+1,1,2019/08/04,2,sb,kz,sb,sb,kz,sb,,sb,kz

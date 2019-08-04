@@ -26,8 +26,8 @@ function fetchJSONFile(path, callback) {
         }
     };
 
-    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
- //   httpRequest.open('GET', 'http://localhost:5000/games');
+ //   httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
+    httpRequest.open('GET', 'http://localhost:5000/games');
     httpRequest.send(); 
 }
 
@@ -256,6 +256,7 @@ function change_team_one_select(selected_team) {
         var league = 0;
     }
 
+    var number_of_games = 0;
     var k = 0;
     var table_one_body = '<table class="team_results" id="team_one_table" border="0" cellpadding="0" cellspacing="0">';
     table_one_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
@@ -263,6 +264,8 @@ function change_team_one_select(selected_team) {
         //console.log(league);
         for(j in data.matches) {
             if ((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) {
+                number_of_games = number_of_games + 1;
+
                 table_one_body += '<tr>';
 
                 table_one_body += '<td>';
@@ -334,7 +337,89 @@ function change_team_one_select(selected_team) {
                 table_one_body += '</tr>';
             }
             k++;
+        }        
+
+        var fb_array = [];
+        var ft_array = [];
+        var fd_array = [];
+        var fi_array = [];
+        var fbaron_array = [];
+        var win_array = [];
+
+        for (i = 0; i < (data.matches).length; i++) { 
+            if (data.matches[i].blue_team == selected_team || data.matches[i].red_team == selected_team) {
+                fb_array.push(data.matches[i].first_blood);
+                ft_array.push(data.matches[i].first_tower);
+                fd_array.push(data.matches[i].first_dragon);
+                fi_array.push(data.matches[i].first_inhibitor)
+                fbaron_array.push(data.matches[i].first_baron);
+                win_array.push(data.matches[i].winner);
+            } 
         }
+
+        fb_array = fb_array.slice(-1 * 10);
+        ft_array = ft_array.slice(-1 * 10);
+        fd_array = fd_array.slice(-1 * 10);
+        fi_array = fi_array.slice(-1 * 10);
+        fbaron_array = fbaron_array.slice(-1 * 10);
+        win_array = win_array.slice(-1 * 10);
+
+        var fb_count = 0;
+        var ft_count = 0;
+        var fd_count = 0;
+        var fi_count = 0;
+        var fbaron_count = 0;
+        var win_count = 0;
+
+        for(var i = 0; i < 10; ++i){
+            if (fb_array[i] == selected_team) {
+                fb_count++;
+            }
+            if (ft_array[i] == selected_team) {
+                ft_count++;
+            }
+            if (fd_array[i] == selected_team) {
+                fd_count++;
+            }
+            if (fi_array[i] == selected_team) {
+                fi_count++;
+            }
+            if (fbaron_array[i] == selected_team) {
+                fbaron_count++;
+            }
+            if (win_array[i] == selected_team) {
+                win_count++;
+            }
+        }
+
+        table_one_body += '<tr>';
+        table_one_body += '<td colspan=2></td>';
+
+        table_one_body += '<td>';
+        table_one_body += fb_count + '0%';
+        table_one_body += '</td>'
+        
+        table_one_body += '<td>';
+        table_one_body += ft_count + '0%';
+        table_one_body += '</td>'
+
+        table_one_body += '<td>';
+        table_one_body += fd_count + '0%';
+        table_one_body += '</td>'
+
+        table_one_body += '<td>';
+        table_one_body += fi_count + '0%';
+        table_one_body += '</td>'
+
+        table_one_body += '<td>';
+        table_one_body += fbaron_count + '0%';
+        table_one_body += '</td>'
+
+        table_one_body += '<td style="border-right: 1px solid black;">';
+        table_one_body += win_count + '0%';
+        table_one_body += '</td>'
+
+        table_one_body += '</tr>';
 
         table_one_body+='</tbody></table>';
         $('#tableDiv').html(table_one_body);
@@ -462,6 +547,86 @@ function change_team_two_select(selected_team) {
             }
             k++;
         }
+
+        var fb_array = [];
+        var ft_array = [];
+        var fd_array = [];
+        var fi_array = [];
+        var fbaron_array = [];
+        var win_array = [];
+
+        for (i = 0; i < (data.matches).length; i++) { 
+            if (data.matches[i].blue_team == selected_team || data.matches[i].red_team == selected_team) {
+                fb_array.push(data.matches[i].first_blood);
+                ft_array.push(data.matches[i].first_tower);
+                fd_array.push(data.matches[i].first_dragon);
+                fi_array.push(data.matches[i].first_inhibitor)
+                fbaron_array.push(data.matches[i].first_baron);
+                win_array.push(data.matches[i].winner);
+            } 
+        }
+
+        fb_array = fb_array.slice(-1 * 10);
+        ft_array = ft_array.slice(-1 * 10);
+        fd_array = fd_array.slice(-1 * 10);
+        fi_array = fi_array.slice(-1 * 10);
+        fbaron_array = fbaron_array.slice(-1 * 10);
+        win_array = win_array.slice(-1 * 10);
+
+        var fb_count = 0;
+        var ft_count = 0;
+        var fd_count = 0;
+        var fi_count = 0;
+        var fbaron_count = 0;
+        var win_count = 0;
+
+        for(var i = 0; i < 10; ++i){
+            if (fb_array[i] == selected_team) {
+                fb_count++;
+            }
+            if (ft_array[i] == selected_team) {
+                ft_count++;
+            }
+            if (fd_array[i] == selected_team) {
+                fd_count++;
+            }
+            if (fi_array[i] == selected_team) {
+                fi_count++;
+            }
+            if (fbaron_array[i] == selected_team) {
+                fbaron_count++;
+            }
+            if (win_array[i] == selected_team) {
+                win_count++;
+            }
+        }
+
+        table_two_body += '<tr>';
+        table_two_body += '<td colspan=2></td>';
+
+        table_two_body += '<td>';
+        table_two_body += fb_count + '0%';
+        table_two_body += '</td>'
+        
+        table_two_body += '<td>';
+        table_two_body += ft_count + '0%';
+        table_two_body += '</td>'
+
+        table_two_body += '<td>';
+        table_two_body += fd_count + '0%';
+        table_two_body += '</td>'
+
+        table_two_body += '<td>';
+        table_two_body += fi_count + '0%';
+        table_two_body += '</td>'
+
+        table_two_body += '<td>';
+        table_two_body += fbaron_count + '0%';
+        table_two_body += '</td>'
+
+        table_two_body += '<td style="border-right: 1px solid black;">';
+        table_two_body += win_count + '0%';
+        table_two_body += '</td>'
 
         table_two_body+='</tbody></table>';
         $('#tableDiv2').html(table_two_body);
