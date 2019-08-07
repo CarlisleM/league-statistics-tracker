@@ -101,6 +101,19 @@ get_lcs_name = {
   'fox' : 'Echo Fox'
 }
 
+get_na_academy_league_name = {
+  'tl.a' : 'Team Liquid Academy',
+  'clg.a' : 'Counter Logic Gaming Academy',
+  'c9.a' : 'Cloud9 Academy',
+  'tsm.a' : 'Team SoloMid Academy',
+  'ggs.a' : 'Golden Guardians Academy',
+  'opt.a' : 'OpTic Gaming Academy',
+  '100.a' : '100 Thieves Academy',
+  'cg.a' : 'Clutch Gaming Academy',
+  'fly.a' : 'FlyQuest Academy',
+  'fox.a' : 'Echo Fox Academy'
+}
+
 get_lla_name = {
   'isg' : 'Isurus Gaming',
   'ak' : 'All Knights',
@@ -123,6 +136,25 @@ get_ultraliga_name = {
   'wp' : 'Wisla Plock eSports'
 }
 
+get_lpl_name = {
+  'fpx' : 'FunPlus Phoenix',
+  'tes' : 'Top Esports',
+  'rng' : 'Royal Never Give Up',
+  'blg' : 'Bilibili Gaming',
+  'sn' : 'Suning',
+  'edg' : 'EDward Gaming',
+  'ig' : 'Invictus Gaming',
+  'lng' : 'LNG Esports',
+  'we' : 'Team WE',
+  'jdg' : 'JD Gaming',  
+  'dmo' : 'Dominus Esports',
+  'rw' : 'Rogue Warriors',
+  'v5' : 'Victory Five',
+  'lgd' : 'LGD Gaming', 
+  'omg' : 'Oh My God',
+  'vg' : 'Vici Gaming'
+}
+
 get_league = {
   'LCK' : '1',
   'LEC' : '2',
@@ -132,7 +164,9 @@ get_league = {
   'LMS' : '6',
   'LCS' : '7',
   'LLA' : '8',
-  'Ultraliga' : '9'
+  'Ultraliga' : '9',
+  'LPL' : '10',
+  'NA_Academy_League' : '11'
 }
 
 get_split = {
@@ -144,7 +178,9 @@ get_split = {
   'LMS' : '6',
   'LCS' : '7',
   'LLA' : '8',
-  'Ultraliga' : '9'
+  'Ultraliga' : '9',
+  'LPL' : '10',
+  'NA_Academy_League' : '11'
 }
 
 get_name = {
@@ -228,7 +264,33 @@ get_name = {
   'ihg' : 'Illuminar Gaming',
   'apr' : 'piratesports',
   'pct' : 'ACTINA PACT',
-  'wp' : 'Wisla Plock eSports'
+  'wp' : 'Wisla Plock eSports',
+  'fpx' : 'FunPlus Phoenix',
+  'tes' : 'Top Esports',
+  'rng' : 'Royal Never Give Up',
+  'blg' : 'Bilibili Gaming',
+  'sn' : 'Suning',
+  'edg' : 'EDward Gaming',
+  'ig' : 'Invictus Gaming',
+  'lng' : 'LNG Esports',
+  'we' : 'Team WE',
+  'jdg' : 'JD Gaming',  
+  'dmo' : 'Dominus Esports',
+  'rw' : 'Rogue Warriors',
+  'v5' : 'Victory Five',
+  'lgd' : 'LGD Gaming', 
+  'omg' : 'Oh My God',
+  'vg' : 'Vici Gaming',
+  'tl.a' : 'Team Liquid Academy',
+  'clg.a' : 'Counter Logic Gaming Academy',
+  'c9.a' : 'Cloud9 Academy',
+  'tsm.a' : 'Team SoloMid Academy',
+  'ggs.a' : 'Golden Guardians Academy',
+  'opt.a' : 'OpTic Gaming Academy',
+  '100.a' : '100 Thieves Academy',
+  'cg.a' : 'Clutch Gaming Academy',
+  'fly.a' : 'FlyQuest Academy',
+  'fox.a' : 'Echo Fox Academy'
 }
 
 def get_league_id(league):

@@ -144,6 +144,20 @@ function change_team_options(leaguename) {
           fly : 'FlyQuest',
           fox : 'Echo Fox'
         };
+    } else if (leaguename == 'NA_Academy_League') {
+        document.getElementById("league").innerHTML = "NA_Academy_League";
+        var teams = {
+            'tl.a' : 'Team Liquid Academy',
+            'clg.a' : 'Counter Logic Gaming Academy',
+            'c9.a' : 'Cloud9 Academy',
+            'tsm.a' : 'Team SoloMid Academy',
+            'ggs.a' : 'Golden Guardians Academy',
+            'opt.a' : 'OpTic Gaming Academy',
+            '100.a' : '100 Thieves Academy',
+            'cg.a' : 'Clutch Gaming Academy',
+            'fly.a' : 'FlyQuest Academy',
+            'fox.a' : 'Echo Fox Academy'
+        };
     } else if (leaguename == 'LLA') {
         document.getElementById("league").innerHTML = "LLA";
         var teams = {
@@ -217,7 +231,17 @@ function change_team_options(leaguename) {
             pgm : 'Penguins',
             ogb : 'Origen BCN',
             svp : 'Splyce Vipers',
-            tq : 'Team Queso'
+            tq : 'Team Queso',
+            'tl.a' : 'Team Liquid Academy',
+            'clg.a' : 'Counter Logic Gaming Academy',
+            'c9.a' : 'Cloud9 Academy',
+            'tsm.a' : 'Team SoloMid Academy',
+            'ggs.a' : 'Golden Guardians Academy',
+            'opt.a' : 'OpTic Gaming Academy',
+            '100.a' : '100 Thieves Academy',
+            'cg.a' : 'Clutch Gaming Academy',
+            'fly.a' : 'FlyQuest Academy',
+            'fox.a' : 'Echo Fox Academy'
         };
     }
 

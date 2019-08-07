@@ -27,6 +27,19 @@ bets.push(['2019-08-04','CLG vs 100 Thieves','CLG First Dragon','$29.80','$20.76
 bets.push(['2019-08-04','Team Liquid vs Team SoloMid','TL First Dragon','$20','$12.80']);
 bets.push(['2019-08-04','Golden Guardians vs Clutch Gaming','CG First Tower','$20','$18.40']);
 bets.push(['2019-08-04','Echo Fox vs FlyQuest','EF First Tower','$20','$19.80']);
+bets.push(['2019-08-04','CLG vs Cloud9','CLG First Dragon','$30','$0']);
+bets.push(['2019-08-09','Team Vitality vs SK Gaming','Vitality First Tower','$20','$0']);
+bets.push(['2019-08-09','Team Vitality vs SK Gaming','Vitality First Dragon','$20','$0']);
+bets.push(['2019-08-09','Splyce vs Origen','Splyce First Blood','$20','$0']);
+bets.push(['2019-08-09','Splyce vs Origen','Splyce First Tower','$20','$0']);
+bets.push(['2019-08-09','Splyce vs Origen','Splyce First Dragon','$50','$0']);
+bets.push(['2019-08-09','Griffin vs Gen.G','Griffin First Tower Map 1','$20','$0']);
+bets.push(['2019-08-09','Griffin vs Gen.G','Griffin First Tower Map 2','$20','$0']);
+bets.push(['2019-08-09','Afreeca Freecs vs Afreeca Freecs','AF First Tower Map 1','$20','$0']);
+bets.push(['2019-08-09','SANDBOX Gaming vs SANDBOX Gaming','SB First Dragon Map 1','$20','$0']);
+bets.push(['2019-08-09','Afreeca Freecs vs Afreeca Freecs','AF First Tower Map 2','$20','$0']);
+bets.push(['2019-08-09','SANDBOX Gaming vs SANDBOX Gaming','SB First Dragon Map 2','$20','$0']);
+bets.push(['2019-08-10','Team Vitality vs Fnatic','VIT First Dragon','$20','$0']);
 
 function create_history() {
     var history_table = '<table id="bet_history_table">';

@@ -85,7 +85,6 @@ def load_db_match_history ():
 start = timeit.default_timer()
 # Downloads the database of matches already committed
 print("Loading teams from database")
-#load_db_team_names()
 print("Loading match history from database")
 load_db_match_history()
 
@@ -101,22 +100,29 @@ list_of_leagues_to_scrape = [
     'https://lol.gamepedia.com/Ultraliga/Season_2'
 ]
 
-post_lck = 'false';
-post_lec = 'false';
-post_opl = 'false';
-post_lfl = 'false';
-post_lvp = 'false';
-post_lms = 'false';
-post_lcs = 'false';
-post_lla = 'false';
-post_ultraliga = 'false';
+post_lck = 'false'
+post_lec = 'false'
+post_opl = 'false'
+post_lfl = 'false'
+post_lvp = 'false'
+post_lms = 'false'
+post_lcs = 'false'
+post_na_academy = 'false'
+post_lla = 'false'
+post_ultraliga = 'false'
+post_lpl = 'false'
 
 for league_url in list_of_leagues_to_scrape:
 
     page_type = "main page"
 
     league = league_url.split("/")
+
+    print(league)
+
     league = league[3]
+
+    print(league)
 
     league_id = get_league_id(league)
     split_id = get_split_id(league)
@@ -139,6 +145,10 @@ for league_url in list_of_leagues_to_scrape:
         get_team_name_from_league = get_lla_name
     elif league == 'Ultraliga':
         get_team_name_from_league = get_ultraliga_name
+    elif league == 'LPL':
+        get_team_name_from_league = get_lpl_name
+    elif league == 'NA_Academy_League':
+        get_team_name_from_league = get_na_academy_league_name
 
     outfile = "./" + league + " Data.csv"
     outfile = open(outfile, "w")
@@ -348,23 +358,27 @@ for league_url in list_of_leagues_to_scrape:
                     print('Done')
 
                     if league == 'LCK':
-                        post_lck = 'true';
+                        post_lck = 'true'
                     elif league == 'LEC':
-                        post_lec = 'true';
+                        post_lec = 'true'
                     elif league == 'OPL':
-                        post_opl = 'true';
+                        post_opl = 'true'
                     elif league == 'LFL':
-                         post_lfl = 'true';
+                         post_lfl = 'true'
                     elif league == 'LVP_SuperLiga_Orange':
-                         post_lvp = 'true';
+                         post_lvp = 'true'
                     elif league == 'LMS':
-                         post_lms = 'true';
+                         post_lms = 'true'
                     elif league == 'LCS':
-                        post_lcs = 'true';
+                        post_lcs = 'true'
                     elif league == 'LLA_Clausura':
-                        post_lla = 'true';
+                        post_lla = 'true'
                     elif league == 'Ultraliga':
-                        post_ultraliga = 'true';
+                        post_ultraliga = 'true'
+                    elif league == 'LPL':
+                        post_lpl = 'true'
+                    elif league == 'NA_Academy_League':
+                        post_na_academy = 'true'
                 else:
                     print('Skipped')
     else:
@@ -398,6 +412,7 @@ input_file = {
     'LVP_SuperLiga_Orange Data.csv',
     'LMS Data.csv',
     'LCS Data.csv',
+    'NA Academy League Data.csv',
     'LLA Data.csv',
     'Ultraliga Data.csv'
 }
