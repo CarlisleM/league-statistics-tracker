@@ -26,8 +26,8 @@ function fetchJSONFile(path, callback) {
         }
     };
 
-    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
- //   httpRequest.open('GET', 'http://localhost:5000/games');
+ //   httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
+    httpRequest.open('GET', 'http://localhost:5000/games');
     httpRequest.send(); 
 }
 
@@ -186,62 +186,21 @@ function change_team_options(leaguename) {
         document.getElementById("league").innerHTML = "All Leagues";
         var teams = {
             skt : 'SK Telecom T1',
-            jag : 'Jin Air Green Wings',
             dwg : 'DAMWON Gaming',
-            gen : 'Gen.G',
-            af : 'Afreeca Freecs',
-            sb : 'SANDBOX Gaming',
-            hle : 'Hanwha Life Esports',
             grf : 'Griffin',
-            kt : 'KT Rolster',
-            kz : 'KINGZONE DragonX',
             fnc : 'Fnatic',
             g2 : 'G2 Esports',
-            vit : 'Team Vitality',
-            sk : 'SK Gaming',
-            og : 'Origen',
-            msf : 'Misfits',
-            s04 : 'Schalke 04',
-            xl : 'Excel Esports',
-            rge : 'Rogue',
             spy : 'Splyce',
-            av : 'Avant Gaming',
-            dw : 'Dire Wolves',
-            ord : 'ORDER',
-            lgc : 'Legacy',
-            mmm : 'MAMMOTH',
-            grv : 'Gravitas',
-            bmr : 'Bombers',
-            chf : 'Chiefs Esports Club',
-            ldlc : 'LDLC',
-            'vit.b' : 'Vitality.Bee',
-            'msf.p' : 'Misfits Premier',
-            aaa : 'against All authority',
-            rog : 'ROG Esport',
-            go : 'Gamers Origin',
-            sly : 'Solary',
-            mces : 'Team MCES',
-            g2h : 'G2 Heretics',
-            s2v : 'S2V Esports',
-            mrs : 'Movistar Riders',
-            emz : 'eMonkeyz',
-            x6 : 'x6tence',
-            mad : 'MAD Lions',
-            gia : 'Vodafone Giants',
-            pgm : 'Penguins',
-            ogb : 'Origen BCN',
-            svp : 'Splyce Vipers',
-            tq : 'Team Queso',
-            'tl.a' : 'Team Liquid Academy',
-            'clg.a' : 'Counter Logic Gaming Academy',
-            'c9.a' : 'Cloud9 Academy',
-            'tsm.a' : 'Team SoloMid Academy',
-            'ggs.a' : 'Golden Guardians Academy',
-            'opt.a' : 'OpTic Gaming Academy',
-            '100.a' : '100 Thieves Academy',
-            'cg.a' : 'Clutch Gaming Academy',
-            'fly.a' : 'FlyQuest Academy',
-            'fox.a' : 'Echo Fox Academy'
+            jt : 'J Team',
+            ahq : 'ahq e-Sports Club',
+            hka : 'Hong Kong Attitude',
+            tl : 'Team Liquid',
+            c9 : 'Cloud9',
+            cg : 'Clutch Gaming',
+            ig : 'Invictus Gaming',
+            rng : 'Royal Never Give Up',
+            gam : 'GAM Esports',
+            fpx : 'FunPlus Phoenix'
         };
     }
 
@@ -285,9 +244,9 @@ function change_team_one_select(selected_team) {
     var table_one_body = '<table class="team_results" id="team_one_table" border="0" cellpadding="0" cellspacing="0">';
     table_one_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
-        //console.log(league);
         for(j in data.matches) {
-            if ((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) {
+            if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
+
                 number_of_games = number_of_games + 1;
 
                 table_one_body += '<tr>';
@@ -497,8 +456,7 @@ function change_team_two_select(selected_team) {
     table_two_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
-            if ((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) {
-
+            if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
                 table_two_body += '<tr>';
 
                 table_two_body += '<td>';

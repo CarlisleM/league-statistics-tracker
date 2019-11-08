@@ -83,23 +83,47 @@
 
 /*.container { overflow: hidden; }*/
 
-.sideBar {
-  margin-left: 75%;
-  width: 25%;
-  height: 100vh;
-  border-left: solid;
-  border-color: black;
-  padding-bottom: 1%;
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  top: 0; /* Stay at the top */
-  background-color: white; /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
+@media (orientation: landscape) {
+  .sideBar {
+    margin-left: 75%;
+    width: 25%;
+    height: 100vh;
+    border-left: solid;
+    border-color: black;
+    padding-bottom: 1%;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    top: 0; /* Stay at the top */
+    background-color: white; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+  }
+
+  .sideBarLeague {
+    width: 100%;
+    height: 20%;
+  }
 }
 
-.sideBarLeague {
-  width: 100%;
-  height: 160px;
+@media (orientation: portrait) {
+  .sideBar {
+    margin-left: 65%;
+    width: 35%;
+    height: 100vh;
+    border-left: solid;
+    border-color: black;
+    padding-bottom: 1%;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    top: 0; /* Stay at the top */
+    background-color: white; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+  }
+
+  .sideBarLeague {
+    width: 100%;
+    height: 15%;
+  }
 }
+
+
 
 body { 
   font-family: sans-serif; 

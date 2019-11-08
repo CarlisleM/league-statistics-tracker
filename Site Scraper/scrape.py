@@ -89,15 +89,17 @@ print("Loading match history from database")
 load_db_match_history()
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/OPL/2019_Season/Split_2',
-    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2019_Season/Summer_Season',
-    'https://lol.gamepedia.com/LCK/2019_Season/Summer_Season',
-    'https://lol.gamepedia.com/LFL/2019_Season/Summer_Season',
-    'https://lol.gamepedia.com/LEC/2019_Season/Summer_Season',
-    'https://lol.gamepedia.com/LMS/2019_Season/Summer_Season',
-    'https://lol.gamepedia.com/LCS/2019_Season/Summer_Season',
-    'https://lol.gamepedia.com/LLA/2019_Season/Closing_Season',
-    'https://lol.gamepedia.com/Ultraliga/Season_2'
+    'https://lol.gamepedia.com/2019_Season_World_Championship/Main_Event'
+    #'https://lol.gamepedia.com/Ultraliga/Season_2_Playoffs',
+    # 'https://lol.gamepedia.com/LFL/2019_Season/Summer_Playoffs',
+    # 'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2019_Season/Summer_Playoffs',
+    # 'https://lol.gamepedia.com/OPL/2019_Season/Split_2_Playoffs',
+    # 'https://lol.gamepedia.com/LEC/2019_Season/Regional_Finals',
+    # #'https://lol.gamepedia.com/LEC/2019_Season/Regional_Finals',
+    # #'https://lol.gamepedia.com/LCK/2019_Season/Regional_Finals',
+    # 'https://lol.gamepedia.com/LCK/2020_Season/Spring_Promotion',
+    # 'https://lol.gamepedia.com/LMS/2019_Season/Regional_Finals',
+    # 'https://lol.gamepedia.com/LCS/2019_Season/Regional_Finals'
 ]
 
 post_lck = 'false'
@@ -110,7 +112,7 @@ post_lcs = 'false'
 post_na_academy = 'false'
 post_lla = 'false'
 post_ultraliga = 'false'
-post_lpl = 'false'
+# post_lpl = 'false'
 
 for league_url in list_of_leagues_to_scrape:
 
@@ -118,11 +120,7 @@ for league_url in list_of_leagues_to_scrape:
 
     league = league_url.split("/")
 
-    print(league)
-
     league = league[3]
-
-    print(league)
 
     league_id = get_league_id(league)
     split_id = get_split_id(league)
@@ -149,6 +147,11 @@ for league_url in list_of_leagues_to_scrape:
         get_team_name_from_league = get_lpl_name
     elif league == 'NA_Academy_League':
         get_team_name_from_league = get_na_academy_league_name
+    else:
+        get_team_name_from_league = get_worlds_name
+        #get_team_name_from_league = get_name
+
+    print(league)
 
     outfile = "./" + league + " Data.csv"
     outfile = open(outfile, "w")
@@ -181,6 +184,7 @@ for league_url in list_of_leagues_to_scrape:
                     blue_team = team_1_score_date[:idx].lower() 
                     blue_team_score = team_1_score_date[idx:idx+2][:1]
                     red_team_score = team_1_score_date[idx:idx+2][1:]
+
                     set_game_count = int(blue_team_score) + int(red_team_score)
                     date_of_match = team_1_score_date[idx+2:]
 
@@ -375,8 +379,8 @@ for league_url in list_of_leagues_to_scrape:
                         post_lla = 'true'
                     elif league == 'Ultraliga':
                         post_ultraliga = 'true'
-                    elif league == 'LPL':
-                        post_lpl = 'true'
+                    # elif league == 'LPL':
+                    #     post_lpl = 'true'
                     elif league == 'NA_Academy_League':
                         post_na_academy = 'true'
                 else:
@@ -392,7 +396,7 @@ print('Time: ', stop - start)
 
 print('Waiting 15 seconds before posting new data to the database')
 
-time.sleep(15)
+# time.sleep(15)
 
 print('Starting to post to the database')
 
@@ -405,20 +409,32 @@ unique_id = unique_id[0]
 #Maybe check id of the last entry here to ensure this works even with deleted entries
 
 input_file = {
-    'LCK Data.csv',
-    'LEC Data.csv',
-    'OPL Data.csv',
-    'LFL Data.csv',
-    'LVP_SuperLiga_Orange Data.csv',
-    'LMS Data.csv',
-    'LCS Data.csv',
-    'NA Academy League Data.csv',
-    'LLA Data.csv',
-    'Ultraliga Data.csv'
+    # 'LCK Data.csv',
+    # 'LEC Data.csv',
+    # 'OPL Data.csv',
+    # 'LFL Data.csv',
+    # 'LVP_SuperLiga_Orange Data.csv',
+    # 'LMS Data.csv',
+    # 'LCS Data.csv',
+    # 'NA Academy League Data.csv',
+    # 'LLA Data.csv',
+    # 'Ultraliga Data.csv',
+    '2019_Season_World_Championship Data.csv'
 }
 
+# print(post_lck)
+# print(post_lec)
+# print(post_opl)
+# print(post_lfl)
+# print(post_lvp)
+# print(post_lms)
+# print(post_lcs)
+# print(post_na_academy)
+# print(post_lla)
+# print(post_ultraliga)
+
 for file in input_file:
-  #  if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'LMS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
+   # if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'LMS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
         print("Adding matches from " + file + ' to the database')
         with open(file, 'r') as f:
             reader = csv.reader(f)
