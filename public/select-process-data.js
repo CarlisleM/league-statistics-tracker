@@ -30,7 +30,7 @@ function fetchJSONFile(path, callback) {
     //httpRequest.open('GET', 'https://api.jsonbin.io/b/5eecc50397cb753b4d13d4fd');
  //   httpRequest.open('GET', 'http://localhost:5000/games');
     httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
-    
+    httpRequest.send();
     console.log("Requesting here");
     // httpRequest.open('GET', 'https://extendsclass.com/api/json-storage/bin/bbbbdfe');
 }
