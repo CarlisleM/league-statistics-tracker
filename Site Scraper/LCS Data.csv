@@ -1,11 +1,10 @@
 League,Split,Date,Game,Blue Team,Red Team,First Blood,First Tower,First Dragon,First Inhibitor,First Baron,Winner,Loser
 1,1,2020/06/13,1,100,eg,eg,100,100,eg,eg,eg,100
 1,1,2020/06/13,1,c9,fly,fly,c9,c9,fly,fly,fly,c9
-1,1,2020/06/13,1,eg,clg,eg,eg,eg,eg,eg,eg,clg
-1,1,2020/06/13,1,tl,tsm,tl,tl,tl,tl,tl,tl,tsm
-1,1,2020/06/13,1,imt,fly,fly,imt,fly,fly,fly,fly,imt
-1,1,2020/06/13,1,imt,dig,dig,imt,dig,dig,dig,dig,imt
+1,1,2020/06/13,1,clg,eg,eg,clg,clg,clg,clg,clg,eg
+1,1,2020/06/13,1,tsm,tl,tl,tl,tl,tl,tl,tl,tsm
+1,1,2020/06/13,1,fly,imt,imt,imt,imt,imt,imt,imt,fly
 1,1,2020/06/14,1,c9,100,100,c9,100,c9,c9,c9,100
 1,1,2020/06/14,1,tsm,dig,dig,tsm,dig,tsm,tsm,tsm,dig
-1,1,2020/06/14,1,tl,tsm,tl,tsm,tl,tl,tl,tl,tsm
-1,1,2020/06/14,1,imt,clg,imt,clg,clg,clg,clg,clg,imt
+1,1,2020/06/14,1,gg,tl,tl,tl,tl,tl,tl,tl,gg
+1,1,2020/06/14,1,imt,clg,imt,clg,imt,imt,imt,imt,clg

@@ -141,7 +141,7 @@ function change_team_options(leaguename) {
           clg : 'Counter Logic Gaming',
           c9 : 'Cloud9',
           tsm : 'Team SoloMid',
-          ggs : 'Golden Guardians',
+          gg : 'Golden Guardians',
           imt : 'Immortals',
           '100' : '100 Thieves',
           dig : 'Dignitas',
@@ -247,17 +247,12 @@ function change_team_one_select(selected_team) {
     var k = 0;
     var table_one_body = '<table class="team_results" id="team_one_table" border="0" cellpadding="0" cellspacing="0">';
     table_one_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
-    console.log("attempting to fetch");
-
-    console.log(league);
 
     //fetchJSONFile('matches_played.json', function(data) {
     fetchJSONFile('my_data_dump.json', function(data) {
-        console.log("fetched");
         for(j in data.matches) {
-            console.log(data.matches[k].blue_team);
-//            if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
-            if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
+           if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
+            // if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
                 number_of_games = number_of_games + 1;
 
                 table_one_body += '<tr>';
@@ -438,8 +433,6 @@ function change_team_one_select(selected_team) {
     });
 }
 
-console.log("test");
-
 // Table two
 function change_team_two_select(selected_team) {
     if (document.getElementById("league").innerHTML == "LCS") {
@@ -468,9 +461,7 @@ function change_team_two_select(selected_team) {
     var table_two_body = '<table class="team_results" id="team_two_table" border="0" cellpadding="0" cellspacing="0">';
     table_two_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
 
-    console.log("attempting to fetch 2");    
     fetchJSONFile('my_data_dump.json', function(data) {
-        console.log("feteched 2");
         for(j in data.matches) {
             if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
                 table_two_body += '<tr>';

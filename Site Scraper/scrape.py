@@ -273,8 +273,8 @@ for league_url in list_of_leagues_to_scrape:
                             blue_team = match[2]
                             red_team = match[3]
                         else:
-                            red_team = teams[0]
-                            blue_team = teams[1]
+                            red_team = match[2]
+                            blue_team = match[3]
                     elif blue_team in str(match[2]):
                         blue_team = match[2]
                         red_team = match[3]

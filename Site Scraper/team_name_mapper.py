@@ -98,11 +98,11 @@ get_lcs_name = {
   'clg' : 'Counter Logic Gaming',
   'c9' : 'Cloud9',
   'tsm' : 'Team SoloMid',
-  'ggs' : 'Golden Guardians',
+  'gg' : 'Golden Guardians',
   'opt' : 'OpTic Gaming',
   '100' : '100 Thieves',
   'cg' : 'Clutch Gaming',
-  'fly' : 'FlyQuest',
+  'fly' : 'FlyQuest', 
   'fox' : 'Echo Fox'
 }
 
@@ -210,6 +210,7 @@ get_worlds_name = {
 }
 
 get_name = {
+  'dig' : 'Dignitas',
   'msf' : 'Misfits',
   'xl' : 'Excel Esports',
   'rge' : 'Rogue',
@@ -271,7 +272,7 @@ get_name = {
   'clg' : 'Counter Logic Gaming',
   'c9' : 'Cloud9',
   'tsm' : 'Team SoloMid',
-  'ggs' : 'Golden Guardians',
+  'gg' : 'Golden Guardians',
   'opt' : 'OpTic Gaming',
   '100' : '100 Thieves',
   'cg' : 'Clutch Gaming',
