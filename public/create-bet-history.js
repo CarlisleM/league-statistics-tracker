@@ -193,7 +193,6 @@ bets.push(['2019-11-03','SKT vs G2 Esports','SKT First Tower Map 1','$20','$16.8
 bets.push(['2019-11-03','SKT vs G2 Esports','SKT First Dragon Map 1','$19.60','$0']);
 bets.push(['2019-11-03','SKT vs G2 Esports','SKT First Tower Map 2','$20','$16.80']);
 bets.push(['2019-11-03','SKT vs G2 Esports','SKT First Tower Map 3','$20','$16.80']);
-
 bets.push(['2019-11-10','FunPlus Phoenix vs G2 Esports','FPX First Tower Map 1','$20','$0']);
 bets.push(['2019-11-10','FunPlus Phoenix vs G2 Esports','FPX First Dragon Map 1','$20','$0']);
 bets.push(['2019-11-10','FunPlus Phoenix vs G2 Esports','FPX First Tower Map 2','$20','$0']);

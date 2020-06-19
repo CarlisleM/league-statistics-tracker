@@ -23,12 +23,14 @@ import pytz
 def get_page_source (link):
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-certificate-errors')
+    options.add_argument("user-data-dir=/Users/Carlisle/Desktop/Chrome")
     options.add_argument('--disable-extensions')
-    options.add_argument('--incognito')
-    options.add_argument('--headless')
+   # options.add_argument('--incognito')
+   # options.add_argument('--headless')
     driver_location = str(sys.argv[1])
     driver = webdriver.Chrome(executable_path=driver_location, options=options)
     driver.get(link)
+
     if page_type == "main page":
         show_all = driver.find_element_by_xpath('//*[@id="matchlist-show-all"]')
         show_all.click()
@@ -47,7 +49,8 @@ def get_page_source (link):
 def check_if_match_exists (game_date, game_count, blue_team, red_team):
     with open('matches_played.json') as json_file:
         data = json.load(json_file)
-        for game in data['matches']:
+        #for game in data['matches']:
+        for game in data:
             db_date = (game['game_date'].split('T')[0])
             game_number = (game['game_count'])
             team_one = (game['blue_team'])
@@ -83,32 +86,22 @@ def load_db_match_history ():
     os.system('curl https://league-statistics-tracker.herokuapp.com/games | json_pp > matches_played.json')   
 
 start = timeit.default_timer()
+
 # Downloads the database of matches already committed
-print("Loading teams from database")
 print("Loading match history from database")
-load_db_match_history()
+#load_db_match_history()
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/2019_Season_World_Championship/Main_Event'
-    #'https://lol.gamepedia.com/Ultraliga/Season_2_Playoffs',
-    # 'https://lol.gamepedia.com/LFL/2019_Season/Summer_Playoffs',
-    # 'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2019_Season/Summer_Playoffs',
-    # 'https://lol.gamepedia.com/OPL/2019_Season/Split_2_Playoffs',
-    # 'https://lol.gamepedia.com/LEC/2019_Season/Regional_Finals',
-    # #'https://lol.gamepedia.com/LEC/2019_Season/Regional_Finals',
-    # #'https://lol.gamepedia.com/LCK/2019_Season/Regional_Finals',
-    # 'https://lol.gamepedia.com/LCK/2020_Season/Spring_Promotion',
-    # 'https://lol.gamepedia.com/LMS/2019_Season/Regional_Finals',
-    # 'https://lol.gamepedia.com/LCS/2019_Season/Regional_Finals'
+    'https://lol.gamepedia.com/LCS/2020_Season/Spring_Season'
 ]
 
+post_lcs = 'false'
 post_lck = 'false'
 post_lec = 'false'
 post_opl = 'false'
 post_lfl = 'false'
 post_lvp = 'false'
 post_lms = 'false'
-post_lcs = 'false'
 post_na_academy = 'false'
 post_lla = 'false'
 post_ultraliga = 'false'

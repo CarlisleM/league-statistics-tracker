@@ -34,9 +34,9 @@ def read_csv ():
                 else:
                     obj_desc = row[0]
                     team_1 = row[1]
-                    team_1_odds = row[2]
+                    team_1_odds = float(row[2])
                     team_2 = row[3]
-                    team_2_odds = row[4]
+                    team_2_odds = float(row[4])
                     # Search the csv for the odds related to the objective inputted
                     if objective_description.   lower() in obj_desc.lower():
                         all_relevant_odds.append([obj_desc, team_1, team_1_odds, team_2, team_2_odds])

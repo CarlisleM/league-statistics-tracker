@@ -26,9 +26,11 @@ function fetchJSONFile(path, callback) {
         }
     };
 
- //   httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
-    httpRequest.open('GET', 'http://localhost:5000/games');
-    httpRequest.send(); 
+
+    httpRequest.open('GET', 'https://api.jsonbin.io/b/5eecc50397cb753b4d13d4fd');
+ //   httpRequest.open('GET', 'http://localhost:5000/games');
+    //   httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
+    // httpRequest.open('GET', 'https://extendsclass.com/api/json-storage/bin/bbbbdfe');
 }
 
 function change_team_options(leaguename) {
@@ -138,11 +140,11 @@ function change_team_options(leaguename) {
           c9 : 'Cloud9',
           tsm : 'Team SoloMid',
           ggs : 'Golden Guardians',
-          opt : 'OpTic Gaming',
+          imt : 'Immortals',
           '100' : '100 Thieves',
-          cg : 'Clutch Gaming',
+          dig : 'Dignitas',
           fly : 'FlyQuest',
-          fox : 'Echo Fox'
+          eg : 'Evil Geniuses'
         };
     } else if (leaguename == 'NA_Academy_League') {
         document.getElementById("league").innerHTML = "NA_Academy_League";
@@ -217,19 +219,19 @@ function change_team_options(leaguename) {
 
 // Table one
 function change_team_one_select(selected_team) {
-    if (document.getElementById("league").innerHTML == "LCK") {
+    if (document.getElementById("league").innerHTML == "LCS") {
         var league = 1;
-    } else if (document.getElementById("league").innerHTML == "LEC") { 
+    } else if (document.getElementById("league").innerHTML == "LCK") { 
         var league = 2;
-    } else if (document.getElementById("league").innerHTML == "OPL") { 
+    } else if (document.getElementById("league").innerHTML == "LEC") { 
         var league = 3;
-    } else if (document.getElementById("league").innerHTML == "LFL") { 
+    } else if (document.getElementById("league").innerHTML == "OPL") { 
         var league = 4;
-    } else if (document.getElementById("league").innerHTML == "LVP") { 
+    } else if (document.getElementById("league").innerHTML == "LFL") { 
         var league = 5;
-    } else if (document.getElementById("league").innerHTML == "LMS") { 
+    } else if (document.getElementById("league").innerHTML == "LVP") { 
         var league = 6;
-    } else if (document.getElementById("league").innerHTML == "LCS") { 
+    } else if (document.getElementById("league").innerHTML == "LMS") { 
         var league = 7;
     }  else if (document.getElementById("league").innerHTML == "LLA") { 
         var league = 8;
@@ -243,10 +245,17 @@ function change_team_one_select(selected_team) {
     var k = 0;
     var table_one_body = '<table class="team_results" id="team_one_table" border="0" cellpadding="0" cellspacing="0">';
     table_one_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
-    fetchJSONFile('my_data_dump.json', function(data) {
-        for(j in data.matches) {
-            if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
+    console.log("attempting to fetch");
 
+    console.log(league);
+
+    //fetchJSONFile('matches_played.json', function(data) {
+    fetchJSONFile('my_data_dump.json', function(data) {
+        console.log("fetched");
+        for(j in data.matches) {
+            console.log(data.matches[k].blue_team);
+//            if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
+            if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
                 number_of_games = number_of_games + 1;
 
                 table_one_body += '<tr>';
@@ -427,21 +436,23 @@ function change_team_one_select(selected_team) {
     });
 }
 
+console.log("test");
+
 // Table two
 function change_team_two_select(selected_team) {
-    if (document.getElementById("league").innerHTML == "LCK") {
+    if (document.getElementById("league").innerHTML == "LCS") {
         var league = 1;
-    } else if (document.getElementById("league").innerHTML == "LEC") { 
+    } else if (document.getElementById("league").innerHTML == "LCK") { 
         var league = 2;
-    } else if (document.getElementById("league").innerHTML == "OPL") { 
+    } else if (document.getElementById("league").innerHTML == "LEC") { 
         var league = 3;
-    } else if (document.getElementById("league").innerHTML == "LFL") { 
+    } else if (document.getElementById("league").innerHTML == "OPL") { 
         var league = 4;
-    } else if (document.getElementById("league").innerHTML == "LVP") { 
+    } else if (document.getElementById("league").innerHTML == "LFL") { 
         var league = 5;
-    } else if (document.getElementById("league").innerHTML == "LMS") { 
+    } else if (document.getElementById("league").innerHTML == "LVP") { 
         var league = 6;
-    } else if (document.getElementById("league").innerHTML == "LCS") { 
+    } else if (document.getElementById("league").innerHTML == "LMS") { 
         var league = 7;
     }  else if (document.getElementById("league").innerHTML == "LLA") { 
         var league = 8;
@@ -454,7 +465,10 @@ function change_team_two_select(selected_team) {
     var k = 0;
     var table_two_body = '<table class="team_results" id="team_two_table" border="0" cellpadding="0" cellspacing="0">';
     table_two_body += '<thead><tr><th>Game Date</th><th>VS</th><th>FB</th><th>FT</th><th>FD</th><th>FI</th><th>FBaron</th><th>W/L</th></tr></thead><tbody>';
+
+    console.log("attempting to fetch 2");    
     fetchJSONFile('my_data_dump.json', function(data) {
+        console.log("feteched 2");
         for(j in data.matches) {
             if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
                 table_two_body += '<tr>';

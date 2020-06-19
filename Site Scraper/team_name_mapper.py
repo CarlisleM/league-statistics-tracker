@@ -91,6 +91,9 @@ get_lms_name = {
 }
 
 get_lcs_name = {
+  'dig' : 'Dignitas',
+  'imt' : 'Immortals',
+  'eg' : 'Evil Geniuses',
   'tl' : 'Team Liquid',
   'clg' : 'Counter Logic Gaming',
   'c9' : 'Cloud9',
@@ -158,13 +161,13 @@ get_lpl_name = {
 }
 
 get_league = {
-  'LCK' : '1',
+  'LCK' : '7',
   'LEC' : '2',
   'OPL' : '3',
   'LFL' : '4',
   'LVP_SuperLiga_Orange' : '5',
   'LMS' : '6',
-  'LCS' : '7',
+  'LCS' : '1',
   'LLA' : '8',
   'Ultraliga' : '9',
   'LPL' : '10',
@@ -173,13 +176,13 @@ get_league = {
 }
 
 get_split = {
-  'LCK' : '1',
+  'LCK' : '7',
   'LEC' : '2',
   'OPL' : '3',
   'LFL' : '4',
   'LVP_SuperLiga_Orange' : '5',
   'LMS' : '6',
-  'LCS' : '7',
+  'LCS' : '1',
   'LLA' : '8',
   'Ultraliga' : '9',
   'LPL' : '10',
