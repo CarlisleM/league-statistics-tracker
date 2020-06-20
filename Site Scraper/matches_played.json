@@ -1,3 +1,134 @@
 {
-   "matches" : []
+   "matches" : [
+      {
+         "first_tower" : "100",
+         "game_date" : "2020-06-13T00:00:00.000Z",
+         "first_baron" : "eg",
+         "first_dragon" : "100",
+         "first_blood" : "eg",
+         "red_team" : "eg",
+         "game_count" : 1,
+         "first_inhibitor" : "eg",
+         "blue_team" : "100",
+         "league_id" : 1,
+         "winner" : "eg"
+      },
+      {
+         "winner" : "fly",
+         "first_inhibitor" : "fly",
+         "league_id" : 1,
+         "blue_team" : "c9",
+         "red_team" : "fly",
+         "game_count" : 1,
+         "first_baron" : "fly",
+         "first_dragon" : "c9",
+         "first_blood" : "fly",
+         "game_date" : "2020-06-13T00:00:00.000Z",
+         "first_tower" : "c9"
+      },
+      {
+         "first_dragon" : "clg",
+         "first_baron" : "clg",
+         "first_blood" : "eg",
+         "first_tower" : "clg",
+         "game_date" : "2020-06-13T00:00:00.000Z",
+         "game_count" : 1,
+         "red_team" : "eg",
+         "winner" : "clg",
+         "first_inhibitor" : "clg",
+         "blue_team" : "clg",
+         "league_id" : 1
+      },
+      {
+         "game_date" : "2020-06-13T00:00:00.000Z",
+         "first_tower" : "tl",
+         "first_baron" : "tl",
+         "first_dragon" : "tl",
+         "first_blood" : "tl",
+         "league_id" : 1,
+         "first_inhibitor" : "tl",
+         "blue_team" : "tsm",
+         "winner" : "tl",
+         "game_count" : 1,
+         "red_team" : "tl"
+      },
+      {
+         "winner" : "imt",
+         "first_inhibitor" : "imt",
+         "league_id" : 1,
+         "blue_team" : "fly",
+         "red_team" : "imt",
+         "game_count" : 1,
+         "first_dragon" : "imt",
+         "first_baron" : "imt",
+         "first_blood" : "imt",
+         "game_date" : "2020-06-13T00:00:00.000Z",
+         "first_tower" : "imt"
+      },
+      {
+         "first_inhibitor" : "c9",
+         "blue_team" : "c9",
+         "league_id" : 1,
+         "winner" : "c9",
+         "game_count" : 1,
+         "red_team" : "100",
+         "first_tower" : "c9",
+         "game_date" : "2020-06-14T00:00:00.000Z",
+         "first_baron" : "c9",
+         "first_dragon" : "100",
+         "first_blood" : "100"
+      },
+      {
+         "game_count" : 1,
+         "red_team" : "dig",
+         "first_inhibitor" : "tsm",
+         "blue_team" : "tsm",
+         "league_id" : 1,
+         "winner" : "tsm",
+         "game_date" : "2020-06-14T00:00:00.000Z",
+         "first_tower" : "tsm",
+         "first_dragon" : "dig",
+         "first_baron" : "tsm",
+         "first_blood" : "dig"
+      },
+      {
+         "game_count" : 1,
+         "red_team" : "tl",
+         "winner" : "tl",
+         "first_inhibitor" : "tl",
+         "league_id" : 1,
+         "blue_team" : "gg",
+         "first_baron" : "tl",
+         "first_dragon" : "tl",
+         "first_blood" : "tl",
+         "game_date" : "2020-06-14T00:00:00.000Z",
+         "first_tower" : "tl"
+      },
+      {
+         "first_inhibitor" : "imt",
+         "blue_team" : "imt",
+         "league_id" : 1,
+         "winner" : "imt",
+         "red_team" : "clg",
+         "game_count" : 1,
+         "first_tower" : "clg",
+         "game_date" : "2020-06-14T00:00:00.000Z",
+         "first_baron" : "imt",
+         "first_dragon" : "imt",
+         "first_blood" : "imt"
+      },
+      {
+         "first_dragon" : "gg",
+         "first_baron" : "gg",
+         "first_blood" : "gg",
+         "game_date" : "2020-06-13T00:00:00.000Z",
+         "first_tower" : "gg",
+         "winner" : "gg",
+         "first_inhibitor" : "gg",
+         "league_id" : 1,
+         "blue_team" : "gg",
+         "red_team" : "dig",
+         "game_count" : 1
+      }
+   ]
 }

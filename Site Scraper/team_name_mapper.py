@@ -16,17 +16,15 @@ get_month = {
 }
 
 get_lck_name = {
-  'grf' : 'Griffin',
+  'drx' : 'DRX',
   'sb' : 'SANDBOX Gaming',
   'gen' : 'Gen.G',
-  'jag' : 'Jin Air Green Wings',
-  'kz' : 'KINGZONE DragonX',
-  'skt' : 'SK Telecom T1',
+  'sp' : 'SeolHaeOne Prince',
+  't1' : 'T1',
   'kt' : 'KT Rolster',
   'dwg' : 'DAMWON Gaming',
   'hle' : 'Hanwha Life Esports',
   'af' : 'Afreeca Freecs',
-  'apk' : 'APK Prince',
   'dyn' : 'Team Dynamics'
 }
 
@@ -39,55 +37,57 @@ get_lec_name = {
   'og' : 'Origen',
   'g2' : 'G2 Esports',
   'sk' : 'SK Gaming',
-  'spy' : 'Splyce',
-  's04' : 'Schalke 04'
+  's04' : 'Schalke 04',
+  'mad' : 'MAD Lions'
 }
 
 get_lvp_name = {
-  'svp' : 'Splyce Vipers',
+  'bts' : 'Cream Real Betis',
   'emz' : 'eMonkeyz',
   'mrs' : 'Movistar Riders',
-  'x6' : 'x6tence',
-  'gia' : 'Vodafone Giants',
-  'pgm' : 'Penguins',
-  'mad' : 'MAD Lions',
-  'g2h' : 'G2 Heretics',
+  'g2ar' : 'G2 Arctic',
+  'vgia' : 'Vodafone Giants',
+  'madm' : 'MAD Lions Madrid',
+  'bcn' : 'BCN Squad',
   's2v' : 'S2V Esports',
-  'ogb' : 'Origen BCN',
-  'tq' : 'Team Queso'
+  'ucam' : 'UCAM Esports Club',
+  'ttq' : 'Team Queso'
 }
 
 get_opl_name = {
   'lgc' : 'Legacy',
   'grv' : 'Gravitas',
   'mmm' : 'MAMMOTH',
-  'bmr' : 'Bombers',
+  'pgg' : 'Pentanet.GG',
   'av' : 'Avant Gaming',
   'ord' : 'ORDER',
   'dw' : 'Dire Wolves',
   'chf' : 'Chiefs Esports Club'
 }
 
+# GameWard and Izi Dream abbreviations not out yet
 get_lfl_name = {
   'msf.p' : 'Misfits Premier',
   'sly' : 'Solary',
-  'ldlc' : 'LDLC',
+  'ldlc' : 'LDLC OL',
   'mces' : 'Team MCES',
-  'go' : 'Gamers Origin',
-  'aaa' : 'against All authority',
-  'rog' : 'ROG Esport',
+  'go' : 'GamersOrigin',
+  'gw' : 'GameWard',
+  'id' : 'Izi Dream',
   'vit.b' : 'Vitality.Bee'
 }
 
-get_lms_name = {
+get_pcs_name = {
   'hka' : 'Hong Kong Attitude',
-  'mad' : 'MAD Team',
-  'fw' : 'Flash Wolves',
   'ahq' : 'ahq e-Sports club',
   'alf' : 'Alpha Esports',
   'jt' : 'J Team',
-  'grx' : 'G-Rex',
-  'dg' : 'Dragon Gate'
+  'bjd' : 'Berjaya Dragons',
+  'lyb' : 'Liyab Esports',
+  'mcx' : 'Machi Esports',
+  'nov' : 'Nova Esports',
+  'psg.t' : 'PSG Talon',
+  'rsg' : 'Resurgence'
 }
 
 get_lcs_name = {
@@ -112,11 +112,11 @@ get_na_academy_league_name = {
   'c9.a' : 'Cloud9 Academy',
   'tsm.a' : 'Team SoloMid Academy',
   'ggs.a' : 'Golden Guardians Academy',
-  'opt.a' : 'OpTic Gaming Academy',
+  'eg.a' : 'Evil Geniuses Academy',
   '100.a' : '100 Thieves Academy',
-  'cg.a' : 'Clutch Gaming Academy',
+  'dig.a' : 'Dignitas Academy',
   'fly.a' : 'FlyQuest Academy',
-  'fox.a' : 'Echo Fox Academy'
+  'imt.a' : 'Immortals Academy'
 }
 
 get_lla_name = {
@@ -126,19 +126,20 @@ get_lla_name = {
   'inf' : 'Infinity Esports',
   'r7' : 'Rainbow7',
   'xten' : 'XTEN Esports',
-  'klg' : 'Kaos Latin Gamers',
+  'azu' : 'Azules Esports',
   'pix' : 'Pixel Esports Club'
 }
 
+# Check back on ultraliga
 get_ultraliga_name = {
-  'rec' : 'Rogue Esports Club',
-  'dv1' : 'devils.one',
+  'ago' : 'AGO ROGUE',
+  '7pt' : '7more7 Pompa Team',
   'prd' : 'PRIDE',
-  'ave' : 'AVEZ Esport',
+  'gg' : "Gentlemen's Gaming",
   'ihg' : 'Illuminar Gaming',
-  'apr' : 'piratesports',
-  'pct' : 'ACTINA PACT',
-  'wp' : 'Wisla Plock eSports'
+  'arr' : 'piratesports',
+  'hit' : 'Komputronik H34T',
+  'k1ck' : 'K1CK Neosurf'
 }
 
 get_lpl_name = {
@@ -157,17 +158,18 @@ get_lpl_name = {
   'v5' : 'Victory Five',
   'lgd' : 'LGD Gaming', 
   'omg' : 'Oh My God',
-  'vg' : 'Vici Gaming'
+  'vg' : 'Vici Gaming',
+  'es' : 'eStar Gaming'
 }
 
 get_league = {
-  'LCK' : '7',
-  'LEC' : '2',
-  'OPL' : '3',
-  'LFL' : '4',
-  'LVP_SuperLiga_Orange' : '5',
-  'LMS' : '6',
   'LCS' : '1',
+  'LCK' : '2',
+  'LEC' : '3',
+  'OPL' : '4',
+  'LFL' : '5',
+  'LVP_SuperLiga_Orange' : '6',
+  'LMS' : '7',
   'LLA' : '8',
   'Ultraliga' : '9',
   'LPL' : '10',
@@ -176,13 +178,13 @@ get_league = {
 }
 
 get_split = {
-  'LCK' : '7',
-  'LEC' : '2',
-  'OPL' : '3',
-  'LFL' : '4',
-  'LVP_SuperLiga_Orange' : '5',
-  'LMS' : '6',
   'LCS' : '1',
+  'LCK' : '2',
+  'LEC' : '3',
+  'OPL' : '4',
+  'LFL' : '5',
+  'LVP_SuperLiga_Orange' : '6',
+  'LMS' : '7',
   'LLA' : '8',
   'Ultraliga' : '9',
   'LPL' : '10',
@@ -191,6 +193,8 @@ get_split = {
 }
 
 get_worlds_name = {
+  'gw' : 'GameWard',
+  'id' : 'Izi Dream',
   'fnc' : 'Fnatic',
   'g2' : 'G2 Esports',
   'spy' : 'Splyce',
@@ -210,6 +214,31 @@ get_worlds_name = {
 }
 
 get_name = {
+  'ago' : 'AGO ROGUE',
+  '7pt' : '7more7 Pompa Team',
+  'gg' : "Gentlemen's Gaming",
+  'hit' : 'Komputronik H34T',
+  'k1ck' : 'K1CK Neosurf',
+  'eg.a' : 'Evil Geniuses Academy',
+  'dig.a' : 'Dignitas Academy',
+  'imt.a' : 'Immortals Academy',
+  'bts' : 'Cream Real Betis',
+  'g2ar' : 'G2 Arctic',
+  'vgia' : 'Vodafone Giants',
+  'madm' : 'MAD Lions Madrid',
+  'bcn' : 'BCN Squad',
+  'ucam' : 'UCAM Esports Club',
+  'bjd' : 'Berjaya Dragons',
+  'lyb' : 'Liyab Esports',
+  'mcx' : 'Machi Esports',
+  'nov' : 'Nova Esports',
+  'psg.t' : 'PSG Talon',
+  'rsg' : 'Resurgence',
+  'sp' : 'SeolHaeOne Prince',
+  'pgg' : 'Pentanet.GG',
+  'azu' : 'Azules Esports',
+  'es' : 'eStar Gaming',
+  'mad' : 'MAD Lions',
   'dig' : 'Dignitas',
   'msf' : 'Misfits',
   'xl' : 'Excel Esports',

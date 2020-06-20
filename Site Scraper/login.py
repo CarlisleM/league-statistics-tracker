@@ -42,12 +42,9 @@ def check_if_match_exists (game_date, game_count, blue_team, red_team):
     with open('matches_played.json') as json_file:
         data = json.load(json_file)
 
-        #for game in data['matches']:
-        for game in data:
+        for game in data['matches']:
+        # for game in data:
             db_date = game['game_date'].split('T')[0]
-
-            print(db_date)
-
             game_number = (game['game_count'])
             team_one = (game['blue_team'])
             team_two = (game['red_team'])
@@ -83,7 +80,7 @@ def load_db_match_history ():
 
 #### THIS SECTION LOGS US IN TO THE LEAGUE OF LEGENDS WEBSITE ###
 
-page_type = 'hi'
+page_type = 'hi'    
 login_url = 'http://account.riotgames.com/'
 
 options = webdriver.ChromeOptions()
@@ -137,8 +134,22 @@ post_lpl = 'false'
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season'
-#    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season'
+    # 'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season'
+    # 'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season'
+    'https://lol.gamepedia.com/OPL/2020_Season/Split_2'
+    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season'
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season'
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season'
+
+    # LMS IS NOW PCS
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season'
+
+    'https://lol.gamepedia.com/Ultraliga/Season_4'
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season'
+
+#    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # no games yet
+    'https://lol.gamepedia.com/CBLOL/2020_Season'
 ]
 
 page_type = "main page"
@@ -242,17 +253,17 @@ for league_url in list_of_leagues_to_scrape:
             if set_game_count == 5:
                 match_data.append([game_date, '5', blue_team, red_team])
 
-    # for idx, match in enumerate(match_data):
-    #     does_match_already_exist = check_if_match_exists(match[0], int(match[1]), match[2], match[3])
-    #     if does_match_already_exist == True:
-    #         match_data[idx].append("don't scrape")
-    #     else:
-    #         match_data[idx].append("scrape")
-    #         print("New data")
-    #         print(match)
-
     for idx, match in enumerate(match_data):
-        match_data[idx].append("scrape")
+        does_match_already_exist = check_if_match_exists(match[0], int(match[1]), match[2], match[3])
+        if does_match_already_exist == True:
+            match_data[idx].append("don't scrape")
+        else:
+            match_data[idx].append("scrape")
+            print("New data")
+            print(match)
+
+    # for idx, match in enumerate(match_data):
+    #     match_data[idx].append("scrape")
 
     # Compile a list of matchhistory links
     print('Starting to scrape individual ' + league + ' games')
@@ -422,65 +433,67 @@ for league_url in list_of_leagues_to_scrape:
 
 print('Finished scraping')
 
-print("Would you like to post the new data to the database (y/n)? ")
 
-post_data = input() 
 
-print(post_data)
 
-if post_data == "y" or post_data == "Y":
-    print('Waiting 15 seconds before posting new data to the database')
 
-    print('Starting to post to the database')
+# print("Would you like to post the new data to the database (y/n)? ")
 
-    conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
-    cur = conn.cursor()
+# post_data = input() 
 
-    cur.execute("SELECT COUNT(*) FROM games")
-    unique_id = cur.fetchone()
-    unique_id = unique_id[0]
-    #Maybe check id of the last entry here to ensure this works even with deleted entries
+# print(post_data)
 
-    input_file = {
-        # 'LCK Data.csv',
-        # 'LEC Data.csv',
-        # 'OPL Data.csv',
-        # 'LFL Data.csv',
-        # 'LVP_SuperLiga_Orange Data.csv',
-        # 'LMS Data.csv',
-        # 'LCS Data.csv',
-        # 'NA Academy League Data.csv',
-        # 'LLA Data.csv',
-        # 'Ultraliga Data.csv',
-        'LCS Data.csv'
-    }
+# if post_data == "y" or post_data == "Y":
+#     print('Posting to the database')
 
-    # print(post_lck)
-    # print(post_lec)
-    # print(post_opl)
-    # print(post_lfl)
-    # print(post_lvp)
-    # print(post_lms)
-    # print(post_lcs)
-    # print(post_na_academy)
-    # print(post_lla)
-    # print(post_ultraliga)
+#     conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
+#     cur = conn.cursor()
 
-    for file in input_file:
-    # if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'LMS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
-            print("Adding matches from " + file + ' to the database')
-            with open(file, 'r') as f:
-                reader = csv.reader(f)
-                next(reader) # Skip the header row
-                # Do something here to check if file is empty
-                for (index, row) in enumerate(reader):
-                    print(index)
-                    unique_id = unique_id+1
-                    cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)",row[:6])
-                    cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")",row[6:])
+#     cur.execute("SELECT COUNT(*) FROM games")
+#     unique_id = cur.fetchone()
+#     unique_id = unique_id[0]
+#     #Maybe check id of the last entry here to ensure this works even with deleted entries
 
-    print("Commiting files to the database")
-    conn.commit()
-else:
-    print("Not posting")
+#     input_file = {
+#         # 'LCK Data.csv',
+#         # 'LEC Data.csv',
+#         # 'OPL Data.csv',
+#         # 'LFL Data.csv',
+#         # 'LVP_SuperLiga_Orange Data.csv',
+#         # 'LMS Data.csv',
+#         # 'LCS Data.csv',
+#         # 'NA Academy League Data.csv',
+#         # 'LLA Data.csv',
+#         # 'Ultraliga Data.csv',
+#         'LCS Data.csv'
+#     }
+
+#     # print(post_lck)
+#     # print(post_lec)
+#     # print(post_opl)
+#     # print(post_lfl)
+#     # print(post_lvp)
+#     # print(post_lms)
+#     # print(post_lcs)
+#     # print(post_na_academy)
+#     # print(post_lla)
+#     # print(post_ultraliga)
+
+#     for file in input_file:
+#     # if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'LMS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
+#             print("Adding matches from " + file + ' to the database')
+#             with open(file, 'r') as f:
+#                 reader = csv.reader(f)
+#                 next(reader) # Skip the header row
+#                 # Do something here to check if file is empty
+#                 for (index, row) in enumerate(reader):
+#                     print(index)
+#                     unique_id = unique_id+1
+#                     cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)",row[:6])
+#                     cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")",row[6:])
+
+#     print("Commiting files to the database")
+#     conn.commit()
+# else:
+#     print("Not posting")
 

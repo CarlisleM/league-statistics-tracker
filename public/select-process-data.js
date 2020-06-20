@@ -58,95 +58,96 @@ function change_team_options(leaguename) {
     if (leaguename == 'LCK') {
         document.getElementById("league").innerHTML = "LCK";
         var teams = {
-            skt : 'SK Telecom T1',
-            jag : 'Jin Air Green Wings',
-            dwg : 'DAMWON Gaming',
-            gen : 'Gen.G',
-            af : 'Afreeca Freecs',
+            drx : 'DRX',
             sb : 'SANDBOX Gaming',
-            hle : 'Hanwha Life Esports',
-            grf : 'Griffin',
+            gen : 'Gen.G',
+            sp : 'SeolHaeOne Prince',
+            t1 : 'T1',
             kt : 'KT Rolster',
-            kz : 'KINGZONE DragonX'
+            dwg : 'DAMWON Gaming',
+            hle : 'Hanwha Life Esports',
+            af : 'Afreeca Freecs',
+            dyn : 'Team Dynamics'
         };
     }  else if (leaguename == 'LEC') {
         document.getElementById("league").innerHTML = "LEC";
         var teams = {
-            fnc : 'Fnatic',
-            g2 : 'G2 Esports',
-            vit : 'Team Vitality',
-            sk : 'SK Gaming',
-            og : 'Origen',
             msf : 'Misfits',
-            s04 : 'Schalke 04',
             xl : 'Excel Esports',
             rge : 'Rogue',
-            spy : 'Splyce'
+            vit : 'Team Vitality',
+            fnc : 'Fnatic',
+            og : 'Origen',
+            g2 : 'G2 Esports',
+            sk : 'SK Gaming',
+            s04 : 'Schalke 04',
+            mad : 'MAD Lions'
         };
     } else if (leaguename == 'OPL') {
         document.getElementById("league").innerHTML = "OPL";
         var teams = {
-            av : 'Avant Gaming',
-            dw : 'Dire Wolves',
-            ord : 'ORDER',
             lgc : 'Legacy',
-            mmm : 'MAMMOTH',
             grv : 'Gravitas',
-            bmr : 'Bombers',
+            mmm : 'MAMMOTH',
+            pgg : 'Pentanet.GG',
+            av : 'Avant Gaming',
+            ord : 'ORDER',
+            dw : 'Dire Wolves',
             chf : 'Chiefs Esports Club'
         };
     } else if (leaguename == 'LFL') {
         document.getElementById("league").innerHTML = "LFL";
         var teams = {
-            ldlc : 'LDLC',
-            'vit.b' : 'Vitality.Bee',
             'msf.p' : 'Misfits Premier',
-            aaa : 'against All authority',
-            rog : 'ROG Esport',
-            go : 'Gamers Origin',
             sly : 'Solary',
-            mces : 'Team MCES'
+            ldlc : 'LDLC OL',
+            mces : 'Team MCES',
+            go : 'GamersOrigin',
+            gw : 'GameWard',
+            id : 'Izi Dream',
+            'vit.b' : 'Vitality.Bee'
         };
     } else if (leaguename == 'LVP') {
         document.getElementById("league").innerHTML = "LVP";
         var teams = {
-            g2h : 'G2 Heretics',
-            s2v : 'S2V Esports',
-            mrs : 'Movistar Riders',
+            bts : 'Cream Real Betis',
             emz : 'eMonkeyz',
-            x6 : 'x6tence',
-            mad : 'MAD Lions',
-            gia : 'Vodafone Giants',
-            pgm : 'Penguins',
-            ogb : 'Origen BCN',
-            svp : 'Splyce Vipers',
-            tq : 'Team Queso'
+            mrs : 'Movistar Riders',
+            g2ar : 'G2 Arctic',
+            vgia : 'Vodafone Giants',
+            madm : 'MAD Lions Madrid',
+            bcn : 'BCN Squad',
+            s2v : 'S2V Esports',
+            ucam : 'UCAM Esports Club',
+            ttq : 'Team Queso'
         };
     } else if (leaguename == 'LMS') {
         document.getElementById("league").innerHTML = "LMS";
         var teams = {
-            mad : 'MAD Team',
-            fw : 'Flash Wolves',
-            jt : 'J Team',
-            ahq : 'ahq e-Sports Club',
             hka : 'Hong Kong Attitude',
-            grx : 'G-Rex',
+            ahq : 'ahq e-Sports club',
             alf : 'Alpha Esports',
-            dg : 'Dragon Gate Team'
+            jt : 'J Team',
+            bjd : 'Berjaya Dragons',
+            lyb : 'Liyab Esports',
+            mcx : 'Machi Esports',
+            nov : 'Nova Esports',
+            'psg.t' : 'PSG Talon',
+            rsg : 'Resurgence'
         };
     } else if (leaguename == 'LCS') {
         document.getElementById("league").innerHTML = "LCS";
         var teams = {
-          tl : 'Team Liquid',
-          clg : 'Counter Logic Gaming',
-          c9 : 'Cloud9',
-          tsm : 'Team SoloMid',
-          gg : 'Golden Guardians',
-          imt : 'Immortals',
-          '100' : '100 Thieves',
-          dig : 'Dignitas',
-          fly : 'FlyQuest',
-          eg : 'Evil Geniuses'
+            tl : 'Team Liquid',
+            clg : 'Counter Logic Gaming',
+            c9 : 'Cloud9',
+            tsm : 'Team SoloMid',
+            gg : 'Golden Guardians',
+            imt : 'Immortals',
+            '100' : '100 Thieves',
+            dig : 'Dignitas',
+            fly : 'FlyQuest',
+            eg : 'Evil Geniuses'
         };
     } else if (leaguename == 'NA_Academy_League') {
         document.getElementById("league").innerHTML = "NA_Academy_League";
@@ -156,35 +157,35 @@ function change_team_options(leaguename) {
             'c9.a' : 'Cloud9 Academy',
             'tsm.a' : 'Team SoloMid Academy',
             'ggs.a' : 'Golden Guardians Academy',
-            'opt.a' : 'OpTic Gaming Academy',
+            'eg.a' : 'Evil Geniuses Academy',
             '100.a' : '100 Thieves Academy',
-            'cg.a' : 'Clutch Gaming Academy',
+            'dig.a' : 'Dignitas Academy',
             'fly.a' : 'FlyQuest Academy',
-            'fox.a' : 'Echo Fox Academy'
+            'imt.a' : 'Immortals Academy'
         };
     } else if (leaguename == 'LLA') {
         document.getElementById("league").innerHTML = "LLA";
         var teams = {
-          isg : 'Isurus Gaming',
-          ak : 'All Knights',
-          fg : 'Furious Gaming',
-          inf : 'Infinity Esports',
-          r7 : 'Rainbow7',
-          xten : 'XTEN Esports',
-          klg : 'Kaos Latin Gamers',
-          pix : 'Pixel Esports Club'
+            isg : 'Isurus Gaming',
+            ak : 'All Knights',
+            fg : 'Furious Gaming',
+            inf : 'Infinity Esports',
+            r7 : 'Rainbow7',
+            xten : 'XTEN Esports',
+            azu : 'Azules Esports',
+            pix : 'Pixel Esports Club'
         };
     } else if (leaguename == 'Ultraliga') {
         document.getElementById("league").innerHTML = "Ultraliga";
         var teams = {
-          rec : 'Rogue Esports Club',
-          dv1 : 'devils.one',
-          prd : 'PRIDE',
-          ave : 'AVEZ Esport',
-          ihg : 'Illuminar Gaming',
-          apr : 'piratesports',
-          pct : 'ACTINA PACT',
-          wp : 'Wisla Plock eSports'
+            ago : 'AGO ROGUE',
+            '7pt' : '7more7 Pompa Team',
+            prd : 'PRIDE',
+            gg : "Gentlemen's Gaming",
+            ihg : 'Illuminar Gaming',
+            arr : 'piratesports',
+            hit : 'Komputronik H34T',
+            'k1ck' : 'K1CK Neosurf'
         };
     }  else {
         document.getElementById("league").innerHTML = "All Leagues";
