@@ -29,7 +29,7 @@ get_lck_name = {
 }
 
 get_lec_name = {
-  'msf' : 'Misfits',
+  'msf' : 'Misfits Gaming',
   'xl' : 'Excel Esports',
   'rge' : 'Rogue',
   'vit' : 'Team Vitality',
@@ -37,7 +37,7 @@ get_lec_name = {
   'og' : 'Origen',
   'g2' : 'G2 Esports',
   'sk' : 'SK Gaming',
-  's04' : 'Schalke 04',
+  's04' : 'FC Schalke 04',
   'mad' : 'MAD Lions'
 }
 
@@ -162,6 +162,52 @@ get_lpl_name = {
   'es' : 'eStar Gaming'
 }
 
+get_ljl_name = {
+  'v3' : 'V3 Esports',
+  'sg' : 'Sengoku Gaming',
+  'cga' : 'Crest Gaming Act',
+  'dfm' : 'DetonatioN FocusMe',
+  'shg' : 'Fukuoka SoftBank Hawks gaming',
+  'axz' : 'AXIZ',
+  'bc' : 'Burning Core',
+  'rj' : 'Rascal Jester'
+}
+
+get_tcl_name = {
+  'bjk' : 'Beşiktaş Esports',
+  'dp' : 'Dark Passage',
+  'gal' : 'Galakticos',
+  'iw' : 'Istanbul Wildcats',
+  'fb' : '1907 Fenerbahçe',
+  'gs' : 'Galatasaray Esports',
+  '5r' : '5 Ronin',
+  'sup' : 'Papara SuperMassive',
+  'ryl' : 'Royal Youth',
+  'aur' : 'Team AURORA'
+}
+
+get_vcs_name = {
+  'per' : 'Percent Esports',
+  'opg' : 'OverPower Esports',
+  'ces' : 'CERBERUS Esports',  
+  'evs' : 'EVOS Esports',
+  'gam' : 'GAM Esports',
+  'ts' : 'Team Secret',
+  'sgb' : 'Saigon Buffalo',
+  'fl' : 'Team Flash'
+}
+
+get_cblol_name = {
+  'san' : 'Santos e-Sports',
+  'kbm' : 'KaBuM! e-Sports',
+  'png' : 'paiN Gaming',
+  'itz' : 'INTZ',
+  'fla' : 'Flamengo eSports',
+  'fur' : 'FURIA Esports',
+  'prg' : 'Prodigy Esports',
+  'vk' : 'Vivo Keyd'
+}
+
 get_league = {
   'LCS' : '1',
   'LCK' : '2',
@@ -169,12 +215,16 @@ get_league = {
   'OPL' : '4',
   'LFL' : '5',
   'LVP_SuperLiga_Orange' : '6',
-  'LMS' : '7',
+  'PCS' : '7',
   'LLA' : '8',
   'Ultraliga' : '9',
   'LPL' : '10',
   'NA_Academy_League' : '11',
-  '2019_Season_World_Championship' : '12'
+  '2019_Season_World_Championship' : '12',
+  'LJL' : '13',
+  'TCL' : '14',
+  'VCS' : '15',
+  'CBLOL' : '16'
 }
 
 get_split = {
@@ -184,12 +234,16 @@ get_split = {
   'OPL' : '4',
   'LFL' : '5',
   'LVP_SuperLiga_Orange' : '6',
-  'LMS' : '7',
+  'PCS' : '7',
   'LLA' : '8',
   'Ultraliga' : '9',
   'LPL' : '10',
   'NA_Academy_League' : '11',
-  '2019_Season_World_Championship' : '12'
+  '2019_Season_World_Championship' : '12',
+  'LJL' : '16',
+  'TCL' : '17',
+  'VCS' : '18',
+  'CBLOL' : '19'
 }
 
 get_worlds_name = {
@@ -214,6 +268,40 @@ get_worlds_name = {
 }
 
 get_name = {
+  'san' : 'Santos e-Sports',
+  'kbm' : 'KaBuM! e-Sports',
+  'png' : 'paiN Gaming',
+  'itz' : 'INTZ',
+  'fla' : 'Flamengo eSports',
+  'fur' : 'FURIA Esports',
+  'prg' : 'Prodigy Esports',
+  'vk' : 'Vivo Keyd',
+  'per' : 'Percent Esports',
+  'opg' : 'OverPower Esports',
+  'ces' : 'CERBERUS Esports',  
+  'evs' : 'EVOS Esports',
+  'gam' : 'GAM Esports',
+  'ts' : 'Team Secret',
+  'sgb' : 'Saigon Buffalo',
+  'fl' : 'Team Flash',
+  'bjk' : 'Beşiktaş Esports',
+  'dp' : 'Dark Passage',
+  'gal' : 'Galakticos',
+  'iw' : 'Istanbul Wildcats',
+  'fb' : '1907 Fenerbahçe',
+  'gs' : 'Galatasaray Esports',
+  '5r' : '5 Ronin',
+  'sup' : 'Papara SuperMassive',
+  'ryl' : 'Royal Youth',
+  'aur' : 'Team AURORA',
+  'v3' : 'V3 Esports',
+  'sg' : 'Sengoku Gaming',
+  'cga' : 'Crest Gaming Act',
+  'dfm' : 'DetonatioN FocusMe',
+  'shg' : 'Fukuoka SoftBank Hawks gaming',
+  'axz' : 'AXIZ',
+  'bc' : 'Burning Core',
+  'rj' : 'Rascal Jester',
   'ago' : 'AGO ROGUE',
   '7pt' : '7more7 Pompa Team',
   'gg' : "Gentlemen's Gaming",
@@ -240,7 +328,7 @@ get_name = {
   'es' : 'eStar Gaming',
   'mad' : 'MAD Lions',
   'dig' : 'Dignitas',
-  'msf' : 'Misfits',
+  'msf' : 'Misfits Gaming',
   'xl' : 'Excel Esports',
   'rge' : 'Rogue',
   'vit' : 'Team Vitality',
@@ -249,7 +337,7 @@ get_name = {
   'g2' : 'G2 Esports',
   'sk' : 'SK Gaming',
   'spy' : 'Splyce',
-  's04' : 'Schalke 04',
+  's04' : 'FC Schalke 04',
   'lgc' : 'Legacy',
   'grv' : 'Gravitas',
   'mmm' : 'MAMMOTH',

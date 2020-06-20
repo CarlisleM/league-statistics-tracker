@@ -24,10 +24,22 @@ def get_page_source (link):
     driver.get(link)
 
     if page_type == "main page":
-            show_all = driver.find_element_by_xpath('//*[@id="matchlist-show-all"]')
-            show_all.click()
-            time.sleep(5)   # Probably not needed at all or can be greatly reduced
-            return driver.page_source
+        show_all = driver.find_element_by_xpath('//*[@id="matchlist-show-all"]')
+        show_all.click()
+        time.sleep(5)   # Probably not needed at all or can be greatly reduced
+        return driver.page_source
+
+        # element = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, 'matchlist-show-all')))
+        # time.sleep(5) 
+        # element.click()
+        # time.sleep(5) 
+        # return driver.page_source
+
+        # time.sleep(60)   # Probably not needed at all or can be greatly reduced
+        # show_all = driver.find_element_by_xpath('//*[@id="matchlist-show-all"]')
+        # show_all.click()
+        # # time.sleep(5)   # Probably not needed at all or can be greatly reduced
+        # return driver.page_source
     else:    
         wait = 10 # Give the page 10 seconds to load the graph before timing out
         try:
@@ -35,7 +47,7 @@ def get_page_source (link):
             page_status = 'ready'
         except TimeoutException:
             page_status = 'not ready'
-            print ("This match history page does not load correctly, skipping!")
+            print ("The page did not load correctly, skipping!")
         return driver.page_source, page_status    
 
 def check_if_match_exists (game_date, game_count, blue_team, red_team):
@@ -85,6 +97,7 @@ login_url = 'http://account.riotgames.com/'
 
 options = webdriver.ChromeOptions()
 #options.add_argument("user-data-dir=/Users/Carlisle/Desktop/Chrome")
+options.add_argument('--headless')
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--disable-extensions')
 driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/OmegleV2/chromedriver', options = options)
@@ -106,7 +119,16 @@ remember_me.click()
 remember_me.send_keys(Keys.RETURN)
 
 # Give time for the user to access and enter the verification code from their email
-time.sleep(30) # Wait for user to enter the verifiation code into terminal, then enter the code and continue
+#time.sleep(30) # Wait for user to enter the verifiation code into terminal, then enter the code and continue
+
+print("Please enter the verifcation code: ")
+verification_code = input() 
+
+verify_boxes = driver.find_element_by_class_name('mfafield__input')
+verify_boxes.send_keys(verification_code)
+verify_boxes.send_keys(Keys.RETURN)
+
+time.sleep(5)
 
 print("Login complete")
 
@@ -134,27 +156,26 @@ post_lpl = 'false'
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-    # 'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season'
-    # 'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season'
-    'https://lol.gamepedia.com/OPL/2020_Season/Split_2'
-    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season'
-    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season'
-    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season'
-
-    # LMS IS NOW PCS
-    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season'
-
-    'https://lol.gamepedia.com/Ultraliga/Season_4'
-    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season'
-
-#    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # no games yet
-    'https://lol.gamepedia.com/CBLOL/2020_Season'
+   'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
+   'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
+   'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
+   'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
+   'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
+#    # 'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # no games yet issues ###
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/Ultraliga/Season_4',
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
+    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' # no games yet
 ]
 
-page_type = "main page"
-
 for league_url in list_of_leagues_to_scrape:
+
+    page_type = "main page"
 
     league = league_url.split("/")
 
@@ -173,8 +194,8 @@ for league_url in list_of_leagues_to_scrape:
          get_team_name_from_league = get_lfl_name
     elif league == 'LVP_SuperLiga_Orange':
          get_team_name_from_league = get_lvp_name
-    elif league == 'LMS':
-         get_team_name_from_league = get_lms_name
+    elif league == 'PCS':
+         get_team_name_from_league = get_pcs_name
     elif league == 'LCS':
         get_team_name_from_league = get_lcs_name
     elif league == 'LLA':
@@ -185,6 +206,14 @@ for league_url in list_of_leagues_to_scrape:
         get_team_name_from_league = get_lpl_name
     elif league == 'NA_Academy_League':
         get_team_name_from_league = get_na_academy_league_name
+    elif league == 'LJL':
+        get_team_name_from_league = get_ljl_name
+    elif league == 'TCL':
+        get_team_name_from_league = get_tcl_name
+    elif league == 'VCS':
+        get_team_name_from_league = get_vcs_name
+    elif league == 'CBLOL':
+        get_team_name_from_league = get_cblol_name
     else:
         get_team_name_from_league = get_worlds_name
         #get_team_name_from_league = get_name
@@ -283,7 +312,6 @@ for league_url in list_of_leagues_to_scrape:
 
     page_type = "matchhistory page"
 
-
     # Collect match statistics (First blood, riftherald, dragon, tower, baron, inhibitor, winner)
     if len(soup.find_all('a', attrs={'href': re.compile("matchhistory")}))-altered == len(match_data):
         print("Continue because the number of match links matches the number of games found")
@@ -357,7 +385,7 @@ for league_url in list_of_leagues_to_scrape:
                     first_blood = []
 
                     rows = soup.find_all('tr')
-                    for row in rows:          # Print all occurrences
+                    for row in rows:
                         first_blood.append(row.get_text())
 
                     first_blood = re.sub(r'[a-zA-Z]+', '', first_blood[5], re.I)
@@ -412,7 +440,7 @@ for league_url in list_of_leagues_to_scrape:
                          post_lfl = 'true'
                     elif league == 'LVP_SuperLiga_Orange':
                          post_lvp = 'true'
-                    elif league == 'LMS':
+                    elif league == 'PCS':
                          post_lms = 'true'
                     elif league == 'LCS':
                         post_lcs = 'true'
@@ -455,17 +483,21 @@ print('Finished scraping')
 #     #Maybe check id of the last entry here to ensure this works even with deleted entries
 
 #     input_file = {
-#         # 'LCK Data.csv',
-#         # 'LEC Data.csv',
-#         # 'OPL Data.csv',
-#         # 'LFL Data.csv',
-#         # 'LVP_SuperLiga_Orange Data.csv',
-#         # 'LMS Data.csv',
-#         # 'LCS Data.csv',
-#         # 'NA Academy League Data.csv',
-#         # 'LLA Data.csv',
-#         # 'Ultraliga Data.csv',
-#         'LCS Data.csv'
+#         'LCS Data.csv',
+#         'LCK Data.csv',
+#         'LEC Data.csv',
+#         'OPL Data.csv',
+#         'LFL Data.csv',
+#         'LVP_SuperLiga_Orange Data.csv',
+#         'PCS Data.csv',
+#         'LLA Data.csv',
+#         'Ultraliga Data.csv',
+#         'LPL Data.csv',
+#         'NA_Academy_League Data.csv',
+#         'LJL Data.csv',
+#         'TCL Data.csv',
+#         'VCS Data.csv',
+#         'CBLOL Data.csv'
 #     }
 
 #     # print(post_lck)
@@ -480,7 +512,7 @@ print('Finished scraping')
 #     # print(post_ultraliga)
 
 #     for file in input_file:
-#     # if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'LMS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
+#     # if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'PCS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
 #             print("Adding matches from " + file + ' to the database')
 #             with open(file, 'r') as f:
 #                 reader = csv.reader(f)
@@ -489,11 +521,16 @@ print('Finished scraping')
 #                 for (index, row) in enumerate(reader):
 #                     print(index)
 #                     unique_id = unique_id+1
-#                     cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)",row[:6])
-#                     cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")",row[6:])
+#                     cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)", row[:6])
+#                     cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")", row[6:])
 
 #     print("Commiting files to the database")
 #     conn.commit()
 # else:
 #     print("Not posting")
 
+
+
+# Current issues
+    # Cant post straight to db after scraping games
+    # Rather than waiting for 5 seconds on main league page, wait for 'show-all' element 
