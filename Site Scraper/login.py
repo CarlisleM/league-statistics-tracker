@@ -533,4 +533,3 @@ print('Finished scraping')
 
 # Current issues
     # Cant post straight to db after scraping games
-    # Rather than waiting for 5 seconds on main league page, wait for 'show-all' element 

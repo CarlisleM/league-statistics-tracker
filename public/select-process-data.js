@@ -240,22 +240,7 @@ function change_team_options(leaguename) {
     }  else {
         document.getElementById("league").innerHTML = "All Leagues";
         var teams = {
-            skt : 'SK Telecom T1',
-            dwg : 'DAMWON Gaming',
-            grf : 'Griffin',
-            fnc : 'Fnatic',
-            g2 : 'G2 Esports',
-            spy : 'Splyce',
-            jt : 'J Team',
-            ahq : 'ahq e-Sports Club',
-            hka : 'Hong Kong Attitude',
-            tl : 'Team Liquid',
-            c9 : 'Cloud9',
-            cg : 'Clutch Gaming',
-            ig : 'Invictus Gaming',
-            rng : 'Royal Never Give Up',
-            gam : 'GAM Esports',
-            fpx : 'FunPlus Phoenix'
+
         };
     }
 
