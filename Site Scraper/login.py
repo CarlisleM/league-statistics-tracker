@@ -28,26 +28,13 @@ def get_page_source (link):
         show_all.click()
         time.sleep(5)   # Probably not needed at all or can be greatly reduced
         return driver.page_source
-
-        # element = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, 'matchlist-show-all')))
-        # time.sleep(5) 
-        # element.click()
-        # time.sleep(5) 
-        # return driver.page_source
-
-        # time.sleep(60)   # Probably not needed at all or can be greatly reduced
-        # show_all = driver.find_element_by_xpath('//*[@id="matchlist-show-all"]')
-        # show_all.click()
-        # # time.sleep(5)   # Probably not needed at all or can be greatly reduced
-        # return driver.page_source
     else:    
-        wait = 10 # Give the page 10 seconds to load the graph before timing out
+        wait = 15 # Give the page 10 seconds to load the graph before timing out
         try:
             wait_for_graph = WebDriverWait(driver, wait).until(EC.presence_of_element_located((By.CLASS_NAME, 'event-graph')))
             page_status = 'ready'
         except TimeoutException:
             page_status = 'not ready'
-            print ("The page did not load correctly, skipping!")
         return driver.page_source, page_status    
 
 def check_if_match_exists (game_date, game_count, blue_team, red_team):
@@ -55,7 +42,6 @@ def check_if_match_exists (game_date, game_count, blue_team, red_team):
         data = json.load(json_file)
 
         for game in data['matches']:
-        # for game in data:
             db_date = game['game_date'].split('T')[0]
             game_number = (game['game_count'])
             team_one = (game['blue_team'])
@@ -118,12 +104,9 @@ remember_me = driver.find_element_by_xpath("//input[@data-testid='checkbox-remem
 remember_me.click()
 remember_me.send_keys(Keys.RETURN)
 
-# Give time for the user to access and enter the verification code from their email
-#time.sleep(30) # Wait for user to enter the verifiation code into terminal, then enter the code and continue
-
+# Allows user to enter the verification code from their e-mail used to login to allow access to the matchhistory
 print("Please enter the verifcation code: ")
 verification_code = input() 
-
 verify_boxes = driver.find_element_by_class_name('mfafield__input')
 verify_boxes.send_keys(verification_code)
 verify_boxes.send_keys(Keys.RETURN)
@@ -156,12 +139,12 @@ post_lpl = 'false'
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-   'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
-   'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
-   'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
-   'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
-   'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-#    # 'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # no games yet issues ###
+    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
+    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
+    #    # 'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # no games yet issues ###
     'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
     'https://lol.gamepedia.com/Ultraliga/Season_4',
     'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
@@ -247,15 +230,29 @@ for league_url in list_of_leagues_to_scrape:
 
             for idx, character in enumerate(team_1_score_date):
                 if team_1_score_date[:idx].lower() in get_team_name_from_league:
-                    blue_team = team_1_score_date[:idx].lower() 
-                    blue_team_score = team_1_score_date[idx:idx+2][:1]
-                    red_team_score = team_1_score_date[idx:idx+2][1:]
+                    blue_team = team_1_score_date[:idx].lower()
+                    score_date = team_1_score_date[len(blue_team):len(team_1_score_date)]
+                    score_date = score_date.replace(" ", "")
+                    score_date = ''.join(e for e in score_date if e.isalnum())
 
-                    set_game_count = int(blue_team_score) + int(red_team_score)
-                    date_of_match = team_1_score_date[idx+2:]
+                    blue_team_score = score_date[0]
+                    red_team_score = score_date[1]
 
-                    if len(date_of_match) == 1:
-                        date_of_match = '0' + date_of_match
+                    if len(score_date) == 4:
+                        date_of_match = score_date[-2:]
+                    elif len(score_date) == 3:
+                        date_of_match = '0' + score_date[-1:]
+
+                    # blue_team_score = team_1_score_date[idx:idx+2][:1]
+                    # red_team_score = team_1_score_date[idx:idx+2][1:]
+
+                    # date_of_match = team_1_score_date[-2:]
+                    # date_of_match = team_1_score_date[idx+2:]
+
+                    # if len(date_of_match) == 1:
+                    #     date_of_match = '0' + date_of_match
+
+                    set_game_count = int(blue_team_score) + int(red_team_score) 
 
                     month_match_played = split_game_data[1]
                     month_match_played = convert_month(month_match_played)
@@ -453,17 +450,13 @@ for league_url in list_of_leagues_to_scrape:
                     elif league == 'NA_Academy_League':
                         post_na_academy = 'true'
                 else:
-                    print('Skipped')
+                    print ("The page did not load correctly, skipping!")
     else:
         print("It seems a matchhistory link for one of the games is missing")
-        print(len(soup.find_all('a', attrs={'href': re.compile("matchhistory")}))-altered)
-        print(len(match_data))
+        print("Number of links:", len(soup.find_all('a', attrs={'href': re.compile("matchhistory")}))-altered)
+        print("Number of matches:", len(match_data))
 
-print('Finished scraping')
-
-
-
-
+print('Finished scraping!')
 
 # print("Would you like to post the new data to the database (y/n)? ")
 
@@ -533,3 +526,4 @@ print('Finished scraping')
 
 # Current issues
     # Cant post straight to db after scraping games
+    # LFL causes crashes
