@@ -144,7 +144,7 @@ list_of_leagues_to_scrape = [
     'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
     'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
     'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    #    # 'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # no games yet issues ###
+    #'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # No schedule yet so now show-all button!
     'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
     'https://lol.gamepedia.com/Ultraliga/Season_4',
     'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
@@ -153,7 +153,7 @@ list_of_leagues_to_scrape = [
     'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
     'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
     'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' # no games yet
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -174,11 +174,11 @@ for league_url in list_of_leagues_to_scrape:
     elif league == 'OPL':
         get_team_name_from_league = get_opl_name
     elif league == 'LFL':
-         get_team_name_from_league = get_lfl_name
+        get_team_name_from_league = get_lfl_name
     elif league == 'LVP_SuperLiga_Orange':
-         get_team_name_from_league = get_lvp_name
+        get_team_name_from_league = get_lvp_name
     elif league == 'PCS':
-         get_team_name_from_league = get_pcs_name
+        get_team_name_from_league = get_pcs_name
     elif league == 'LCS':
         get_team_name_from_league = get_lcs_name
     elif league == 'LLA':
@@ -453,8 +453,6 @@ for league_url in list_of_leagues_to_scrape:
                     print ("The page did not load correctly, skipping!")
     else:
         print("It seems a matchhistory link for one of the games is missing")
-        print("Number of links:", len(soup.find_all('a', attrs={'href': re.compile("matchhistory")}))-altered)
-        print("Number of matches:", len(match_data))
 
 print('Finished scraping!')
 
@@ -480,7 +478,7 @@ print('Finished scraping!')
 #         'LCK Data.csv',
 #         'LEC Data.csv',
 #         'OPL Data.csv',
-#         'LFL Data.csv',
+#         #'LFL Data.csv',
 #         'LVP_SuperLiga_Orange Data.csv',
 #         'PCS Data.csv',
 #         'LLA Data.csv',
@@ -526,4 +524,3 @@ print('Finished scraping!')
 
 # Current issues
     # Cant post straight to db after scraping games
-    # LFL causes crashes

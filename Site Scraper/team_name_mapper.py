@@ -79,14 +79,14 @@ get_lfl_name = {
 
 get_pcs_name = {
   'hka' : 'Hong Kong Attitude',
-  'ahq' : 'ahq e-Sports club',
+  'ahq' : 'ahq eSports club',
   'alf' : 'Alpha Esports',
   'jt' : 'J Team',
   'bjd' : 'Berjaya Dragons',
   'lyb' : 'Liyab Esports',
   'mcx' : 'Machi Esports',
   'nov' : 'Nova Esports',
-  'psg.t' : 'PSG Talon',
+  'psg' : 'PSG Talon',
   'rsg' : 'Resurgence'
 }
 
