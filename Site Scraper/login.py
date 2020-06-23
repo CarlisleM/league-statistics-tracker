@@ -139,21 +139,24 @@ post_lpl = 'false'
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
-    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    #'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # No schedule yet so now show-all button!
-    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/Ultraliga/Season_4',
-    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season',
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season'
+
+    # 'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
+    # 'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
+    # 'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
+    # #'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # No schedule yet so now show-all button!
+    # 'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/Ultraliga/Season_4',
+    # 'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
+    # 'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -212,19 +215,104 @@ for league_url in list_of_leagues_to_scrape:
     soup = BeautifulSoup(page_source, 'html.parser')
 
     match_data = []
+    tbdcount = 0
 
     ##### SECTION DIVIDER HERE ##### 
 
     # Get list of matches for entire split (dates, teams and score)
     for week in range(1, 15):
-
         class_string_1 = 'ml-allw ml-w' + str(week) + ' ml-row'
         class_string_2 = 'ml-allw ml-w' + str(week) + ' ml-row matchlist-newday'
 
         games = soup.find_all(attrs={"class": [class_string_1, class_string_2]})
 
+        # NA Academy and LLA has issues with the csv for upcoming matches, doesn't all post on one line
+        # LLA check UCH and XTN
+        # UCH = azules
+        # NA Acdademy gg.a has issues
+        ####################################################################################
+
+        number_of_games_played = len(games)
+        number_of_games_in_week = int((len(soup.select('.ml-w' + str(week) + ' .ml-team')))/2)
+
+        if (number_of_games_played > 0) and (number_of_games_played == number_of_games_in_week) :
+            print("Games were played this week")
+        else:
+            if (tbdcount == 0): # Only get the current week
+                # Create a csv file to store upcoming matches
+                tbd_outfile = "./" + league + " Upcoming Games.csv"
+                tbd_outfile = open(tbd_outfile, "w")
+                tbd_writer = csv.writer(tbd_outfile)
+
+                print("Games were not played this week, grab tbd games")
+                date_class_1 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd'
+                date_class_2 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd matchlist-newday'
+
+                toggle_number = 1
+                length_counter = len(soup.select('.ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'))
+
+                while (length_counter == 0):
+                    toggle_number += 1
+                    length_counter = len(soup.select('.ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'))
+
+                date_teams_class = '.matchlist-tab-wrapper:nth-child(' + str(week) + ') , .team , .ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'
+                
+                tbdgames = soup.find_all(attrs={"class": [date_class_1, date_class_2]})
+                tbd_teams_dates = soup.select(date_teams_class)
+
+                date_counter = 0
+                for data in tbd_teams_dates:
+                    split_datedate = (data.text).split()
+                    if (len(split_datedate) > 10):
+                        date_index = date_counter
+                    date_counter += 1
+
+                splice_to_week = tbd_teams_dates[date_index+1:len(tbd_teams_dates)]
+
+                number_of_days = len(soup.select('.ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'))
+                length_to_splice = (len(tbdgames)*2)+number_of_days
+
+                if (number_of_games_played == 0):
+                    splice_to_current_week = splice_to_week[0:length_to_splice]
+                else:
+                    splice_to_current_week = splice_to_week[(number_of_games_played*2)+1:length_to_splice+(number_of_games_played*2)]
+
+                date_team_vs = []
+                team_1 = True
+                
+                print("splice to current week")
+                for data in splice_to_current_week:
+                    split_data = (data.text).split()
+
+                    print(split_data)
+
+                    if 'Mon' in split_data or 'Tue' in split_data or 'Wed' in split_data or 'Thu' in split_data or  'Fri' in split_data or 'Sat' in split_data or 'Sun' in split_data:
+                        match_date = split_data
+                    else:
+                        tbd_team_name = split_data[0]
+                        if (team_1):
+                            for idx, character in enumerate(tbd_team_name):
+                                if tbd_team_name[:idx].lower() in get_team_name_from_league:
+                                    tbd_team_1 = tbd_team_name[:idx].lower()
+                                    date_team_vs.append(match_date[0]) # Add the day of the match
+                                    date_team_vs.append(match_date[1]) # Add the date of the match
+                                    date_team_vs.append(tbd_team_1) # Add team 1
+                        else:                            
+                            for idx, character in enumerate(tbd_team_name):
+                                if tbd_team_name[-idx:].lower() in get_team_name_from_league:
+                                    tbd_team_2 = tbd_team_name[-idx:].lower()
+                                    date_team_vs.append(tbd_team_2) # Add team 2
+                            tbd_writer.writerows([date_team_vs])
+                            date_team_vs = []
+
+                        team_1 = not team_1
+
+                tbdcount += 1
+                ####################################################################################
+
         for game in games:
             split_game_data = (game.text).split()
+            print(split_game_data)
             team_1_score_date = split_game_data[0]
             team_2_string = split_game_data[4]
 
@@ -242,15 +330,6 @@ for league_url in list_of_leagues_to_scrape:
                         date_of_match = score_date[-2:]
                     elif len(score_date) == 3:
                         date_of_match = '0' + score_date[-1:]
-
-                    # blue_team_score = team_1_score_date[idx:idx+2][:1]
-                    # red_team_score = team_1_score_date[idx:idx+2][1:]
-
-                    # date_of_match = team_1_score_date[-2:]
-                    # date_of_match = team_1_score_date[idx+2:]
-
-                    # if len(date_of_match) == 1:
-                    #     date_of_match = '0' + date_of_match
 
                     set_game_count = int(blue_team_score) + int(red_team_score) 
 
@@ -287,9 +366,6 @@ for league_url in list_of_leagues_to_scrape:
             match_data[idx].append("scrape")
             print("New data")
             print(match)
-
-    # for idx, match in enumerate(match_data):
-    #     match_data[idx].append("scrape")
 
     # Compile a list of matchhistory links
     print('Starting to scrape individual ' + league + ' games')
@@ -519,8 +595,6 @@ print('Finished scraping!')
 #     conn.commit()
 # else:
 #     print("Not posting")
-
-
 
 # Current issues
     # Cant post straight to db after scraping games

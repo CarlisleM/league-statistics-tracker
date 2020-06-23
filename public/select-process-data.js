@@ -26,13 +26,8 @@ function fetchJSONFile(path, callback) {
         }
     };
 
-
-    //httpRequest.open('GET', 'https://api.jsonbin.io/b/5eecc50397cb753b4d13d4fd');
- //   httpRequest.open('GET', 'http://localhost:5000/games');
     httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
     httpRequest.send();
-    console.log("Requesting here");
-    // httpRequest.open('GET', 'https://extendsclass.com/api/json-storage/bin/bbbbdfe');
 }
 
 function change_team_options(leaguename) {
@@ -156,7 +151,7 @@ function change_team_options(leaguename) {
             'clg.a' : 'Counter Logic Gaming Academy',
             'c9.a' : 'Cloud9 Academy',
             'tsm.a' : 'Team SoloMid Academy',
-            'ggs.a' : 'Golden Guardians Academy',
+            'gg.a' : 'Golden Guardians Academy',
             'eg.a' : 'Evil Geniuses Academy',
             '100.a' : '100 Thieves Academy',
             'dig.a' : 'Dignitas Academy',
@@ -171,8 +166,8 @@ function change_team_options(leaguename) {
             fg : 'Furious Gaming',
             inf : 'Infinity Esports',
             r7 : 'Rainbow7',
-            xten : 'XTEN Esports',
-            azu : 'Azules Esports',
+            xtn : 'XTEN Esports',
+            uch : 'Azules Esports',
             pix : 'Pixel Esports Club'
         };
     } else if (leaguename == 'Ultraliga') {
