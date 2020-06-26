@@ -317,7 +317,6 @@ function change_team_options(leaguename) {
                 }
 
                 individual_team_1.appendChild(button_blue);
-
                 match.appendChild(individual_team_1);
 
                 // Team 2
@@ -336,9 +335,10 @@ function change_team_options(leaguename) {
                 }
 
                 // div.appendChild(button_red);
-
-                match.appendChild(individual_team_2);
+                
                 individual_team_2.appendChild(button_red);
+                match.appendChild(individual_team_2);
+
             }    
             k++;
         }
