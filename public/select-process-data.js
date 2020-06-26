@@ -89,14 +89,13 @@ function change_team_options(leaguename) {
                     let button = document.createElement("button");
                     button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
                     body.appendChild(button);
-                    button.onclick = function() {
-                        change_team_one_select(data.upcoming_matches[k].blue_team);
-                    }; 
+                    button.onclick = change_team_one_select(data.upcoming_matches[k].blue_team);
 //                    button.addEventListener("click", change_team_one_select(data.upcoming_matches[k].blue_team));
                 }    
                 k++;
             }
         });
+        
     }  else if (leaguename == 'LEC') {
         document.getElementById("league").innerHTML = "LEC";
         var teams = {
