@@ -86,6 +86,13 @@ function change_team_options(leaguename) {
 
         var listBrand =[]; 
         
+        //var match_buttons = document.getElementsByClassName('upcoming-match-button');
+        var match_buttons = document.querySelectorAll(".upcoming-match-button");
+
+        for (var i = 0; i < match_buttons.length; i++) {
+            console.log(match_buttons[i]);
+            match_buttons[i].remove();
+        }
 
         testFetch('my_data_dump.json', function(data) {
             for(j in data.upcoming_matches) {
@@ -133,14 +140,6 @@ function change_team_options(leaguename) {
             s04 : 'FC Schalke 04',
             mad : 'MAD Lions'
         };
-
-        var match_buttons = document.getElementsByClassName('upcoming-match-button');
-
-        for (var i = 0; i < listBrand.length; i++) {
-            console.log(listBrand[i]);
-            listBrand[i].remove();
-        }
-
     } else if (leaguename == 'OPL') {
         document.getElementById("league").innerHTML = "OPL";
         var teams = {
