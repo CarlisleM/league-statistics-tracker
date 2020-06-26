@@ -283,8 +283,8 @@ function change_team_options(leaguename) {
             if (data.upcoming_matches[k].league_id == current_league) {
 
 
-                var match = {Document}.createElement("div");
-                var individual_team_1 = {Document}.createElement("div");                
+                var match = document.createElement("div");
+                var individual_team_1 = document.createElement("div");                
                 
                 if (isOdd(k) == 0)
                 {
@@ -323,7 +323,7 @@ function change_team_options(leaguename) {
                 match.appendChild(individual_team_1);
 
                 // Team 2
-                var individual_team_2 = {Document}.createElement("div");
+                var individual_team_2 = document.createElement("div");
 
                 let button_red = document.createElement("button_red");
                 button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
