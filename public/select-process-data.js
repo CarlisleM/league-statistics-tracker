@@ -87,11 +87,9 @@ function change_team_options(leaguename) {
             for(j in data.upcoming_matches) {
                 if (data.upcoming_matches[k].league_id == 2) {
                     let button = document.createElement("button");
-                    button.innerHTML = '' + data.upcoming_matches[k].blue_team; // This is the name of the button here
+                    button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
                     body.appendChild(button);
-                    button.addEventListener ("click", function() {
-                    alert(this.innerHTML);
-                    });            
+                    button.addEventListener ("click", change_team_one_select(data.upcoming_matches[k].blue_team));
                 }    
                 k++;
             }
