@@ -92,7 +92,7 @@ function change_team_options(leaguename) {
                     
                     console.log(test)
 
-                    button.onclick = function(test)
+                    button.onclick = function()
                     {
                         console.log(test)
                         change_team_one_select(test);
