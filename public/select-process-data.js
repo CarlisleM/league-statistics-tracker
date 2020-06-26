@@ -96,8 +96,7 @@ function change_team_options(leaguename) {
                     button.onclick = function()
                     {
                         console.log(this.id)
-                        console.log(test)
-                        change_team_one_select(blue);
+                        change_team_one_select(this.id);
                         change_team_two_select(red);
                     }
                     
