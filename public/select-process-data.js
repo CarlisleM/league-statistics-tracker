@@ -66,6 +66,7 @@ function change_team_options(leaguename) {
     }
     
     if (leaguename == 'LCK') {
+        var current_league = 2;
         document.getElementById("league").innerHTML = "LCK";
         var teams = {
             drx : 'DRX',
@@ -79,54 +80,8 @@ function change_team_options(leaguename) {
             af : 'Afreeca Freecs',
             dyn : 'Team Dynamics'
         };
-
-        var k = 0;
-        //let body = document.getElementsByTagName("body")[0];
-        let body = document.getElementsByClassName("matchData")[0];
-
-        var listBrand =[]; 
-        
-        //var match_buttons = document.getElementsByClassName('upcoming-match-button');
-        var match_buttons = document.querySelectorAll(".upcoming-match-button");
-
-        for (var i = 0; i < match_buttons.length; i++) {
-            console.log(match_buttons[i]);
-            match_buttons[i].remove();
-        }
-
-        testFetch('my_data_dump.json', function(data) {
-            for(j in data.upcoming_matches) {
-                if (data.upcoming_matches[k].league_id == 2) {
-                    let button = document.createElement("button");
-                    button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
-                    button.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
-                    button.className = 'upcoming-match-button';
-
-                    var blue = data.upcoming_matches[k].blue_team;
-                    var red = data.upcoming_matches[k].red_team;
-
-                    button.onclick = function()
-                    {
-                        var res = (this.id).split(" ");
-                        change_team_one_select(res[0]);
-                        change_team_two_select(res[1]);
-                    }
-
-                    body.appendChild(button);
-                    listBrand.push(button);
-                }    
-                k++;
-            }
-        });
-
-        console.log(listBrand);
-
-        for (var i = 0; i < listBrand.length; i++) {
-            console.log(listBrand[i]);
-        }
-         
-
     }  else if (leaguename == 'LEC') {
+        var current_league = 3;
         document.getElementById("league").innerHTML = "LEC";
         var teams = {
             msf : 'Misfits Gaming',
@@ -141,6 +96,7 @@ function change_team_options(leaguename) {
             mad : 'MAD Lions'
         };
     } else if (leaguename == 'OPL') {
+        var current_league = 4;
         document.getElementById("league").innerHTML = "OPL";
         var teams = {
             lgc : 'Legacy',
@@ -153,6 +109,7 @@ function change_team_options(leaguename) {
             chf : 'Chiefs Esports Club'
         };
     } else if (leaguename == 'LFL') {
+        var current_league = 5;
         document.getElementById("league").innerHTML = "LFL";
         var teams = {
             'msf.p' : 'Misfits Premier',
@@ -165,6 +122,7 @@ function change_team_options(leaguename) {
             'vit.b' : 'Vitality.Bee'
         };
     } else if (leaguename == 'LVP') {
+        var current_league = 6;
         document.getElementById("league").innerHTML = "LVP";
         var teams = {
             bts : 'Cream Real Betis',
@@ -179,6 +137,7 @@ function change_team_options(leaguename) {
             ttq : 'Team Queso'
         };
     } else if (leaguename == 'PCS') {
+        var current_league = 7;
         document.getElementById("league").innerHTML = "PCS";
         var teams = {
             hka : 'Hong Kong Attitude',
@@ -193,6 +152,7 @@ function change_team_options(leaguename) {
             rsg : 'Resurgence'
         };
     } else if (leaguename == 'LCS') {
+        var current_league = 1;
         document.getElementById("league").innerHTML = "LCS";
         var teams = {
             tl : 'Team Liquid',
@@ -207,6 +167,7 @@ function change_team_options(leaguename) {
             eg : 'Evil Geniuses'
         };
     } else if (leaguename == 'NA_Academy_League') {
+        var current_league = 11;
         document.getElementById("league").innerHTML = "NA_Academy_League";
         var teams = {
             'tl.a' : 'Team Liquid Academy',
@@ -221,6 +182,7 @@ function change_team_options(leaguename) {
             'imt.a' : 'Immortals Academy'
         };
     } else if (leaguename == 'LLA') {
+        var current_league = 8;
         document.getElementById("league").innerHTML = "LLA";
         var teams = {
             isg : 'Isurus Gaming',
@@ -233,6 +195,7 @@ function change_team_options(leaguename) {
             pix : 'Pixel Esports Club'
         };
     } else if (leaguename == 'Ultraliga') {
+        var current_league = 9;
         document.getElementById("league").innerHTML = "Ultraliga";
         var teams = {
             ago : 'AGO ROGUE',
@@ -245,6 +208,7 @@ function change_team_options(leaguename) {
             'k1ck' : 'K1CK Neosurf'
         };
     } else if (leaguename == 'LJL') {
+        var current_league = 13;
         document.getElementById("league").innerHTML = "LJL";
         var teams = {
             'v3' : 'V3 Esports',
@@ -257,6 +221,7 @@ function change_team_options(leaguename) {
             rj : 'Rascal Jester'
         };
     } else if (leaguename == 'TCL') {
+        var current_league = 14;
         document.getElementById("league").innerHTML = "TCL";
         var teams = {
             bjk : 'Beşiktaş Esports',
@@ -271,6 +236,7 @@ function change_team_options(leaguename) {
             aur : 'Team AURORA'
         };
     } else if (leaguename == 'CBLOL') {
+        var current_league = 16;
         document.getElementById("league").innerHTML = "CBLOL";
         var teams = {
             san : 'Santos e-Sports',
@@ -283,6 +249,7 @@ function change_team_options(leaguename) {
             vk : 'Vivo Keyd'
         };
     } else if (leaguename == 'VCS') {
+        var current_league = 15;
         document.getElementById("league").innerHTML = "VCS";
         var teams = {
             per : 'Percent Esports',
@@ -300,6 +267,35 @@ function change_team_options(leaguename) {
 
         };
     }
+
+    var match_buttons = document.querySelectorAll(".upcoming-match-button");
+
+    for (var i = 0; i < match_buttons.length; i++) {
+        match_buttons[i].remove();
+    }
+
+    var k = 0;
+    let body = document.getElementsByClassName("matchData")[0];
+    testFetch('my_data_dump.json', function(data) {
+        for(j in data.upcoming_matches) {
+            if (data.upcoming_matches[k].league_id == current_league) {
+                let button = document.createElement("button");
+                button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
+                button.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
+                button.className = 'upcoming-match-button';
+
+                button.onclick = function()
+                {
+                    var team_names = (this.id).split(" ");
+                    change_team_one_select(team_names[0]);
+                    change_team_two_select(team_names[1]);
+                }
+
+                body.appendChild(button);
+            }    
+            k++;
+        }
+    });
 
     var select = document.getElementById("team_one_select");
     for(index in teams) {
