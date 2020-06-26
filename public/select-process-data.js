@@ -281,7 +281,7 @@ function change_team_options(leaguename) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 let button = document.createElement("button");
                 //button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
-                button.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" />';
+                button.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
                 button.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 button.className = 'upcoming-match-button';
 
