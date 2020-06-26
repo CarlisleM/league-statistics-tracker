@@ -114,10 +114,10 @@ function change_team_options(leaguename) {
 
         console.log(listBrand);
 
-        for(i in listBrand)
-        {
-            console.log(i);
+        for (var i = 0; i < listBrand.length; i++) {
+            console.log(listBrand[i]);
         }
+         
 
     }  else if (leaguename == 'LEC') {
         document.getElementById("league").innerHTML = "LEC";
@@ -134,12 +134,11 @@ function change_team_options(leaguename) {
             mad : 'MAD Lions'
         };
 
-        var x = document.getElementsByClassName("upcoming-match-button");
+        var match_buttons = document.getElementsByClassName('upcoming-match-button');
 
-        for(i in x)
-        {
-            console.log(i);
-            i.remove();
+        for (var i = 0; i < match_buttons.length; i++) {
+            console.log(match_buttons[i]);
+            match_buttons[i].remove();
         }
 
     } else if (leaguename == 'OPL') {
