@@ -98,10 +98,10 @@ function change_team_options(leaguename) {
                         var res = (this.id).split(" ");
 
                         console.log(this.id);
-                        console.log(this.id[0]);
-                        console.log(this.id[1]);
-                        change_team_one_select(this.id[0]);
-                        change_team_two_select(this.id[1]);
+                        console.log(res[0]);
+                        console.log(res[1]);
+                        change_team_one_select(res[0]);
+                        change_team_two_select(res[1]);
                     }
                     
                     // button.onclick = change_team_one_select(data.upcoming_matches[k].blue_team);
