@@ -94,6 +94,7 @@ function change_team_options(leaguename) {
 
                     button.onclick = function(test)
                     {
+                        console.log(test)
                         change_team_one_select(test);
                     }
                     
