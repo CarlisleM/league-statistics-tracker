@@ -111,6 +111,8 @@ function change_team_options(leaguename) {
             }
         });
 
+        console.log(listBrand);
+
         for(i in listBrand)
         {
             console.log(i);
