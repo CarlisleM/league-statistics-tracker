@@ -305,23 +305,23 @@ function change_team_options(leaguename) {
 
                 div.appendChild(button_blue);
 
-                // let button_red = document.createElement("button_red");
-                // //button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
-                // button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
-                // button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
-                // button_red.className = 'upcoming-match-button';
+                let button_red = document.createElement("button_red");
+                //button_red.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
+                button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
+                button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
+                button_red.className = 'upcoming-match-button';
 
-                // button_red.onclick = function()
-                // {
-                //     var team_names = (this.id).split(" ");
-                //     change_team_one_select(team_names[0]);
-                //     change_team_two_select(team_names[1]);
-                // }
+                button_red.onclick = function()
+                {
+                    var team_names = (this.id).split(" ");
+                    change_team_one_select(team_names[0]);
+                    change_team_two_select(team_names[1]);
+                }
 
-                // div.appendChild(button_red);
+                div.appendChild(button_red);
 
-                //body.appendChild(div);
-                //body.appendChild(button);
+                body.appendChild(div);
+                body.appendChild(button_red);
             }    
             k++;
         }
