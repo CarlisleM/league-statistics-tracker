@@ -89,6 +89,9 @@ function change_team_options(leaguename) {
                     let button = document.createElement("button");
                     button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
                     var test = data.upcoming_matches[k].blue_team;
+                    
+                    console.log(test)
+
                     button.onclick = function(test)
                     {
                         change_team_one_select(test);
