@@ -304,8 +304,6 @@ function change_team_options(leaguename) {
                 
                 body.appendChild(match);
 
-                match.appendChild(individual_team_1);
-
                 let button_blue = document.createElement("button_blue");
                 button_blue.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
                 button_blue.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
