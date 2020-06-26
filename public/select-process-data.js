@@ -282,27 +282,31 @@ function change_team_options(leaguename) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
 
-                var div = document.createElement("div");
-                div.id = 'test';
-                div.className = 'test';
-                div.style.width = "500";
-                div.style.height = "100px";
+
+                var match = {Document}.createElement("div");
+                var individual_team_1 = {Document}.createElement("div");                
                 
                 if (isOdd(k) == 0)
                 {
-                    div.style.background = "blue";
+                    match.style.background = "blue";
                 }
                 else
                 {
-                    div.style.background = "red";
+                    match.style.background = "red";
                 }
 
-                div.style.color = "white";
+                // var div = document.createElement("div");
+                // div.id = 'test';
+                match.className = 'test';
+                match.style.width = "500px";
+                match.style.height = "100px";
+                // div.style.color = "white";
                 
-                body.appendChild(div);
+                body.appendChild(match);
+
+                match.appendChild(individual_team_1);
 
                 let button_blue = document.createElement("button_blue");
-                //button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
                 button_blue.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
                 button_blue.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 button_blue.className = 'upcoming-match-button';
@@ -314,25 +318,29 @@ function change_team_options(leaguename) {
                     change_team_two_select(team_names[1]);
                 }
 
-                div.appendChild(button_blue);
+                individual_team_1.appendChild(button_blue);
 
-                // let button_red = document.createElement("button_red");
-                // //button_red.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
-                // button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
-                // button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
-                // button_red.className = 'upcoming-match-button';
+                match.appendChild(individual_team_1);
 
-                // button_red.onclick = function()
-                // {
-                //     var team_names = (this.id).split(" ");
-                //     change_team_one_select(team_names[0]);
-                //     change_team_two_select(team_names[1]);
-                // }
+                // Team 2
+                var individual_team_2 = {Document}.createElement("div");
 
-                // div.appendChild(button_red);
+                let button_red = document.createElement("button_red");
+                button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
+                button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
+                button_red.className = 'upcoming-match-button';
 
-                // body.appendChild(div);
-                // body.appendChild(button_red);
+                button_red.onclick = function()
+                {
+                    var team_names = (this.id).split(" ");
+                    change_team_one_select(team_names[0]);
+                    change_team_two_select(team_names[1]);
+                }
+
+                div.appendChild(button_red);
+
+                match.appendChild(individual_team_2);
+                individual_team_2.appendChild(button_red);
             }    
             k++;
         }
