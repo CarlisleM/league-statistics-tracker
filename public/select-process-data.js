@@ -279,6 +279,18 @@ function change_team_options(leaguename) {
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
+
+                var div = document.createElement("div");
+                div.id = 'test';
+                div.className = 'test';
+                div.style.width = "500";
+                div.style.height = "100px";
+                div.style.background = "red";
+                div.style.color = "white";
+                
+                body.appendChild(div);
+
+
                 let button = document.createElement("button");
                 //button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
                 button.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
@@ -292,7 +304,9 @@ function change_team_options(leaguename) {
                     change_team_two_select(team_names[1]);
                 }
 
-                body.appendChild(button);
+                div.appendChild(button);
+                //body.appendChild(div);
+                //body.appendChild(button);
             }    
             k++;
         }
