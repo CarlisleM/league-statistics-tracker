@@ -136,9 +136,9 @@ function change_team_options(leaguename) {
 
         var match_buttons = document.getElementsByClassName('upcoming-match-button');
 
-        for (var i = 0; i < match_buttons.length; i++) {
-            console.log(match_buttons[i]);
-            match_buttons[i].remove();
+        for (var i = 0; i < listBrand.length; i++) {
+            console.log(listBrand[i]);
+            listBrand[i].remove();
         }
 
     } else if (leaguename == 'OPL') {
