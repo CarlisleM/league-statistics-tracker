@@ -173,6 +173,11 @@ display: none;
   background-color: #f5f5f5;
 }
 
+.upcoming-match-button  {
+  display: flex;
+  flex-direction: column;
+}
+
 #league{ display:none; }
 
 th {
