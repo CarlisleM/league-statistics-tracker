@@ -84,6 +84,9 @@ function change_team_options(leaguename) {
         //let body = document.getElementsByTagName("body")[0];
         let body = document.getElementsByClassName("matchData")[0];
 
+        var listBrand =[]; 
+        
+
         testFetch('my_data_dump.json', function(data) {
             for(j in data.upcoming_matches) {
                 if (data.upcoming_matches[k].league_id == 2) {
@@ -102,10 +105,13 @@ function change_team_options(leaguename) {
                     }
 
                     body.appendChild(button);
+                    listBrand.push(button);
                 }    
                 k++;
             }
         });
+
+        console.log(listBrand);
 
     }  else if (leaguename == 'LEC') {
         document.getElementById("league").innerHTML = "LEC";
