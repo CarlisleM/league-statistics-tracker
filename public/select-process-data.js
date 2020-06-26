@@ -88,16 +88,20 @@ function change_team_options(leaguename) {
                 if (data.upcoming_matches[k].league_id == 2) {
                     let button = document.createElement("button");
                     button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
-                    button.id = '' + data.upcoming_matches[k].blue_team
+                    button.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                     
                     var blue = data.upcoming_matches[k].blue_team;
                     var red = data.upcoming_matches[k].red_team;
 
                     button.onclick = function()
                     {
-                        console.log(this.id)
-                        change_team_one_select(this.id);
-                        change_team_two_select(red);
+                        var res = (this.id).split(" ");
+
+                        console.log(this.id);
+                        console.log(this.id[0]);
+                        console.log(this.id[1]);
+                        change_team_one_select(this.id[0]);
+                        change_team_two_select(this.id[1]);
                     }
                     
                     // button.onclick = change_team_one_select(data.upcoming_matches[k].blue_team);
