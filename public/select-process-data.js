@@ -93,7 +93,8 @@ function change_team_options(leaguename) {
                     let button = document.createElement("button");
                     button.innerHTML = '' + data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team; // This is the name of the button here
                     button.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
-                    
+                    button.className = 'upcoming-match-button';
+
                     var blue = data.upcoming_matches[k].blue_team;
                     var red = data.upcoming_matches[k].red_team;
 
@@ -133,10 +134,14 @@ function change_team_options(leaguename) {
             mad : 'MAD Lions'
         };
 
-        for(i in listBrand)
+        var x = document.getElementsByClassName("upcoming-match-button");
+
+        for(i in x)
         {
+            console.log(i);
             i.remove();
         }
+
     } else if (leaguename == 'OPL') {
         document.getElementById("league").innerHTML = "OPL";
         var teams = {
