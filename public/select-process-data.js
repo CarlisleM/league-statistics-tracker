@@ -296,7 +296,7 @@ function change_team_options(leaguename) {
                 button_blue.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 button_blue.className = 'upcoming-match-button';
 
-                button.onclick = function()
+                button_blue.onclick = function()
                 {
                     var team_names = (this.id).split(" ");
                     change_team_one_select(team_names[0]);
@@ -311,7 +311,7 @@ function change_team_options(leaguename) {
                 // button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 // button_red.className = 'upcoming-match-button';
 
-                // button.onclick = function()
+                // button_red.onclick = function()
                 // {
                 //     var team_names = (this.id).split(" ");
                 //     change_team_one_select(team_names[0]);
