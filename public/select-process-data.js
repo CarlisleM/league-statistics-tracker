@@ -82,7 +82,7 @@ function change_team_options(leaguename) {
 
         var k = 0;
         //let body = document.getElementsByTagName("body")[0];
-        let body = document.getElementsByClassName("matchData");
+        let body = document.getElementsByClassName("matchData")[0];
 
         testFetch('my_data_dump.json', function(data) {
             for(j in data.upcoming_matches) {
