@@ -111,7 +111,10 @@ function change_team_options(leaguename) {
             }
         });
 
-        console.log(listBrand);
+        for(i in listBrand)
+        {
+            console.log(i);
+        }
 
     }  else if (leaguename == 'LEC') {
         document.getElementById("league").innerHTML = "LEC";
@@ -127,6 +130,11 @@ function change_team_options(leaguename) {
             s04 : 'FC Schalke 04',
             mad : 'MAD Lions'
         };
+
+        for(i in listBrand)
+        {
+            i.remove();
+        }
     } else if (leaguename == 'OPL') {
         document.getElementById("league").innerHTML = "OPL";
         var teams = {
