@@ -80,7 +80,7 @@ function change_team_options(leaguename) {
             dyn : 'Team Dynamics'
         };
 
-        let i = 1;
+        var k = 0;
         let body = document.getElementsByTagName("body")[0];
 
         testFetch('my_data_dump.json', function(data) {
