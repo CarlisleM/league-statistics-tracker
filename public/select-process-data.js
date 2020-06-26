@@ -337,7 +337,7 @@ function change_team_options(leaguename) {
                     change_team_two_select(team_names[1]);
                 }
 
-                div.appendChild(button_red);
+                // div.appendChild(button_red);
 
                 match.appendChild(individual_team_2);
                 individual_team_2.appendChild(button_red);
