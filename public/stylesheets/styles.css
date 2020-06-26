@@ -178,6 +178,15 @@ display: none;
   flex-direction: column;
 } */
 
+.match {
+  display: flex;
+}
+
+.individual_team_1 {
+  flex: 50%;
+  padding: 5px;
+}
+
 #league{ display:none; }
 
 th {
