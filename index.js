@@ -42,6 +42,22 @@ app.get('/games', async (req, res) => {
   res.json({ matches: result.rows })
 })
 
+app.get('/upcoming', async (req, res) => {
+  const client = new Client({
+    user: 'djpoucmhkewvrh',
+    host: 'ec2-174-129-209-212.compute-1.amazonaws.com',
+    database: 'd24ubplectbqas',
+    password: 'e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c',
+    port: 5432,
+    ssl: true
+  })
+  client.connect()
+
+  const result = await client.query('SELECT league_id, match_day, game_date, blue_team, red_team FROM upcoming')
+  await client.end()
+  res.json({ upcoming_matches: result.rows })
+})
+
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 

@@ -19,6 +19,8 @@ from datetime import datetime
 import pytz
 import time
 
+import re
+
 def get_page_source (link):
     # Load page and grab data
     driver.get(link)
@@ -31,6 +33,7 @@ def get_page_source (link):
     else:    
         wait = 15 # Give the page 10 seconds to load the graph before timing out
         try:
+            time.sleep(10)
             wait_for_graph = WebDriverWait(driver, wait).until(EC.presence_of_element_located((By.CLASS_NAME, 'event-graph')))
             page_status = 'ready'
         except TimeoutException:
@@ -90,7 +93,7 @@ driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/OmegleV2/ch
 #driver_location = str(sys.argv[1])
 #driver = webdriver.Chrome(executable_path=driver_location, options=options)
 driver.get(login_url)
-driver.implicitly_wait(5) # not sure if needed
+driver.implicitly_wait(10) # not sure if needed
 
 # login stuff 
 wait_for_login = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'password-field')))
@@ -110,6 +113,8 @@ verification_code = input()
 verify_boxes = driver.find_element_by_class_name('mfafield__input')
 verify_boxes.send_keys(verification_code)
 verify_boxes.send_keys(Keys.RETURN)
+# Perform a check to check if the code is 5 letters/numbers, reask for input if incorrect
+# Check if len() = 5
 
 time.sleep(5)
 
@@ -139,24 +144,21 @@ post_lpl = 'false'
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season',
-    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season'
-
-    # 'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
-    # 'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
-    # 'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    # #'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # No schedule yet so now show-all button!
-    # 'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/Ultraliga/Season_4',
-    # 'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
-    # 'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
+    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
+    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
+    #'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # No schedule yet so now show-all button!
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/Ultraliga/Season_4',
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
+    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -226,25 +228,38 @@ for league_url in list_of_leagues_to_scrape:
 
         games = soup.find_all(attrs={"class": [class_string_1, class_string_2]})
 
-        # NA Academy and LLA has issues with the csv for upcoming matches, doesn't all post on one line
-        # LLA check UCH and XTN
-        # UCH = azules
-        # NA Acdademy gg.a has issues
+#        test_winner = soup.select('.matchlist-winner-team , .matchlist-winner-team')
+
+        ############ THIS SECTION GIVES US THE MOST RECENT GAME PLAYED
+        if (len(games) > 0):
+            final_match = games[len(games)-1]
+            final_match = (final_match.text).split()
+
+            final_match_t1 = final_match[0]
+            final_match_t2 = final_match[4]
+
+            for idx, character in enumerate(final_match_t1):
+                if final_match_t1[:idx].lower() in get_team_name_from_league:
+                    most_recent_game_t1 = final_match_t1[:idx].lower()
+                    most_recent_game_t1 = most_recent_game_t1.strip()
+        
+            for idx, character in enumerate(final_match_t2):
+                if final_match_t2[-idx:].lower() in get_team_name_from_league:
+                    most_recent_game_t2 = final_match_t2[-idx:].lower()
+                    most_recent_game_t2 = most_recent_game_t2.strip()
+
         ####################################################################################
 
         number_of_games_played = len(games)
         number_of_games_in_week = int((len(soup.select('.ml-w' + str(week) + ' .ml-team')))/2)
 
-        if (number_of_games_played > 0) and (number_of_games_played == number_of_games_in_week) :
-            print("Games were played this week")
-        else:
+        if (number_of_games_played == 0) or (number_of_games_played != number_of_games_in_week):
             if (tbdcount == 0): # Only get the current week
                 # Create a csv file to store upcoming matches
                 tbd_outfile = "./" + league + " Upcoming Games.csv"
                 tbd_outfile = open(tbd_outfile, "w")
                 tbd_writer = csv.writer(tbd_outfile)
 
-                print("Games were not played this week, grab tbd games")
                 date_class_1 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd'
                 date_class_2 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd matchlist-newday'
 
@@ -262,31 +277,47 @@ for league_url in list_of_leagues_to_scrape:
 
                 date_counter = 0
                 for data in tbd_teams_dates:
-                    split_datedate = (data.text).split()
-                    if (len(split_datedate) > 10):
+                    split_date = (data.text).split()
+                    if (len(split_date) > 10):
                         date_index = date_counter
                     date_counter += 1
 
                 splice_to_week = tbd_teams_dates[date_index+1:len(tbd_teams_dates)]
 
+                index_counter = 0                
+                for splice in splice_to_week:
+                    if ((re.sub(r'[^a-z]', '', ((splice.text).lower().strip()))) == re.sub(r'[^a-z]', '', (most_recent_game_t1.strip()))):
+                        if ((re.sub(r'[^a-z]', '', ((splice_to_week[index_counter+1].text).lower().strip()))) == re.sub(r'[^a-z]', '', (most_recent_game_t2.strip()))):
+                            current_game_index = index_counter+2
+                            break
+                    index_counter += 1
+
                 number_of_days = len(soup.select('.ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'))
                 length_to_splice = (len(tbdgames)*2)+number_of_days
+
+                date_team_vs = []
 
                 if (number_of_games_played == 0):
                     splice_to_current_week = splice_to_week[0:length_to_splice]
                 else:
-                    splice_to_current_week = splice_to_week[(number_of_games_played*2)+1:length_to_splice+(number_of_games_played*2)]
+                    splice_to_current_week = splice_to_week[current_game_index:length_to_splice+(number_of_games_played*2)]
+                    
+                    first_result = (splice_to_week[current_game_index].text).split()
 
-                date_team_vs = []
+                    search_counter = 0
+                    while ('Mon' not in first_result and 'Tue' not in first_result and 'Wed' not in first_result and 'Thu' not in first_result and 'Fri' not in first_result and 'Sat' not in first_result and 'Sun' not in first_result):
+                        search_counter += 1
+                        first_result = (splice_to_week[current_game_index-search_counter].text).split()
+                        
+                    if search_counter > 0:
+                        match_date = first_result
+
                 team_1 = True
-                
-                print("splice to current week")
+
                 for data in splice_to_current_week:
                     split_data = (data.text).split()
 
-                    print(split_data)
-
-                    if 'Mon' in split_data or 'Tue' in split_data or 'Wed' in split_data or 'Thu' in split_data or  'Fri' in split_data or 'Sat' in split_data or 'Sun' in split_data:
+                    if 'Mon' in split_data or 'Tue' in split_data or 'Wed' in split_data or 'Thu' in split_data or  'Fri' in split_data or 'Sat' in split_data or 'Sun' in split_data:                        
                         match_date = split_data
                     else:
                         tbd_team_name = split_data[0]
@@ -294,14 +325,15 @@ for league_url in list_of_leagues_to_scrape:
                             for idx, character in enumerate(tbd_team_name):
                                 if tbd_team_name[:idx].lower() in get_team_name_from_league:
                                     tbd_team_1 = tbd_team_name[:idx].lower()
-                                    date_team_vs.append(match_date[0]) # Add the day of the match
-                                    date_team_vs.append(match_date[1]) # Add the date of the match
-                                    date_team_vs.append(tbd_team_1) # Add team 1
+                            date_team_vs.append(league_id) 
+                            date_team_vs.append(match_date[0]) # Add the day of the match
+                            date_team_vs.append(match_date[1]) # Add the date of the match
+                            date_team_vs.append(tbd_team_1) # Add team 1
                         else:                            
                             for idx, character in enumerate(tbd_team_name):
                                 if tbd_team_name[-idx:].lower() in get_team_name_from_league:
                                     tbd_team_2 = tbd_team_name[-idx:].lower()
-                                    date_team_vs.append(tbd_team_2) # Add team 2
+                            date_team_vs.append(tbd_team_2) # Add team 2        
                             tbd_writer.writerows([date_team_vs])
                             date_team_vs = []
 
@@ -392,7 +424,8 @@ for league_url in list_of_leagues_to_scrape:
         for match in match_data:
             if match[4] == 'scrape':
                 print('Scraping...')
-
+                # print("Idx winner")
+                # print((test_winner[idx].text))
                 print(match)
 
                 # Reset variables to avoid wrong team being printed if the data cannot be found
@@ -402,21 +435,27 @@ for league_url in list_of_leagues_to_scrape:
                 first_baron = ' '
                 first_inhibitor = ' '
 
+                print("Getting page info from")
+                print(match[5])
                 page_info = get_page_source(match[5])
                 page_source = page_info[0]
                 page_status = page_info[1]
+                print("Got page info")
 
                 if page_status == 'ready':
-
+                    print("Getting new soup")
                     soup = BeautifulSoup(page_source, 'html.parser')
+                    print("Got new soup")
 
                     player_team_names = soup.findAll('div', attrs={'class':'champion-nameplate-name'})
                     for idx, player in enumerate(player_team_names):
                         if idx == 0:
                             blue_team = player.text.strip().split()[0].lower()
+                            print(blue_team)
                         if idx == 5:
                             red_team = player.text.strip().split()[0].lower()
-
+                            print(red_team)
+                    
                     if blue_team in match[2] and blue_team in match[3]:
                         if red_team in match[3]:
                             blue_team = match[2]
@@ -433,12 +472,37 @@ for league_url in list_of_leagues_to_scrape:
 
                     print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
 
-                    game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
+                    #game_winner = soup.select('.team-100') # Winner/Loser
 
-                    if str(game_winner.strip()) in 'VICTORY':
+                    game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
+                    #game_winner = soup.select('.team-100 .game-conclusion') # Winner/Loser
+                    #game_winner = soup.select('.team-100') # Winner/Loser
+                    # #game_winner = soup.select('.game-conclusion') # Winner/Loser
+
+                    print(game_winner)
+
+                    # print("loop")
+                    # for x in game_winner:
+                    #     print((x.text).split())
+                    # print('end loop')
+
+                    #print(game_winner)
+
+                    # game_winner = [''.join(i.stripped_strings) for i in game_winner if i]
+                    # game_winner = game_winner[0]
+                    # print("Game winner")
+                    # print((game_winner.text).strip())
+
+                    # .team-100 .game-conclusion
+                    #//*[contains(concat( " ", @class, " " ), concat( " ", "team-100", " " ))]//*[contains(concat( " ", @class, " " ), concat( " ", "game-conclusion", " " ))]
+                    #soup.select('.team-100 .game-conclusion')
+
+                    if str(game_winner).strip() in 'VICTORY':
+                        print("Blue team won")
                         game_winner = blue_team
                         game_loser = red_team
                     else:
+                        print("Red team won")
                         game_winner = red_team
                         game_loser = blue_team
 
@@ -531,6 +595,10 @@ for league_url in list_of_leagues_to_scrape:
         print("It seems a matchhistory link for one of the games is missing")
 
 print('Finished scraping!')
+
+# Close the browser
+driver.close() 
+driver.quit()
 
 # print("Would you like to post the new data to the database (y/n)? ")
 
