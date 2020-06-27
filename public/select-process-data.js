@@ -278,7 +278,7 @@ function change_team_options(leaguename) {
         match_buttons[i].remove();
     }
 
-    var match_divs = document.querySelectorAll(".upcoming-matches");
+    var match_divs = document.querySelectorAll(".match_row");
 
     for (var i = 0; i < match_divs.length; i++) {
         match_divs[i].remove();
