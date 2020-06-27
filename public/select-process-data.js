@@ -318,7 +318,7 @@ function change_team_options(leaguename) {
                 // }
 
                 individual_team_1.appendChild(button_blue);
-                match.appendChild(individual_team_1);
+                //match.appendChild(individual_team_1);
 
                 // Team 2
                 var individual_team_2 = document.createElement("div");
@@ -338,7 +338,8 @@ function change_team_options(leaguename) {
                 // div.appendChild(button_red);
 
                 individual_team_2.appendChild(button_red);
-                match.appendChild(individual_team_2);
+                //match.appendChild(individual_team_2);
+                match.appendChild(individual_team_1, individual_team_2);
 
             }    
             k++;
