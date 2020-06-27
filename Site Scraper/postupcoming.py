@@ -42,12 +42,13 @@ input_files = {
     'CBLOL Upcoming Games.csv'
 }
 
+cur.execute("DELETE FROM upcoming;")
+
 for file in input_files:
     print("Adding upcoming matches from " + file + ' to the database')
     with open(file, 'r') as f:
         reader = csv.reader(f)
         next(reader) # Skip the header row
-        # Do something here to check if file is empty
         for (index, row) in enumerate(reader):
             print(index)
             cur.execute("INSERT INTO upcoming VALUES (%s, %s, %s, %s, %s)", row[:6])
