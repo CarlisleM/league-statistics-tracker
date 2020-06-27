@@ -276,15 +276,15 @@ function change_team_options(leaguename) {
         match_buttons[i].remove();
     }
 
+    var div1 = document.createElement("div");
+
     var k = 0;
     let body = document.getElementsByClassName("matchData")[0];
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
 
-                
-                var div1 = document.createElement("div");
-
+            
                 let div1 = document.getElementById('div1');
 
                 //Container div
