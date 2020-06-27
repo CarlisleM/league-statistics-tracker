@@ -172,9 +172,9 @@ display: none;
 
 .upcoming-matches {
   width: 60%;
+  margin: auto;
   align-items: center;
   justify-content: center;
-  width: 80%;
 }
 
 .match_row  {
