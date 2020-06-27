@@ -276,10 +276,8 @@ function change_team_options(leaguename) {
         match_buttons[i].remove();
     }
 
-    var div1 = document.createElement("div");
-
     var k = 0;
-    let body = document.getElementsByClassName("matchData")[0];
+    let body = document.getElementsByClassName("upcoming-matches")[0];
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
@@ -298,11 +296,8 @@ function change_team_options(leaguename) {
                     match.style.background = "red";
                 }
 
-                // var div = document.createElement("div");
-                // div.id = 'test';
                 match.style.width = "500px";
                 match.style.height = "100px";
-                // div.style.color = "white";
                 
                 body.appendChild(match);
 

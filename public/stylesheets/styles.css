@@ -181,10 +181,6 @@ display: none;
   padding: 10px;
 }
 
-.match {
-  display: flex;
-}
-
 .match_column_1 {
   background: yellow;
   float: left;
