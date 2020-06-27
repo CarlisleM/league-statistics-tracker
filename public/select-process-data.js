@@ -326,6 +326,8 @@ function change_team_options(leaguename) {
                 button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 button_red.className = 'upcoming-match-button';
 
+                match.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
+
                 button_red.onclick = function()
                 {
                     var team_names = (this.id).split(" ");
