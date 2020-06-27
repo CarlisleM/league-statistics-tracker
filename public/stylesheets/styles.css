@@ -179,10 +179,9 @@ display: none;
 .match_row  {
   width: 60%;
   height: 200px;
-  /* background: aqua; */
   margin: auto;
   padding: 10px;
-  /* border-style: solid; */
+  border-style: solid;
 }
 
 .match_column_1 {
