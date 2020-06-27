@@ -285,8 +285,10 @@ function change_team_options(leaguename) {
             if (data.upcoming_matches[k].league_id == current_league) {
 
                 var match = document.createElement("div");
-                var individual_team_1 = document.createElement("div");                
-                
+                var individual_team_1 = document.createElement("div");
+                match.setAttribute('class', 'match_row');
+                individual_team_1.setAttribute('class', 'match_column_1');
+
                 if (isOdd(k) == 0)
                 {
                     match.style.background = "blue";
@@ -318,10 +320,11 @@ function change_team_options(leaguename) {
                 // }
 
                 individual_team_1.appendChild(button_blue);
-                match.append(individual_team_1);
+                match.appendChild(individual_team_1);
 
                 // Team 2
                 var individual_team_2 = document.createElement("div");
+                individual_team_2.setAttribute('class', 'match_column_1');
 
                 let button_red = document.createElement("button_red");
                 button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
@@ -338,7 +341,7 @@ function change_team_options(leaguename) {
                 // div.appendChild(button_red);
 
                 individual_team_2.appendChild(button_red);
-                match.append(individual_team_2);
+                match.appendChild(individual_team_2);
                 //match.appendChild(individual_team_1, individual_team_2);
 
             }    
