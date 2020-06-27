@@ -283,94 +283,62 @@ function change_team_options(leaguename) {
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
-                entireMatch = "<div class='upcoming_match'>";
+
+                var match = document.createElement("div");
+                var individual_team_1 = document.createElement("div");                
                 
-                    firstTeam = "<div class='team_one'>";
+                if (isOdd(k) == 0)
+                {
+                    match.style.background = "blue";
+                }
+                else
+                {
+                    match.style.background = "red";
+                }
 
-                    firstTeam += "</div>";
-
-                    secondTeam = "<div class='team_two'>";
-
-                    secondTeam += "</div>";
-
-                entireMatch += "</div>";
-
-
-                firstTeam.style.background = "blue";
-                secondTeam.style.background = "red";
-
-                firstTeam.style.width = "500px";
-                firstTeam.style.height = "100px";
-
-                secondTeam.style.width = "500px";
-                secondTeam.style.height = "100px";
-
-            //   for (var i = 0; i < num1; i++) {
-            //     firstColumn += `<p>${output[i]}</p>`;
-            //   }
-            //   firstColumn += "</div>";
-            //   for (var i = num1; i < output.length; i++) {
-            //     secondColumn += `<p>${output[i]}</p>`;
-            //   }
-            //   secondColumn += "</div>"
-            //   $('#content').append(firstColumn).append(secondColumn)
-
-
-            //     var match = document.createElement("div");
-            //     var individual_team_1 = document.createElement("div");                
+                // var div = document.createElement("div");
+                // div.id = 'test';
+                match.className = 'test';
+                match.style.width = "500px";
+                match.style.height = "100px";
+                // div.style.color = "white";
                 
-            //     if (isOdd(k) == 0)
-            //     {
-            //         match.style.background = "blue";
-            //     }
-            //     else
-            //     {
-            //         match.style.background = "red";
-            //     }
+                body.appendChild(match);
 
-            //     // var div = document.createElement("div");
-            //     // div.id = 'test';
-            //     match.className = 'test';
-            //     match.style.width = "500px";
-            //     match.style.height = "100px";
-            //     // div.style.color = "white";
-                
-            //     body.appendChild(match);
+                let button_blue = document.createElement("button_blue");
+                button_blue.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
+                // button_blue.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
+                // button_blue.className = 'upcoming-match-button';
 
-            //     let button_blue = document.createElement("button_blue");
-            //     button_blue.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
-            //     // button_blue.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
-            //     // button_blue.className = 'upcoming-match-button';
+                // button_blue.onclick = function()
+                // {
+                //     var team_names = (this.id).split(" ");
+                //     change_team_one_select(team_names[0]);
+                //     change_team_two_select(team_names[1]);
+                // }
 
-            //     // button_blue.onclick = function()
-            //     // {
-            //     //     var team_names = (this.id).split(" ");
-            //     //     change_team_one_select(team_names[0]);
-            //     //     change_team_two_select(team_names[1]);
-            //     // }
+                individual_team_1.appendChild(button_blue);
+                match.appendChild(individual_team_1);
 
-            //     individual_team_1.appendChild(button_blue);
-            //     match.appendChild(individual_team_1);
+                // Team 2
+                var individual_team_2 = document.createElement("div");
 
-            //     // Team 2
-            //     var individual_team_2 = document.createElement("div");
+                let button_red = document.createElement("button_red");
+                button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
+                // button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
+                // button_red.className = 'upcoming-match-button';
 
-            //     let button_red = document.createElement("button_red");
-            //     button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
-            //     // button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
-            //     // button_red.className = 'upcoming-match-button';
+                // button_red.onclick = function()
+                // {
+                //     var team_names = (this.id).split(" ");
+                //     change_team_one_select(team_names[0]);
+                //     change_team_two_select(team_names[1]);
+                // }
 
-            //     // button_red.onclick = function()
-            //     // {
-            //     //     var team_names = (this.id).split(" ");
-            //     //     change_team_one_select(team_names[0]);
-            //     //     change_team_two_select(team_names[1]);
-            //     // }
+                // div.appendChild(button_red);
 
-            //     // div.appendChild(button_red);
-
-            //     individual_team_2.appendChild(button_red);
-            //     match.appendChild(individual_team_2);
+                individual_team_2.appendChild(button_red);
+                match.appendChild(individual_team_2);
 
             }    
             k++;
