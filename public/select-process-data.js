@@ -290,7 +290,7 @@ function change_team_options(leaguename) {
                 //Container div
                 const divContainer = document.createElement("div");
                 divContainer.classList.add("Cardcontainer");
-                div1.appendChild(divContainer);
+                body.appendChild(divContainer);
               
                 // 2 Divs in container
                 const divWord = document.createElement("div");
