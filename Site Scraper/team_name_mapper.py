@@ -130,7 +130,6 @@ get_lla_name = {
   'pix' : 'Pixel Esports Club'
 }
 
-# Check back on ultraliga
 get_ultraliga_name = {
   'ago' : 'AGO ROGUE',
   '7pt' : '7more7 Pompa Team',

@@ -123,9 +123,9 @@ function change_team_options(leaguename) {
             id : 'Izi Dream',
             'vit.b' : 'Vitality.Bee'
         };
-    } else if (leaguename == 'LVP') {
+    } else if (leaguename == 'LVP_SuperLiga_Orange') {
         var current_league = 6;
-        document.getElementById("league").innerHTML = "LVP";
+        document.getElementById("league").innerHTML = "LVP_SuperLiga_Orange";
         var teams = {
             bts : 'Cream Real Betis',
             emz : 'eMonkeyz',
