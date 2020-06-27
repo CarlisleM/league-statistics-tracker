@@ -283,36 +283,30 @@ function change_team_options(leaguename) {
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
+                // Upcoming match div
                 var match = document.createElement("div");
-                var individual_team_1 = document.createElement("div");
                 match.setAttribute('class', 'match_row');
+                match.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
+
+                var individual_team_1 = document.createElement("div");
                 individual_team_1.setAttribute('class', 'match_column_1');
 
-                if (isOdd(k) == 0)
-                {
-                    match.style.background = "blue";
-                }
-                else
-                {
-                    match.style.background = "red";
-                }
-
-                match.style.width = "500px";
-                match.style.height = "100px";
+                // if (isOdd(k) == 0)
+                // {
+                //     match.style.background = "blue";
+                // }
+                // else
+                // {
+                //     match.style.background = "red";
+                // }
                 
                 body.appendChild(match);
 
+                // Team 1
                 let button_blue = document.createElement("button_blue");
                 button_blue.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
                 button_blue.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 button_blue.className = 'upcoming-match-button';
-
-                // button_blue.onclick = function()
-                // {
-                //     var team_names = (this.id).split(" ");
-                //     change_team_one_select(team_names[0]);
-                //     change_team_two_select(team_names[1]);
-                // }
 
                 individual_team_1.appendChild(button_blue);
                 match.appendChild(individual_team_1);
@@ -325,15 +319,6 @@ function change_team_options(leaguename) {
                 button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
                 button_red.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 button_red.className = 'upcoming-match-button';
-
-                match.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
-
-                // button_red.onclick = function()
-                // {
-                //     var team_names = (this.id).split(" ");
-                //     change_team_one_select(team_names[0]);
-                //     change_team_two_select(team_names[1]);
-                // }
 
                 individual_team_2.appendChild(button_red);
                 match.appendChild(individual_team_2);
