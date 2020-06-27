@@ -278,13 +278,17 @@ function change_team_options(leaguename) {
         match_buttons[i].remove();
     }
 
+    var match_divs = document.querySelectorAll(".upcoming-matches");
+
+    for (var i = 0; i < match_divs.length; i++) {
+        match_divs[i].remove();
+    }
+
     var k = 0;
     let body = document.getElementsByClassName("upcoming-matches")[0];
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
-                console.log(current_league);
-                console.log(data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team);
                 // Upcoming match div
                 var match = document.createElement("div");
                 match.setAttribute('class', 'match_row');
