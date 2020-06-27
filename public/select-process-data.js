@@ -283,6 +283,8 @@ function change_team_options(leaguename) {
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
+                console.log(current_league);
+                console.log(data.upcoming_matches[k].blue_team + " vs " + data.upcoming_matches[k].red_team);
                 // Upcoming match div
                 var match = document.createElement("div");
                 match.setAttribute('class', 'match_row');
