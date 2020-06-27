@@ -323,7 +323,7 @@ function change_team_options(leaguename) {
 
                 // Team 2
                 var individual_team_2 = document.createElement("div");
-                individual_team_2.setAttribute('class', 'match_column_1');
+                individual_team_2.setAttribute('class', 'match_column_2');
 
                 let button_red = document.createElement("button_red");
                 button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';

@@ -174,22 +174,28 @@ display: none;
 }
 
 .match_row  {
-  display: flex;
-  flex-direction: column;
+  width: 80%;
+  height: 200px;
+  background: aqua;
+  margin: auto;
+  padding: 10px;
 }
 
 .match {
   display: flex;
 }
 
-.individual_team_1 {
-  flex: 50%;
-  padding: 5px;
+.match_column_1 {
+  width: 15%;
+  height: 200px;
+  background: red;
+  float: left;
 }
 
-.individual_team_2 {
-  flex: 50%;
-  padding: 5px;
+.match_column_2 {
+  margin-left: 15%;
+  height: 200px;
+  background: black;
 }
 
 #league{ display:none; }
