@@ -173,7 +173,7 @@ display: none;
   background-color: #f5f5f5;
 }
 
-.upcoming-match-button  {
+.match_row  {
   display: flex;
   flex-direction: column;
 }
@@ -183,6 +183,11 @@ display: none;
 }
 
 .individual_team_1 {
+  flex: 50%;
+  padding: 5px;
+}
+
+.individual_team_2 {
   flex: 50%;
   padding: 5px;
 }
