@@ -283,48 +283,27 @@ function change_team_options(leaguename) {
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
-
-            
-                let div1 = document.getElementById('div1');
-
-                //Container div
-                const divContainer = document.createElement("div");
-                divContainer.classList.add("Cardcontainer");
-                body.appendChild(divContainer);
-              
-                // 2 Divs in container
-                const divWord = document.createElement("div");
-                const divDef = document.createElement("div");
-              
-                divWord.classList.add("word");
-                divDef.classList.add("definition");
-                divDef.innerHTML = document.getElementById('def').value;
-              
-                let button_blue = document.createElement("button_blue");
-                button_blue.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].blue_team + '.png" width="100" height="100" />';
-                divWord.appendChild(button_blue);
+                entireMatch = "<div class='upcoming_match'>";
                 
-                let button_red = document.createElement("button_red");
-                button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
-                divDef.appendChild(button_red);
+                    firstTeam = "<div class='team_one'>";
+
+                    firstTeam += "</div>";
+
+                    secondTeam = "<div class='team_two'>";
+
+                    secondTeam += "</div>";
+
+                entireMatch += "</div>";
 
 
-                divContainer.appendChild(divWord);
-                divContainer.appendChild(divDef);
+                firstTeam.style.background = "blue";
+                secondTeam.style.background = "red";
 
+                firstTeam.style.width = "500px";
+                firstTeam.style.height = "100px";
 
-
-            //     entireMatch = "<div class='upcoming_match'>";
-                
-            //         firstTeam = "<div class='team_one'>";
-
-            //         firstTeam += "</div>";
-
-            //         secondTeam = "<div class='team_two'>";
-
-            //         secondTeam += "</div>";
-
-            //     entireMatch += "</div>";
+                secondTeam.style.width = "500px";
+                secondTeam.style.height = "100px";
 
             //   for (var i = 0; i < num1; i++) {
             //     firstColumn += `<p>${output[i]}</p>`;
