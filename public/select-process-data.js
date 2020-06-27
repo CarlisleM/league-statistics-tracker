@@ -307,12 +307,12 @@ function change_team_options(leaguename) {
                 button_blue.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
                 button_blue.className = 'upcoming-match-button';
 
-                button_blue.onclick = function()
-                {
-                    var team_names = (this.id).split(" ");
-                    change_team_one_select(team_names[0]);
-                    change_team_two_select(team_names[1]);
-                }
+                // button_blue.onclick = function()
+                // {
+                //     var team_names = (this.id).split(" ");
+                //     change_team_one_select(team_names[0]);
+                //     change_team_two_select(team_names[1]);
+                // }
 
                 individual_team_1.appendChild(button_blue);
                 match.appendChild(individual_team_1);
@@ -328,12 +328,12 @@ function change_team_options(leaguename) {
 
                 match.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
 
-                button_red.onclick = function()
-                {
-                    var team_names = (this.id).split(" ");
-                    change_team_one_select(team_names[0]);
-                    change_team_two_select(team_names[1]);
-                }
+                // button_red.onclick = function()
+                // {
+                //     var team_names = (this.id).split(" ");
+                //     change_team_one_select(team_names[0]);
+                //     change_team_two_select(team_names[1]);
+                // }
 
                 individual_team_2.appendChild(button_red);
                 match.appendChild(individual_team_2);
