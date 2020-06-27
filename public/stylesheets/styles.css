@@ -173,10 +173,10 @@ display: none;
   background-color: #f5f5f5;
 }
 
-/* .upcoming-match-button  {
+.upcoming-match-button  {
   display: flex;
   flex-direction: column;
-} */
+}
 
 .match {
   display: flex;

@@ -300,7 +300,6 @@ function change_team_options(leaguename) {
 
                 // var div = document.createElement("div");
                 // div.id = 'test';
-                match.className = 'test';
                 match.style.width = "500px";
                 match.style.height = "100px";
                 // div.style.color = "white";
