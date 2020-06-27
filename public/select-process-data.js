@@ -270,6 +270,8 @@ function change_team_options(leaguename) {
         };
     }
 
+
+
     var match_buttons = document.querySelectorAll(".upcoming-match-button");
 
     for (var i = 0; i < match_buttons.length; i++) {
@@ -281,7 +283,6 @@ function change_team_options(leaguename) {
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
-
                 var match = document.createElement("div");
                 var individual_team_1 = document.createElement("div");
                 match.setAttribute('class', 'match_row');
@@ -334,8 +335,13 @@ function change_team_options(leaguename) {
 
                 individual_team_2.appendChild(button_red);
                 match.appendChild(individual_team_2);
-                //match.appendChild(individual_team_1, individual_team_2);
 
+                var element = document.getElementsByClassName('match_row');
+                element.onclick = function() {
+                    var team_names = (this.id).split(" ");
+                    change_team_one_select(team_names[0]);
+                    change_team_two_select(team_names[1]);
+                }
             }    
             k++;
         }
