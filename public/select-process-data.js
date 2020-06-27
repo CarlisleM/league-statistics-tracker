@@ -336,7 +336,7 @@ function change_team_options(leaguename) {
                 individual_team_2.appendChild(button_red);
                 match.appendChild(individual_team_2);
 
-                match.onclick = function() {
+                match.onmousedown = function() {
                     var team_names = (this.id).split(" ");
                     change_team_one_select(team_names[0]);
                     change_team_two_select(team_names[1]);
