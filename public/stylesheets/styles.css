@@ -183,14 +183,10 @@ display: none;
 }
 
 .match_column_2 {
-  /* margin: auto; */
+  margin: auto;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 0;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
 }
 
 .match_column_3 {
