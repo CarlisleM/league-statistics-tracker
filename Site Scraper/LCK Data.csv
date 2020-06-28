@@ -1,6 +1,11 @@
 League,Split,Date,Game,Blue Team,Red Team,First Blood,First Tower,First Dragon,First Inhibitor,First Baron,Winner,Loser
-2,2,2020/06/25,2,sb,drx,sb,sb,drx,sb,sb,sb,drx
-2,2,2020/06/25,3,drx,sb,sb,sb,sb,drx,drx,drx,sb
-2,2,2020/06/25,1,gen,dwg,gen,dwg,gen,gen,,gen,dwg
-2,2,2020/06/25,2,dwg,gen,gen,dwg,gen,dwg,dwg,dwg,gen
-2,2,2020/06/25,3,gen,dwg,dwg,dwg,gen,gen,gen,gen,dwg
+2,2,2020/06/26,1,af,t1,af,t1,t1,af,,af,t1
+2,2,2020/06/26,2,t1,af,t1,t1,t1,t1,t1,t1,af
+2,2,2020/06/26,3,af,t1,af,t1,t1,t1,t1,t1,af
+2,2,2020/06/26,1,hle,dyn,hle,dyn,hle,dyn,dyn,dyn,hle
+2,2,2020/06/26,2,dyn,hle,hle,dyn,dyn,,,dyn,hle
+2,2,2020/06/27,1,sp,gen,gen,gen,gen,gen,gen,gen,sp
+2,2,2020/06/27,2,gen,sp,gen,gen,sp,gen,gen,gen,sp
+2,2,2020/06/27,1,dwg,kt,kt,dwg,kt,dwg,,dwg,kt
+2,2,2020/06/27,2,kt,dwg,dwg,dwg,dwg,dwg,dwg,dwg,kt
+2,2,2020/06/28,1,af,drx,af,drx,af,drx,drx,drx,af
