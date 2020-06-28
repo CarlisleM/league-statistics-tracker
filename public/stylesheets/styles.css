@@ -179,16 +179,25 @@ display: none;
 
 .match_column_1 {
   /* background: yellow; */
+  clear:both;
   float: left;
 }
 
 .match_column_2 {
-  margin: auto;
+  clear:both;
+  /* margin: auto; */
   align-items: center;
   justify-content: center;
+  text-align: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .match_column_3 {
+  clear:both;
   /* background: green; */
   float: right;
 }
