@@ -179,12 +179,10 @@ display: none;
 
 .match_column_1 {
   /* background: yellow; */
-  clear:both;
   float: left;
 }
 
 .match_column_2 {
-  clear:both;
   /* margin: auto; */
   align-items: center;
   justify-content: center;
@@ -197,7 +195,6 @@ display: none;
 }
 
 .match_column_3 {
-  clear:both;
   /* background: green; */
   float: right;
 }
