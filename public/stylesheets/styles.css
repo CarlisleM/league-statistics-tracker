@@ -183,6 +183,11 @@ display: none;
 }
 
 .match_column_2 {
+  background: yellow;
+  /* float: left; */
+}
+
+.match_column_3 {
   /* background: green; */
   float: right;
 }

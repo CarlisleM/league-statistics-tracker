@@ -296,15 +296,6 @@ function change_team_options(leaguename) {
 
                 var individual_team_1 = document.createElement("div");
                 individual_team_1.setAttribute('class', 'match_column_1');
-
-                // if (isOdd(k) == 0)
-                // {
-                //     match.style.background = "blue";
-                // }
-                // else
-                // {
-                //     match.style.background = "red";
-                // }
                 
                 body.appendChild(match);
 
@@ -317,9 +308,15 @@ function change_team_options(leaguename) {
                 individual_team_1.appendChild(button_blue);
                 match.appendChild(individual_team_1);
 
+                // Date of match
+                var upcoming_match_date = document.createElement("div");
+                upcoming_match_date.setAttribute('class', 'match_column_2');
+                button_blue.innerHTML = 'vs ' + data.upcoming_matches[k].match_day + ' on ' + data.upcoming_matches[k].game_date;
+                match.appendChild(upcoming_match_date);
+
                 // Team 2
                 var individual_team_2 = document.createElement("div");
-                individual_team_2.setAttribute('class', 'match_column_2');
+                individual_team_2.setAttribute('class', 'match_column_3');
 
                 let button_red = document.createElement("button_red");
                 button_red.innerHTML = '<img src="images/TeamLogos/' + data.upcoming_matches[k].red_team + '.png" width="100" height="100" />';
