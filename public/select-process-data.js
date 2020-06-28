@@ -313,7 +313,7 @@ function change_team_options(leaguename) {
                 upcoming_match_date.setAttribute('class', 'match_column_2');
                 upcoming_match_date.innerHTML = 'vs ' + data.upcoming_matches[k].match_day + ' on ' + data.upcoming_matches[k].game_date.split("T")[0];
                 
-                upcoming_match_date..innerHTML = '<p>' + data.upcoming_matches[k].match_day + ' ' + data.upcoming_matches[k].game_date.split("T")[0] + '<br>'
+                upcoming_match_date.innerHTML = '<p>' + data.upcoming_matches[k].match_day + ' ' + data.upcoming_matches[k].game_date.split("T")[0] + '<br>'
                                                  + 'vs</p>';
                 match.appendChild(upcoming_match_date);
 
