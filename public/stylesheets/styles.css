@@ -183,8 +183,9 @@ display: none;
 }
 
 .match_column_2 {
-  background: yellow;
-  /* float: left; */
+  margin: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .match_column_3 {
