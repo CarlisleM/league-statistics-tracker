@@ -311,7 +311,7 @@ function change_team_options(leaguename) {
                 // Date of match
                 var upcoming_match_date = document.createElement("div");
                 upcoming_match_date.setAttribute('class', 'match_column_2');
-                button_blue.innerHTML = 'vs ' + data.upcoming_matches[k].match_day + ' on ' + data.upcoming_matches[k].game_date;
+                upcoming_match_date.innerHTML = 'vs ' + data.upcoming_matches[k].match_day + ' on ' + data.upcoming_matches[k].game_date;
                 match.appendChild(upcoming_match_date);
 
                 // Team 2
