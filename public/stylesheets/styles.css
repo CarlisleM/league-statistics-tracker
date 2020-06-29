@@ -164,27 +164,29 @@ display: none;
 }
 
 .upcoming-matches {
+  width: 60%;
   align-items: center;
   justify-content: center;
 }
 
 .match_row  {
   width: 100%;
-  height: 13%;
+  height: 100px;
+  margin: auto;
   border-bottom-style: solid;
   border-bottom-width: thin;
 }
 
 .match_column_1 {
   float: left;
-  width: 25%;
-  height: 13%;
+  width: 100px; 
+  height: 100px;
 }
 
 .match_column_2 {
   float: left;
-  width: 50%;
-  height: 13%;
+  width: 150px; 
+  height: 100px;
   text-align: center;
   vertical-align: middle;
   line-height: 100px;
@@ -192,8 +194,8 @@ display: none;
 
 .match_column_3 {
   float: right;
-  width: 25%;
-  height: 13%;
+  width: 100px; 
+  height: 100px; 
 }
 
 #league{ display:none; }
