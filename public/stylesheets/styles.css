@@ -170,7 +170,7 @@ display: none;
 }
 
 .match_row  {
-  width: 100%;
+  width: 500px;
   height: 100px;
   margin: auto;
   border-bottom-style: solid;
