@@ -79,7 +79,7 @@
 @media (orientation: landscape) {
   .sideBar {
     margin-left: 75%;
-    width: 350px;
+    width: 25%;
     height: 100vh;
     border-left: solid;
     border-color: black;
