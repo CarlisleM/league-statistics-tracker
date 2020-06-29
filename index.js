@@ -21,6 +21,11 @@ app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
+// faq page 
+app.get('/faq', function(req, res) {
+  res.render('pages/faq');
+});
+
 // bet history page 
 app.get('/bets', function(req, res) {
     res.render('pages/bets');
