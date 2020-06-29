@@ -270,8 +270,6 @@ function change_team_options(leaguename) {
         };
     }
 
-
-
     var match_buttons = document.querySelectorAll(".upcoming-match-button");
 
     for (var i = 0; i < match_buttons.length; i++) {
