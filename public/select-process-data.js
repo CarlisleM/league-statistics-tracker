@@ -291,8 +291,7 @@ function change_team_options(leaguename) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 // Upcoming match div
                 var match = document.createElement("div");
-                //match.setAttribute('class', 'match_row');
-                match.setAttribute('class', 'sideBar');
+                match.setAttribute('class', 'match_row');
                 match.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
 
                 var individual_team_1 = document.createElement("div");
