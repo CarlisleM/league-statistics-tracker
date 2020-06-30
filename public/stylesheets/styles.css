@@ -176,7 +176,7 @@ display: none;
   text-align: center;
   vertical-align: middle;
   line-height: 25px;
-  border-bottom: thin double;
+  border-bottom: thick double;
 }
 
 .match_row  {
