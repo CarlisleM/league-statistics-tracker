@@ -181,6 +181,10 @@ display: none;
   border-bottom: thick double;
 }
 
+.match_row a:hover {
+  background-color: yellow;
+}
+
 .match_row  {
   width: 350px;
   height: 100px;
