@@ -181,8 +181,8 @@ display: none;
   border-bottom: thick double;
 }
 
-.match_row a:hover {
-  background-color: yellow;
+.match_row:hover {
+  background-color: gray; 
 }
 
 .match_row  {
