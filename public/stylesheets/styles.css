@@ -169,6 +169,16 @@ display: none;
   justify-content: center;
 }
 
+.week_row {
+  width: 350px;
+  height: 15px;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 15px;
+  border-bottom: thin double;
+}
+
 .match_row  {
   width: 350px;
   height: 100px;

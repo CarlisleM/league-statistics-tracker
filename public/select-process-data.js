@@ -296,7 +296,7 @@ function change_team_options(leaguename) {
                 if (current_week != next_week || test == 0)
                 {
                     var week = document.createElement("div");
-                    week.setAttribute('class', 'match_row');
+                    week.setAttribute('class', 'week_row');
                     let week_text = document.createElement("week_text");
                     week_text.innerHTML = "Week " + data.upcoming_matches[k].match_week;
                     week.append(week_text);
