@@ -276,7 +276,12 @@ function change_team_options(leaguename) {
         match_buttons[i].remove();
     }
 
+    var week_divs = document.querySelectorAll(".week_row");
     var match_divs = document.querySelectorAll(".match_row");
+
+    for (var i = 0; i < week_divs.length; i++) {
+        week_divs[i].remove();
+    }
 
     for (var i = 0; i < match_divs.length; i++) {
         match_divs[i].remove();
