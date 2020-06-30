@@ -198,6 +198,7 @@ display: none;
   float: left;
   width: 100px; 
   height: 100px;
+  padding-left: 10px;
 }
 
 .match_column_2 {
@@ -213,6 +214,7 @@ display: none;
   float: right;
   width: 100px; 
   height: 100px; 
+  padding-right: 10px;
 }
 
 #league{ display:none; }
