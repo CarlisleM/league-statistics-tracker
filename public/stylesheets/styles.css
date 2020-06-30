@@ -196,7 +196,7 @@ display: none;
 
 .match_column_1 {
   float: left;
-  width: 100px; 
+  width: 90px; 
   height: 100px;
   padding-left: 10px;
 }
@@ -212,7 +212,7 @@ display: none;
 
 .match_column_3 {
   float: right;
-  width: 100px; 
+  width: 90px; 
   height: 100px; 
   padding-right: 10px;
 }
