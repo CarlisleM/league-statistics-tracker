@@ -170,12 +170,13 @@ display: none;
 }
 
 .week_row {
-  width: 350px;
+  width: 100%;
   height: 25px;
   margin: auto;
   text-align: center;
   vertical-align: middle;
   line-height: 25px;
+  border-top: thick double;
   border-bottom: thick double;
 }
 
