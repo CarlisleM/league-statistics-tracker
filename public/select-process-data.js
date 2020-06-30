@@ -282,20 +282,27 @@ function change_team_options(leaguename) {
         match_divs[i].remove();
     }
 
+    test = 0;
+
     var k = 0;
     let body = document.getElementsByClassName("upcoming-matches")[0];
     testFetch('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 // Upcoming match div
+                current_week = data.upcoming_matches[k].match_week;
+                next_week = data.upcoming_matches[k+1].match_week;
 
-
-                var week = document.createElement("div");
-                week.setAttribute('class', 'match_row');
-                let week_text = document.createElement("week_text");
-                week_text.innerHTML = "Week " + data.upcoming_matches[k].match_week;
-                week.append(week_text);
-                body.appendChild(week);
+                if (current_week != next_week || test == 0)
+                {
+                    var week = document.createElement("div");
+                    week.setAttribute('class', 'match_row');
+                    let week_text = document.createElement("week_text");
+                    week_text.innerHTML = "Week " + data.upcoming_matches[k].match_week;
+                    week.append(week_text);
+                    body.appendChild(week);
+                    test += 1;
+                }
 
                 var match = document.createElement("div");
                 match.setAttribute('class', 'match_row');
