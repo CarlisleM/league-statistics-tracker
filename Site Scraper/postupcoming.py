@@ -30,7 +30,7 @@ input_files = {
     'LEC Upcoming Games.csv',
     'OPL Upcoming Games.csv',
     #'LFL Upcoming Games.csv',
-    #'LVP_SuperLiga_Orange Upcoming Games.csv',
+    'LVP_SuperLiga_Orange Upcoming Games.csv',
     'PCS Upcoming Games.csv',
     'LLA Upcoming Games.csv',
     'Ultraliga Upcoming Games.csv',
@@ -51,7 +51,7 @@ for file in input_files:
         next(reader) # Skip the header row
         for (index, row) in enumerate(reader):
             print(index)
-            cur.execute("INSERT INTO upcoming VALUES (%s, %s, %s, %s, %s)", row[:6])
+            cur.execute("INSERT INTO upcoming VALUES (%s, %s, %s, %s, %s, %s)", row[:6])
 
 print("Commiting files to the database")
 conn.commit()

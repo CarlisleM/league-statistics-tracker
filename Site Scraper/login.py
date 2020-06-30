@@ -221,14 +221,17 @@ for league_url in list_of_leagues_to_scrape:
 
     ##### SECTION DIVIDER HERE ##### 
 
+    # Create a csv file to store upcoming matches
+    tbd_outfile = "./" + league + " Upcoming Games.csv"
+    tbd_outfile = open(tbd_outfile, "w")
+    tbd_writer = csv.writer(tbd_outfile)
+
     # Get list of matches for entire split (dates, teams and score)
     for week in range(1, 15):
         class_string_1 = 'ml-allw ml-w' + str(week) + ' ml-row'
         class_string_2 = 'ml-allw ml-w' + str(week) + ' ml-row matchlist-newday'
 
         games = soup.find_all(attrs={"class": [class_string_1, class_string_2]})
-
-#        test_winner = soup.select('.matchlist-winner-team , .matchlist-winner-team')
 
         ############ THIS SECTION GIVES US THE MOST RECENT GAME PLAYED
         if (len(games) > 0):
@@ -253,13 +256,8 @@ for league_url in list_of_leagues_to_scrape:
         number_of_games_played = len(games)
         number_of_games_in_week = int((len(soup.select('.ml-w' + str(week) + ' .ml-team')))/2)
 
-        if (number_of_games_played == 0) or (number_of_games_played != number_of_games_in_week):
-            if (tbdcount == 0): # Only get the current week
-                # Create a csv file to store upcoming matches
-                tbd_outfile = "./" + league + " Upcoming Games.csv"
-                tbd_outfile = open(tbd_outfile, "w")
-                tbd_writer = csv.writer(tbd_outfile)
-
+        if (number_of_games_in_week > 0):
+            if (number_of_games_played == 0) or (number_of_games_played != number_of_games_in_week):
                 date_class_1 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd'
                 date_class_2 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd matchlist-newday'
 
@@ -325,6 +323,7 @@ for league_url in list_of_leagues_to_scrape:
                             for idx, character in enumerate(tbd_team_name):
                                 if tbd_team_name[:idx].lower() in get_team_name_from_league:
                                     tbd_team_1 = tbd_team_name[:idx].lower()
+                            date_team_vs.append(str(week))
                             date_team_vs.append(league_id) 
                             date_team_vs.append(match_date[0]) # Add the day of the match
                             date_team_vs.append(match_date[1]) # Add the date of the match
@@ -338,9 +337,7 @@ for league_url in list_of_leagues_to_scrape:
                             date_team_vs = []
 
                         team_1 = not team_1
-
-                tbdcount += 1
-                ####################################################################################
+        ####################################################################################
 
         for game in games:
             split_game_data = (game.text).split()
@@ -424,8 +421,6 @@ for league_url in list_of_leagues_to_scrape:
         for match in match_data:
             if match[4] == 'scrape':
                 print('Scraping...')
-                # print("Idx winner")
-                # print((test_winner[idx].text))
                 print(match)
 
                 # Reset variables to avoid wrong team being printed if the data cannot be found
@@ -435,26 +430,18 @@ for league_url in list_of_leagues_to_scrape:
                 first_baron = ' '
                 first_inhibitor = ' '
 
-                print("Getting page info from")
-                print(match[5])
                 page_info = get_page_source(match[5])
                 page_source = page_info[0]
                 page_status = page_info[1]
-                print("Got page info")
 
                 if page_status == 'ready':
-                    print("Getting new soup")
                     soup = BeautifulSoup(page_source, 'html.parser')
-                    print("Got new soup")
-
                     player_team_names = soup.findAll('div', attrs={'class':'champion-nameplate-name'})
                     for idx, player in enumerate(player_team_names):
                         if idx == 0:
                             blue_team = player.text.strip().split()[0].lower()
-                            print(blue_team)
                         if idx == 5:
                             red_team = player.text.strip().split()[0].lower()
-                            print(red_team)
                     
                     if blue_team in match[2] and blue_team in match[3]:
                         if red_team in match[3]:

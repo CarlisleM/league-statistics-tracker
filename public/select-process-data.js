@@ -288,6 +288,15 @@ function change_team_options(leaguename) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 // Upcoming match div
+
+
+                var week = document.createElement("div");
+                week.setAttribute('class', 'match_row');
+                let week_text = document.createElement("week_text");
+                week_text.innerHTML = "Week " + data.upcoming_matches[k].match_week;
+                week.append(week_text);
+                body.appendChild(week);
+
                 var match = document.createElement("div");
                 match.setAttribute('class', 'match_row');
                 match.id = '' + data.upcoming_matches[k].blue_team + ' ' + data.upcoming_matches[k].red_team;
