@@ -202,7 +202,7 @@ display: none;
 
 .match_column_2 {
   float: left;
-  width: 140px; 
+  width: 145px; 
   height: 100px;
   text-align: center;
   vertical-align: middle;
@@ -210,7 +210,7 @@ display: none;
 }
 
 .match_column_3 {
-  margin-right: 10px;
+  margin-right: 5px;
   float: right;
   width: 100px; 
   height: 100px; 
