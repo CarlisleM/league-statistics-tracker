@@ -330,7 +330,12 @@ function change_team_options(leaguename) {
                 // Date of match
                 var upcoming_match_date = document.createElement("div");
                 upcoming_match_date.setAttribute('class', 'match_column_2');
-                upcoming_match_date.innerHTML = '<p>' + data.upcoming_matches[k].match_day + ' ' + data.upcoming_matches[k].game_date.split("T")[0] + '</p>'
+                
+                var date = data.upcoming_matches[k].game_date.split("T")[0];
+                date = date.split("-").reverse().join("-");
+                console.log(date);
+                upcoming_match_date.innerHTML = '<p>' + data.upcoming_matches[k].match_day + ' ' + date + '</p>'
+                // upcoming_match_date.innerHTML = '<p>' + data.upcoming_matches[k].match_day + ' ' + data.upcoming_matches[k].game_date.split("T")[0] + '</p>'
                 match.appendChild(upcoming_match_date);
 
                 // Team 2
