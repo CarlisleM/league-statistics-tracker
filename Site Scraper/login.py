@@ -218,26 +218,22 @@ for league_url in list_of_leagues_to_scrape:
 
     match_data = []
     tbdcount = 0
-
-    ##### SECTION DIVIDER HERE ##### 
+    current_match_index = 0
 
     # Create a csv file to store upcoming matches
     tbd_outfile = "./" + league + " Upcoming Games.csv"
     tbd_outfile = open(tbd_outfile, "w")
     tbd_writer = csv.writer(tbd_outfile)
 
-    running_total = 0
-
     # Get list of matches for entire split (dates, teams and score)
     for week in range(1, 15):
+        match_counter = 0
+
         class_string_1 = 'ml-allw ml-w' + str(week) + ' ml-row'
         class_string_2 = 'ml-allw ml-w' + str(week) + ' ml-row matchlist-newday'
 
-        match_counter = 0
-
         games = soup.find_all(attrs={"class": [class_string_1, class_string_2]})
 
-        ############ THIS SECTION GIVES US THE MOST RECENT GAME PLAYED
         if (len(games) > 0):
             final_match = games[len(games)-1]
             final_match = (final_match.text).split()
@@ -255,13 +251,11 @@ for league_url in list_of_leagues_to_scrape:
                     most_recent_game_t2 = final_match_t2[-idx:].lower()
                     most_recent_game_t2 = most_recent_game_t2.strip()
 
-        ####################################################################################
-
         number_of_games_played = len(games)
         number_of_games_in_week = int((len(soup.select('.ml-w' + str(week) + ' .ml-team')))/2)
 
         if number_of_games_in_week == number_of_games_played:
-            running_total += number_of_games_in_week
+            current_match_index += number_of_games_in_week
 
         if (number_of_games_in_week > 0):
             if (number_of_games_played == 0) or (number_of_games_played != number_of_games_in_week):
@@ -277,14 +271,14 @@ for league_url in list_of_leagues_to_scrape:
 
                 date_teams_class = '.matchlist-tab-wrapper:nth-child(' + str(week) + ') , .team , .ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'
                 
-                tester_class = 'ofl-toggle-' + str(toggle_number) + '-2 ofl-toggler-' + str(toggle_number) + '-all'
-                testfind = soup.find_all(attrs={"class": tester_class}) 
-                testerfind = testfind[running_total:running_total+number_of_games_in_week]
+                match_time_class = 'ofl-toggle-' + str(toggle_number) + '-2 ofl-toggler-' + str(toggle_number) + '-all'
+                all_match_time = soup.find_all(attrs={"class": match_time_class}) 
+                match_times = all_match_time[current_match_index:current_match_index+number_of_games_in_week]
 
                 if number_of_games_played > 0: 
-                    running_total += number_of_games_in_week-number_of_games_played
+                    current_match_index += number_of_games_in_week-number_of_games_played
                 else:
-                    running_total += number_of_games_in_week
+                    current_match_index += number_of_games_in_week
 
                 tbdgames = soup.find_all(attrs={"class": [date_class_1, date_class_2]})
                 tbd_teams_dates = soup.select(date_teams_class)
@@ -342,7 +336,7 @@ for league_url in list_of_leagues_to_scrape:
                             date_team_vs.append(league_id) # Add what league the match is from
                             date_team_vs.append(match_date[0]) # Add the day of the match
                             date_team_vs.append(match_date[1]) # Add the date of the match
-                            date_team_vs.append(testerfind[match_counter].text) # Add the time of the match
+                            date_team_vs.append(match_times[match_counter].text) # Add the time of the match
                             date_team_vs.append(tbd_team_1) # Add team 1
                             match_counter += 1
                         else:                            
@@ -354,7 +348,6 @@ for league_url in list_of_leagues_to_scrape:
                             date_team_vs = []
                         
                         team_1 = not team_1
-        ####################################################################################
 
         for game in games:
             split_game_data = (game.text).split()

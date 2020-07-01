@@ -285,18 +285,19 @@ function change_team_options(leaguename) {
         match_divs[i].remove();
     }
 
-    test = 0;
+    // first_week = 0;
 
     var k = 0;
     let body = document.getElementsByClassName("upcoming-matches")[0];
     fetchUpcomingGames('my_data_dump.json', function(data) {
+        first_week = 0;
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 // Upcoming match div
                 current_week = data.upcoming_matches[k-1].match_week;
                 next_week = data.upcoming_matches[k].match_week;
 
-                if (current_week != next_week || test == 0)
+                if (current_week != next_week || first_week == 0)
                 {
                     var week = document.createElement("div");
                     week.setAttribute('class', 'week_row');
@@ -304,7 +305,7 @@ function change_team_options(leaguename) {
                     week_text.innerHTML = "<p>Week " + data.upcoming_matches[k].match_week + '</p>';
                     week.append(week_text);
                     body.appendChild(week);
-                    test += 1;
+                    first_week += 1;
                 }
 
                 var match = document.createElement("div");
