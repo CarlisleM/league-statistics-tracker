@@ -192,6 +192,9 @@ display: none;
   padding: 5px;
   border-bottom-style: solid;
   border-bottom-width: thin;
+}
+
+.match_row p {
   font-weight: bold;
 }
 
@@ -205,6 +208,7 @@ display: none;
   float: left;
   width: 147px; 
   height: 100px;
+  display: table; 
   /* text-align: center;
   display:table-cell;
   vertical-align: middle; */
@@ -213,8 +217,9 @@ display: none;
 
 .match_column_2 p {
   display: table-cell; 
+  text-align: center;
   vertical-align: middle; 
-  text-align: center; 
+  font-weight: normal;
 }
 
 .match_column_3 {
