@@ -293,8 +293,16 @@ function change_team_options(leaguename) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 // Upcoming match div
-                current_week = data.upcoming_matches[k-1].match_week;
-                next_week = data.upcoming_matches[k].match_week;
+                if (k != 0)
+                {
+                    current_week = data.upcoming_matches[k-1].match_week;
+                    next_week = data.upcoming_matches[k].match_week;
+                }
+                else
+                {
+                    current_week = data.upcoming_matches[k].match_week;
+                    next_week = data.upcoming_matches[k+1].match_week;
+                }
 
                 if (current_week != next_week || first_week == 0)
                 {
