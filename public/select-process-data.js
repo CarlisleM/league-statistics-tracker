@@ -303,7 +303,7 @@ function change_team_options(leaguename) {
                     var week = document.createElement("div");
                     week.setAttribute('class', 'week_row');
                     let week_text = document.createElement("week_text");
-                    week_text.innerHTML = "Week " + data.upcoming_matches[k].match_week;
+                    week_text.innerHTML = "<p>Week " + data.upcoming_matches[k].match_week + '</p>';
                     week.append(week_text);
                     body.appendChild(week);
                     test += 1;
