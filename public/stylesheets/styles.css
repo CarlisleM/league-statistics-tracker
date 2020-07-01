@@ -179,9 +179,6 @@ display: none;
   line-height: 25px;
   border-top: thick double;
   border-bottom: thick double;
-}
-
-.week_row p {
   font-weight: bold;
 }
 
