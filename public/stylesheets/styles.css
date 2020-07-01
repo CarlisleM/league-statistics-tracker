@@ -173,6 +173,8 @@ display: none;
   width: 100%;
   height: 25px;
   margin: auto;
+  text-align: center;
+  vertical-align: middle;
   border-top: thick double;
   border-bottom: thick double;
   display: table;
@@ -180,8 +182,8 @@ display: none;
 
 .week_row p {
   display: table-cell; 
-  text-align: center;
-  vertical-align: middle;
+  /* text-align: center;
+  vertical-align: middle; */
   font-weight: bold;
 }
 
