@@ -333,7 +333,7 @@ function change_team_options(leaguename) {
                 
                 var date = data.upcoming_matches[k].game_date.split("T")[0];
                 date = date.split("-").reverse().join("-");
-                upcoming_match_date.innerHTML = '<p>' + data.upcoming_matches[k].match_day + ' ' + date + ' ' + data.upcoming_matches[k].match_time + '</p>' 
+                upcoming_match_date.innerHTML = '<p>' + data.upcoming_matches[k].match_day + ' ' + date + '</p><p>'  + data.upcoming_matches[k].match_time + '</p>'
                 match.appendChild(upcoming_match_date);
 
                 // Team 2
