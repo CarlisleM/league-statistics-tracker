@@ -58,7 +58,7 @@ app.get('/upcoming', async (req, res) => {
   })
   client.connect()
 
-  const result = await client.query("SELECT * FROM upcoming WHERE (game_date = DATE(NOW()) and match_time < timezone('PDT', NOW())::TIME) or game_date > DATE(NOW());")
+  const result = await client.query("SELECT * FROM upcoming WHERE (game_date = DATE(NOW()) AND TO_TIMESTAMP(match_time,'HH24:MI:SS')::TIME < timezone('PDT', NOW())::TIME) OR game_date > DATE(NOW());")
   await client.end()
   res.json({ upcoming_matches: result.rows })
 })
