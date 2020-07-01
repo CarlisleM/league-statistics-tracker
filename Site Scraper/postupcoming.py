@@ -6,14 +6,6 @@ import time
 import sys
 import json
 import os
-from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from selenium.webdriver.common.keys import Keys
-from team_name_mapper import *
 import timeit
 from datetime import datetime
 import pytz
@@ -48,10 +40,9 @@ for file in input_files:
     print("Adding upcoming matches from " + file + ' to the database')
     with open(file, 'r') as f:
         reader = csv.reader(f)
-        next(reader) # Skip the header row
         for (index, row) in enumerate(reader):
             print(index)
-            cur.execute("INSERT INTO upcoming VALUES (%s, %s, %s, %s, %s, %s)", row[:6])
+            cur.execute("INSERT INTO upcoming VALUES (%s, %s, %s, %s, %s, %s, %s)", row[:7])
 
 print("Commiting files to the database")
 conn.commit()
