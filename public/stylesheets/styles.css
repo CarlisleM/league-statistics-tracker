@@ -181,6 +181,10 @@ display: none;
   border-bottom: thick double;
 }
 
+.week_row p {
+  font-weight: bold;
+}
+
 .match_row:hover {
   background-color: #A9A9A9; 
 }
@@ -194,10 +198,6 @@ display: none;
   border-bottom-width: thin;
 }
 
-.match_row p {
-  font-weight: bold;
-}
-
 .match_column_1 {
   float: left;
   width: 100px; 
@@ -208,11 +208,7 @@ display: none;
   float: left;
   width: 147px; 
   height: 100px;
-  display: table; 
-  /* text-align: center;
-  display:table-cell;
-  vertical-align: middle; */
-  /* line-height: 100px; */
+  display: table;
 }
 
 .match_column_2 p {
