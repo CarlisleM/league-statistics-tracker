@@ -263,9 +263,6 @@ for league_url in list_of_leagues_to_scrape:
         if number_of_games_in_week == number_of_games_played:
             running_total += number_of_games_in_week
 
-        # print(number_of_games_played)
-        # print(number_of_games_in_week)
-
         if (number_of_games_in_week > 0):
             if (number_of_games_played == 0) or (number_of_games_played != number_of_games_in_week):
                 date_class_1 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd'
@@ -280,37 +277,14 @@ for league_url in list_of_leagues_to_scrape:
 
                 date_teams_class = '.matchlist-tab-wrapper:nth-child(' + str(week) + ') , .team , .ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'
                 
-                print("Test find here")
                 tester_class = 'ofl-toggle-' + str(toggle_number) + '-2 ofl-toggler-' + str(toggle_number) + '-all'
-                # tester_class = 'matchlist-time-cell plainlinks'
                 testfind = soup.find_all(attrs={"class": tester_class}) 
-                print(len(testfind))
-
-                # for test in testfind:
-                #     print(test.text)
-
-                # print('end new test')
-                # print(running_total)
-
                 testerfind = testfind[running_total:running_total+number_of_games_in_week]
-
-                print("week: " +  str(week))
-                # testerfind = testfind[0:number_of_games_in_week]
-                print(running_total)
-                print(running_total+number_of_games_in_week)
-
-                for test in testerfind:
-                    print(test.text)
-                print("End test find here")
 
                 if number_of_games_played > 0: 
                     running_total += number_of_games_in_week-number_of_games_played
-                    # print('here')
-                    # print(running_total)
                 else:
-                    # print('here2')
                     running_total += number_of_games_in_week
-                    # print(running_total)
 
                 tbdgames = soup.find_all(attrs={"class": [date_class_1, date_class_2]})
                 tbd_teams_dates = soup.select(date_teams_class)
@@ -354,18 +328,8 @@ for league_url in list_of_leagues_to_scrape:
 
                 team_1 = True
 
-                # print('week: ' + str(week))
-                # print(running_total)
-                # print('test here')
-                # print(len(splice_to_current_week))
-                # print(len(testerfind))
-
-                # for test in testerfind:
-                #     print(test.text)
-
                 for data in splice_to_current_week:
                     split_data = (data.text).split()
-                    # print(split_data)
                     if 'Mon' in split_data or 'Tue' in split_data or 'Wed' in split_data or 'Thu' in split_data or  'Fri' in split_data or 'Sat' in split_data or 'Sun' in split_data:                        
                         match_date = split_data
                     else:
@@ -374,13 +338,11 @@ for league_url in list_of_leagues_to_scrape:
                             for idx, character in enumerate(tbd_team_name):
                                 if tbd_team_name[:idx].lower() in get_team_name_from_league:
                                     tbd_team_1 = tbd_team_name[:idx].lower()
-                            date_team_vs.append(str(week))
-                            date_team_vs.append(league_id) 
+                            date_team_vs.append(str(week)) # Add the week of the match
+                            date_team_vs.append(league_id) # Add what league the match is from
                             date_team_vs.append(match_date[0]) # Add the day of the match
                             date_team_vs.append(match_date[1]) # Add the date of the match
-                            # print(match_counter)
-                            # print(testerfind[match_counter].text)
-                            date_team_vs.append(testerfind[match_counter].text)
+                            date_team_vs.append(testerfind[match_counter].text) # Add the time of the match
                             date_team_vs.append(tbd_team_1) # Add team 1
                             match_counter += 1
                         else:                            
@@ -396,7 +358,6 @@ for league_url in list_of_leagues_to_scrape:
 
         for game in games:
             split_game_data = (game.text).split()
-            print(split_game_data)
             team_1_score_date = split_game_data[0]
             team_2_string = split_game_data[4]
 
@@ -514,37 +475,12 @@ for league_url in list_of_leagues_to_scrape:
 
                     print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
 
-                    #game_winner = soup.select('.team-100') # Winner/Loser
-
                     game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
-                    #game_winner = soup.select('.team-100 .game-conclusion') # Winner/Loser
-                    #game_winner = soup.select('.team-100') # Winner/Loser
-                    # #game_winner = soup.select('.game-conclusion') # Winner/Loser
-
-                    print(game_winner)
-
-                    # print("loop")
-                    # for x in game_winner:
-                    #     print((x.text).split())
-                    # print('end loop')
-
-                    #print(game_winner)
-
-                    # game_winner = [''.join(i.stripped_strings) for i in game_winner if i]
-                    # game_winner = game_winner[0]
-                    # print("Game winner")
-                    # print((game_winner.text).strip())
-
-                    # .team-100 .game-conclusion
-                    #//*[contains(concat( " ", @class, " " ), concat( " ", "team-100", " " ))]//*[contains(concat( " ", @class, " " ), concat( " ", "game-conclusion", " " ))]
-                    #soup.select('.team-100 .game-conclusion')
-
+                    
                     if str(game_winner).strip() in 'VICTORY':
-                        print("Blue team won")
                         game_winner = blue_team
                         game_loser = red_team
                     else:
-                        print("Red team won")
                         game_winner = red_team
                         game_loser = blue_team
 

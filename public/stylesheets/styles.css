@@ -179,6 +179,13 @@ display: none;
   line-height: 25px;
   border-top: thick double;
   border-bottom: thick double;
+  display: table;
+}
+
+.week_row p {
+  display: table-cell; 
+  text-align: center;
+  vertical-align: middle;
   font-weight: bold;
 }
 

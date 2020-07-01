@@ -30,7 +30,7 @@ function fetchJSONFile(path, callback) {
     httpRequest.send();
 }
 
-function testFetch(path, callback) {
+function fetchUpcomingGames(path, callback) {
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
         if (httpRequest.readyState === 4) {
@@ -44,8 +44,6 @@ function testFetch(path, callback) {
     httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/upcoming');
     httpRequest.send();
 }
-
-function isOdd(num) { return num % 2;}
 
 function change_team_options(leaguename) {
     var number_of_options = document.querySelector('#team_one_select').options;
@@ -291,7 +289,7 @@ function change_team_options(leaguename) {
 
     var k = 0;
     let body = document.getElementsByClassName("upcoming-matches")[0];
-    testFetch('my_data_dump.json', function(data) {
+    fetchUpcomingGames('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 // Upcoming match div
