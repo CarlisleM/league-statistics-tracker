@@ -59,7 +59,8 @@ app.get('/upcoming', async (req, res) => {
   client.connect()
 
   // const result = await client.query('SELECT match_week, league_id, match_day, game_date, blue_team, red_team FROM upcoming')
-  const result = await client.query('SELECT * FROM upcoming WHERE game_date >= DATE(NOW());')
+  const result = await client.query("SELECT * FROM upcoming WHERE (game_date = DATE(NOW()) and TO_TIMESTAMP(match_time, 'HH24:MI:SS')::TIME < current_time) or game_date > DATE(NOW());")
+
   await client.end()
   res.json({ upcoming_matches: result.rows })
 })
