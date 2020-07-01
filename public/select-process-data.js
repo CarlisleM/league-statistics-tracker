@@ -285,12 +285,11 @@ function change_team_options(leaguename) {
         match_divs[i].remove();
     }
 
-    // first_week = 0;
-
+    var first_week = 0;
     var k = 0;
+
     let body = document.getElementsByClassName("upcoming-matches")[0];
     fetchUpcomingGames('my_data_dump.json', function(data) {
-        first_week = 0;
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
                 // Upcoming match div
