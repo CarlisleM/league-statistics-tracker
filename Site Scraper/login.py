@@ -261,6 +261,9 @@ for league_url in list_of_leagues_to_scrape:
             if (number_of_games_played == 0) or (number_of_games_played != number_of_games_in_week):
                 date_class_1 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd'
                 date_class_2 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd matchlist-newday'
+                date_class_3 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd matchlist-flex'
+                date_class_4 = 'ml-allw ml-w' + str(week) + ' ml-row-tbd matchlist-newday matchlist-flex'
+                date_class_5 = 'ml-allw ml-w' + str(week) + ' ml-row ml-row-tbd matchlist-newday matchlist-flex'
 
                 toggle_number = 1
                 length_counter = len(soup.select('.ml-w' + str(week) + '.ofl-toggler-' + str(toggle_number) + '-all span'))
@@ -273,14 +276,19 @@ for league_url in list_of_leagues_to_scrape:
                 
                 match_time_class = 'ofl-toggle-' + str(toggle_number) + '-2 ofl-toggler-' + str(toggle_number) + '-all'
                 all_match_time = soup.find_all(attrs={"class": match_time_class}) 
-                match_times = all_match_time[current_match_index:current_match_index+number_of_games_in_week]
 
-                if number_of_games_played > 0: 
-                    current_match_index += number_of_games_in_week-number_of_games_played
+                if number_of_games_played == 0:
+                    match_times = all_match_time[current_match_index:current_match_index+number_of_games_in_week]
                 else:
-                    current_match_index += number_of_games_in_week
+                    match_times = all_match_time[current_match_index+number_of_games_played:current_match_index+number_of_games_in_week]
+
+                current_match_index += number_of_games_in_week
 
                 tbdgames = soup.find_all(attrs={"class": [date_class_1, date_class_2]})
+
+                if (len(tbdgames) == 0):
+                    tbdgames = soup.find_all(attrs={"class": [date_class_1, date_class_2, date_class_3, date_class_4, date_class_5]})
+
                 tbd_teams_dates = soup.select(date_teams_class)
 
                 date_counter = 0
