@@ -46,34 +46,34 @@
 }
 
 .leftTable {
-  width: 48%; 
+  width: 50%; 
   float: left;
 }
 
 .rightTable {
-  width: 48%; 
+  width: 50%; 
   float: right;
 }
 
 .leftTeamSelect {
   float: left;
-  margin-left: 42%; 
+  margin-left: 35%; 
 }
 
 .rightTeamSelect {
   float: right;
-  margin-right: 42%; 
+  margin-right: 35%; 
 }
 
 #tableDiv {
-  margin-left: 2%;
+  margin-left: 1.5%;
   margin-top: 40px; 
   float: left;
   text-align:center;
 }
 
 #tableDiv2 {
-  margin-right: 2%;
+  margin-right: 1.5%;
   margin-top: 40px;
   float: right; 
   text-align:center;
