@@ -392,6 +392,8 @@ function change_team_options(leaguename) {
 
 // Table one
 function change_team_one_select(selected_team) {
+    change_team_1_icon(selected_team);
+
     if (document.getElementById("league").innerHTML == "LCS") {
         var league = 1;
     } else if (document.getElementById("league").innerHTML == "LCK") { 
@@ -616,6 +618,8 @@ function change_team_one_select(selected_team) {
 
 // Table two
 function change_team_two_select(selected_team) {
+    change_team_2_icon(selected_team);
+
     if (document.getElementById("league").innerHTML == "LCS") {
         var league = 1;
     } else if (document.getElementById("league").innerHTML == "LCK") { 
