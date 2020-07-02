@@ -6,10 +6,10 @@
 
 /* Navigation */
 .topnav {
-  padding-left: 10%;
+  margin-left: 10%;
   background-color: black;
   overflow: hidden;
-  width: 100%;
+  width: 65%;
 }
 
 /* Style the links inside the navigation bar */
@@ -29,9 +29,10 @@
 }
 
 .matchData { 
-  width: 75%;
+  width: 65%;
   float: left;
   margin-top: 50px;
+  margin-left: 10%;
 }
 
 .leftTable {
@@ -298,7 +299,7 @@ td {
 
 .sidenav {
   height: 100%;
-  width: 120px;
+  width: 10%;
   position: fixed;
   z-index: 1;
   top: 0;
