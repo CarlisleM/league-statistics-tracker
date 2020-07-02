@@ -358,6 +358,11 @@ function change_team_options(leaguename) {
                     var team_names = (this.id).split(" ");
                     change_team_one_select(team_names[0]);
                     change_team_two_select(team_names[1]);
+
+                    var team_one_sel = document.getElementById("team_one_select");
+                    var team_two_sel = document.getElementById("team_two_select");
+                    team_one_sel.value = team_names[0];
+                    team_two_sel.value = team_names[1];
                 }
             }    
             k++;
