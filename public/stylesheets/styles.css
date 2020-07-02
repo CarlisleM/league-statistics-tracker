@@ -45,6 +45,11 @@
   margin-left: 10%;
 }
 
+.teamLogoRow {
+  float: left;
+  margin-left: 35%; 
+}
+
 .leftTable {
   width: 50%; 
   float: left;

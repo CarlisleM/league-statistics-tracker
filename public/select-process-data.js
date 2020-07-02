@@ -45,6 +45,10 @@ function fetchUpcomingGames(path, callback) {
     httpRequest.send();
 }
 
+function change_team_1_icon(selected_team) {
+    document.getElementById("imgClickAndChange").src = "images/TeamLogos/" + selected_team +  ".png";
+}
+
 function change_team_options(leaguename) {
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
@@ -363,8 +367,9 @@ function change_team_options(leaguename) {
                     var team_two_sel = document.getElementById("team_two_select");
                     team_one_sel.value = team_names[0];
                     team_two_sel.value = team_names[1];
+                    change_team_1_icon(team_names);
                 }
-            }    
+            }
             k++;
         }
     });
