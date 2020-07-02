@@ -6,16 +6,26 @@
 
 /* Navigation */
 .topnav {
-  margin-left: 10%;
+  /* margin-left: 10%; */
   background-color: black;
   overflow: hidden;
   width: 65%;
+  margin-left: 10%;
+  list-style: none;
+  /* margin: 0;
+  padding: 0; */
+  text-align: center;
+}
+
+.topnav li{
+  display: inline;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
-  float: left;
+  /* float: left; */
   color: #f2f2f2;
+  display: inline-block;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -47,12 +57,12 @@
 
 .leftTeamSelect {
   float: left;
-  margin-left: 50%; 
+  margin-left: 42%; 
 }
 
 .rightTeamSelect {
   float: right;
-  margin-right: 50%; 
+  margin-right: 42%; 
 }
 
 #tableDiv {
