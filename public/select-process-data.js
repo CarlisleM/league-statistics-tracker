@@ -46,11 +46,11 @@ function fetchUpcomingGames(path, callback) {
 }
 
 function change_team_1_icon(selected_team) {
-    document.getElementById("imgClickAndChange").src = "images/TeamLogos/" + selected_team +  ".png";
+    document.getElementById("team_one_image").src = "images/TeamLogos/" + selected_team +  ".png";
 }
 
 function change_team_2_icon(selected_team) {
-    document.getElementById("imgClickAndChange").src = "images/TeamLogos/" + selected_team +  ".png";
+    document.getElementById("team_two_image").src = "images/TeamLogos/" + selected_team +  ".png";
 }
 
 function change_team_options(leaguename) {
