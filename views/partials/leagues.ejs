@@ -21,8 +21,8 @@
         var h = today.getHours();
         var m = today.getMinutes();
         var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
+        // m = checkTime(m);
+        // s = checkTime(s);
 
         time = h + ":" + m + ":" + s;
 
@@ -35,6 +35,11 @@
 
         // call this function again in 1000ms
         setTimeout(updateClock, 1000);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
     }
 
     updateClock(); // initial call
