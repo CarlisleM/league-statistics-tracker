@@ -17,13 +17,11 @@
                 now.getFullYear()].join(' ');
 
         var today = new Date();
-        var current_pdt = new Date(today).toLocaleString(undefined, {
-            timeZone: 'America/Los_Angeles'
-        })
-        //current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
-        var h = current_pdt.getHours();
-        var m = current_pdt.getMinutes();
-        var s = current_pdt.getSeconds();
+        current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
+        console.log(today.hour);
+        var h = today.hour();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
         // m = checkTime(m);
         // s = checkTime(s);
 
