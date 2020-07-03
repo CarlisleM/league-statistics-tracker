@@ -18,8 +18,9 @@
 
         var today = new Date();
         current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
-        console.log(today.hour);
-        var h = today.hour();
+        console.log(current_pdt.hour);
+        console.log(current_pdt.hour());
+        var h = current_pdt.hour();
         var m = today.getMinutes();
         var s = today.getSeconds();
         // m = checkTime(m);
