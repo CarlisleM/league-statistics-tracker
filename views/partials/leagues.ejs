@@ -25,7 +25,9 @@
         m = checkTime(m);
         s = checkTime(s);
 
-        document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+        time = h + ":" + m + ":" + s;
+
+        document.getElementById('txt').innerHTML = [time];
 
         // set the content of the element with the ID time to the formatted string
  
