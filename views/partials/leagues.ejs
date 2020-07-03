@@ -8,33 +8,25 @@
 <script>
     function updateClock() {
         var now = new Date(), // current date
-        months = ['January', 'February', '...']; // you get the idea
-        time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(), // again, you get the idea
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; // you get the idea
 
-        // a cleaner way than string concatenation
+        if (now.getMinutes() < 10) { 
+            time = now.getHours() + ':0' + now.getMinutes() + ':' + now.getSeconds(); // again, you get the idea
+        }
+        else
+        {
+            time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(); // again, you get the idea
+        }    
+
+
+        // a cleaner way than string concaten ation
         date = [now.getDate(), 
                 months[now.getMonth()],
-                now.getFullYear()].join(' ');
+                now.getFullYear()].join(' '); 
 
-        var today = new Date();
-        current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
-        console.log(current_pdt.hour);
-        console.log(current_pdt.hour());
-        var h = current_pdt.hour();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        // m = checkTime(m);
-        // s = checkTime(s);
+        document.getElementById('txt').innerHTML = [date, time].join(' - ');
 
-        time = h + ":" + m + ":" + s;
-
-        document.getElementById('txt').innerHTML = [time];
-
-        // set the content of the element with the ID time to the formatted string
- 
-        document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
-        // document.getElementById('txt').innerHTML = [date, time].join(' / ');
-
+        // current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
         // call this function again in 1000ms
         setTimeout(updateClock, 1000);
     }
