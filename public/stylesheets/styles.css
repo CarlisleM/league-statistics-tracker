@@ -46,15 +46,17 @@
 }
 
 .teamLogoRow {
-  float: left;
-  margin-left: 35%; 
+  float: left; 
+  clear: left;
+  margin-left: 40%;
+  padding-top: 10px;
 }
 
 .teamLogoRow2 {
-  height: 100px;
-  width: 100px;
-  float: right;
-  margin-right: 35%; 
+  float: right; 
+  clear: left;
+  margin-right: 40%;
+  padding-top: 10px;
 }
 
 .leftTable {
