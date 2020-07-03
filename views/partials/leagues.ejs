@@ -19,8 +19,8 @@
         var today = new Date();
         current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
         var h = today.getHours();
-        var m = current_pdt.getMinutes();
-        var s = current_pdt.getSeconds();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
         m = checkTime(m);
         s = checkTime(s);
 
