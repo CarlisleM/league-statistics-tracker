@@ -2,25 +2,6 @@ document.head = document.head || document.getElementsByTagName('head')[0];
 
 var dt = new Date();
 
-
-function updateClock() {
-    var now = new Date(), // current date
-        months = ['January', 'February', '...']; // you get the idea
-        time = now.getHours() + ':' + now.getMinutes(), // again, you get the idea
-
-        // a cleaner way than string concatenation
-        date = [now.getDate(), 
-                months[now.getMonth()],
-                now.getFullYear()].join(' ');
-
-    // set the content of the element with the ID time to the formatted string
-    document.getElementById('txt').innerHTML = [date, time].join(' / ');
-
-    // call this function again in 1000ms
-    setTimeout(updateClock, 1000);
-}
-
-updateClock(); // initial call
 // function startTime() {
 //     var today = new Date();
 //     current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
