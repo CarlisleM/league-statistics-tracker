@@ -301,6 +301,7 @@ function change_team_options(leaguename) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
 
+                // Show data for first upcoming match by default when league changes
                 if (first_week == 0)
                 {
                     change_team_one_select(data.upcoming_matches[k].blue_team);
