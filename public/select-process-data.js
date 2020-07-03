@@ -53,8 +53,8 @@ function change_team_2_icon(selected_team) {
     document.getElementById("team_two_image").src = "images/TeamLogos/" + selected_team +  ".png";
 }
 
-function hide_main_divs() {
-    var team_one_div = document.getElementById("team_one_table");    
+function hide_div(this_div) {
+    var team_one_div = document.getElementById(this_div);    
     team_one_div.style.display = "none";
   }
 
