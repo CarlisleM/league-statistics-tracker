@@ -7,17 +7,30 @@
 
 <script>
     function updateClock() {
-    var now = new Date(), // current date
+        var now = new Date(), // current date
         months = ['January', 'February', '...']; // you get the idea
-        time = now.getHours() + ':' + now.getMinutes(), // again, you get the idea
+        time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(), // again, you get the idea
 
         // a cleaner way than string concatenation
         date = [now.getDate(), 
                 months[now.getMonth()],
                 now.getFullYear()].join(' ');
 
+        
+        var today = new Date();
+        current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
+        var h = current_pdt.getHours();
+        var m = current_pdt.getMinutes();
+        var s = current_pdt.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+
+        document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+
         // set the content of the element with the ID time to the formatted string
-        document.getElementById('txt').innerHTML = [date, time].join(' / ');
+ 
+        document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+        // document.getElementById('txt').innerHTML = [date, time].join(' / ');
 
         // call this function again in 1000ms
         setTimeout(updateClock, 1000);
