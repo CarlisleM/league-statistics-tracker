@@ -97,8 +97,6 @@
   text-align: center;
 }
 
-/*.container { overflow: hidden; }*/
-
 @media (orientation: landscape) {
   .sideBar {
     margin-left: 75%;
@@ -194,6 +192,7 @@ display: none;
   text-align: center;
   vertical-align: middle;
   border-bottom-style: solid;
+  overflow: hidden;
 }
 
 .upcoming-matches {
@@ -272,7 +271,6 @@ td {
   border-color: black;
 }
 
-
 /* The dropdown container */
 .dropdown {
   float: left;
@@ -327,7 +325,6 @@ td {
   display: block;
 }
 
-
 .sidenav {
   height: 100%;
   width: 10%;
@@ -348,10 +345,4 @@ td {
   display:block;
   height:50x;
   line-height:50px;
-  /* text-align: center;
-  vertical-align: middle; */
 }
-
-/* .sidenav a:hover {
-  color: #f1f1f1;
-} */
