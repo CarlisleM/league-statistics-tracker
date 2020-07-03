@@ -313,13 +313,16 @@ function change_team_options(leaguename) {
     fetchUpcomingGames('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
-
                 // Show data for first upcoming match by default when league changes
                 if (first_week == 0)
                 {
+                    var team_one_sel = document.getElementById("team_one_select");
+                    team_one_sel.value = data.upcoming_matches[k].blue_team;
                     change_team_one_select(data.upcoming_matches[k].blue_team);
                     change_team_1_icon(data.upcoming_matches[k].blue_team);
 
+                    var team_two_sel = document.getElementById("team_two_select");
+                    team_two_sel.value = data.upcoming_matches[k].red_team;
                     change_team_two_select(data.upcoming_matches[k].red_team);
                     change_team_2_icon(data.upcoming_matches[k].red_team);
                 }
