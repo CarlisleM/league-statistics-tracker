@@ -53,6 +53,11 @@ function change_team_2_icon(selected_team) {
     document.getElementById("team_two_image").src = "images/TeamLogos/" + selected_team +  ".png";
 }
 
+function hide_main_divs() {
+    var team_one_div = document.getElementById("team_one_table");    
+    team_one_div.style.display = "none";
+  }
+
 function change_team_options(leaguename) {
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
