@@ -1,7 +1,5 @@
 document.head = document.head || document.getElementsByTagName('head')[0];
 
-var dt = new Date();
-
 // Site logo
 function changeFavicon(src) {
     var link = document.createElement('link'),
@@ -302,6 +300,16 @@ function change_team_options(leaguename) {
     fetchUpcomingGames('my_data_dump.json', function(data) {
         for(j in data.upcoming_matches) {
             if (data.upcoming_matches[k].league_id == current_league) {
+
+                if (first_week == 0)
+                {
+                    change_team_one_select(data.upcoming_matches[k].blue_team);
+                    change_team_1_icon(data.upcoming_matches[k].blue_team);
+
+                    change_team_two_select(data.upcoming_matches[k].red_team);
+                    change_team_2_icon(data.upcoming_matches[k].red_team);
+                }
+
                 // Upcoming match div
                 if (k != 0)
                 {
