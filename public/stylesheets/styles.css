@@ -6,14 +6,11 @@
 
 /* Navigation */
 .topnav {
-  /* margin-left: 10%; */
   background-color: black;
   overflow: hidden;
   width: 65%;
   margin-left: 10%;
   list-style: none;
-  /* margin: 0;
-  padding: 0; */
   text-align: center;
 }
 
@@ -187,6 +184,16 @@ display: none;
 
 .team_results tr:hover {
   background-color: #f5f5f5;
+}
+
+.current-time {
+  height: 45px;
+  width: 360px;
+  line-height: 50px;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom-style: solid;
 }
 
 .upcoming-matches {

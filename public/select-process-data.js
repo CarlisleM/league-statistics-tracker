@@ -1,5 +1,24 @@
 document.head = document.head || document.getElementsByTagName('head')[0];
 
+var dt = new Date();
+
+function startTime() {
+    var today = new Date();
+    current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
+    var h = current_pdt.getHours();
+    var m = current_pdt.getMinutes();
+    var s = current_pdt.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementsByClassName('current-time').innerHTML = h + ":" + m + ":" + s;
+    var t = setTimeout(startTime, 500);
+  }
+
+  function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+  }
+
 // Site logo
 function changeFavicon(src) {
     var link = document.createElement('link'),
