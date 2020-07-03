@@ -66,6 +66,37 @@ function show_match_data() {
     document.getElementsByClassName('matchData')[0].style.visibility = 'visible';
 }
 
+function hide_about_page() {
+
+}
+
+function show_about_page() {
+
+}
+
+function hide_faq_page() {
+    
+}
+
+function show_faq_page() {
+    
+}
+
+function hide_bethistory_page() {
+    
+}
+
+function show_bethistory_page() {
+    
+}
+
+function hide_all() {
+    hide_match_data();
+    hide_about_page();
+    hide_faq_page();
+    hide_bethistory_page();
+}
+
 function change_team_options(leaguename) {
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
