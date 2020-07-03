@@ -56,7 +56,11 @@ function change_team_2_icon(selected_team) {
 function hide_div(this_div) {
     var team_one_div = document.getElementById(this_div);    
     team_one_div.style.display = "none";
-  }
+}
+
+function hide_match_data() {
+    document.getElementsByClassName('matchData')[0].style.visibility = 'hidden';
+}
 
 function change_team_options(leaguename) {
     var number_of_options = document.querySelector('#team_one_select').options;
