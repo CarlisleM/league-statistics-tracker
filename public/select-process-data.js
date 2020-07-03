@@ -62,6 +62,10 @@ function hide_match_data() {
     document.getElementsByClassName('matchData')[0].style.visibility = 'hidden';
 }
 
+function show_match_data() {
+    document.getElementsByClassName('matchData')[0].style.visibility = 'visible';
+}
+
 function change_team_options(leaguename) {
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
@@ -383,6 +387,8 @@ function change_team_options(leaguename) {
                 match.appendChild(individual_team_2);
 
                 match.onmousedown = function() {
+                    show_match_data();
+
                     var team_names = (this.id).split(" ");
                     change_team_one_select(team_names[0]);
                     change_team_two_select(team_names[1]);
