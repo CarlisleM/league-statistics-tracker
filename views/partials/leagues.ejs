@@ -1,4 +1,3 @@
-<!-- <div class="testbox"></div> -->
 <div id="txt" class="current-time"></div>
 <div class="sideBar">
     <!-- <div id="txt" class="current-time"></div> -->
@@ -26,7 +25,7 @@
                 months[now.getMonth()],
                 now.getFullYear()].join(' '); 
 
-        document.getElementById('txt').innerHTML = [date, time].join(' - ');
+        document.getElementById('txt').innerHTML = [date, time].join(' - ') + " (PDT)";
 
         // current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
         // call this function again in 1000ms
