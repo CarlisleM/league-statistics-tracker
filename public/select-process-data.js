@@ -2,24 +2,6 @@ document.head = document.head || document.getElementsByTagName('head')[0];
 
 var dt = new Date();
 
-// function startTime() {
-//     var today = new Date();
-//     current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
-//     var h = current_pdt.getHours();
-//     var m = current_pdt.getMinutes();
-//     var s = current_pdt.getSeconds();
-//     m = checkTime(m);
-//     s = checkTime(s);
-//     document.getElementById('txt').innerHTML =
-//     h + ":" + m + ":" + s;
-//     var t = setTimeout(startTime, 500);
-//   }
-
-//   function checkTime(i) {
-//     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-//     return i;
-//   }
-
 // Site logo
 function changeFavicon(src) {
     var link = document.createElement('link'),
@@ -33,7 +15,7 @@ function changeFavicon(src) {
     document.head.appendChild(link);
 }
 
-changeFavicon('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3773894d-0ef2-416b-b2b8-dd34a5086e30/datwehc-379c8f4a-786b-40cd-979f-b22cd7b59782.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzM3NzM4OTRkLTBlZjItNDE2Yi1iMmI4LWRkMzRhNTA4NmUzMFwvZGF0d2VoYy0zNzljOGY0YS03ODZiLTQwY2QtOTc5Zi1iMjJjZDdiNTk3ODIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.CGJoLp7X540QYBJeyOFiedL0ljbK1tr3dTB-jr_GqSQ');
+changeFavicon('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT7devODZASyHHUtxRFJrPhp91SxttutwtYu3dYyc-Iiw&usqp=CAU&ec=45673586');
 
 function fetchJSONFile(path, callback) {
     var httpRequest = new XMLHttpRequest();
