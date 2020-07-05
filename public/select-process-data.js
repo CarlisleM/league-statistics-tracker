@@ -442,8 +442,7 @@ function change_team_options(leaguename) {
 
                 match.onmousedown = function() {
                     hide_all();
-                    show_match_data();
-
+                    
                     var team_names = (this.id).split(" ");
                     change_team_one_select(team_names[0]);
                     change_team_two_select(team_names[1]);
@@ -454,6 +453,8 @@ function change_team_options(leaguename) {
                     team_two_sel.value = team_names[1];
                     change_team_1_icon(team_names[0]);
                     change_team_2_icon(team_names[1]);
+
+                    show_match_data();
                 }
             }
             k++;
