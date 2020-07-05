@@ -109,11 +109,11 @@ function create_about_page() {
     // about_section.appendChild(about_section);
 }
 
-function create_faq_page {
+function create_faq_page() {
 
 }
 
-function create_bets_page {
+function create_bets_page() {
 
 }
 
