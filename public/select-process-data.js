@@ -77,19 +77,19 @@ function show_about_page() {
 }
 
 function hide_faq_page() {
-    
+    document.getElementsByClassName('faq_page')[0].style.display = 'none';
 }
 
 function show_faq_page() {
-    
+    document.getElementsByClassName('faq_page')[0].style.display = 'block';
 }
 
 function hide_bethistory_page() {
-    
+    document.getElementsByClassName('bets_page')[0].style.display = 'none';
 }
 
 function show_bethistory_page() {
-    
+    document.getElementsByClassName('bets_page')[0].style.display = 'block';
 }
 
 function hide_all() {
@@ -102,19 +102,22 @@ function hide_all() {
 function create_about_page() {
     hide_all();
     show_about_page();
-    // let body = document.getElementsByClassName("upcoming-matches")[0];
     let about_section = document.getElementsByClassName('about_page')[0];
-    about_section.innerHTML =  "<p>A site scraper was created using python to obtain match statistics from 'https://lol.gamepedia.com/'</p><br><p>A UI was then created to display the statistics in a much more readable format to help users determine what bets to place.</p><br><p>All bets are placed on betonline.ag</p><br><p>Created by Carlisle Miller</p>"
-                    // week.append(week_text);
-    // about_section.appendChild(about_section);
+    about_section.innerHTML =  "<p>A site scraper was created using python to obtain match statistics from 'https://lol.gamepedia.com/'</p><br><p>A UI was then created to display the statistics in a much more readable format to help users determine what bets to place.</p><br><p>All bets are placed on betonline.ag</p><br><p>Created by Carlisle Miller</p>";
 }
 
 function create_faq_page() {
-
+    hide_all();
+    show_faq_page();
+    let faq_section = document.getElementsByClassName('faq_page')[0];
+    faq_section.innerHTML =  "<br><h1>Frequently Asked Questions</h1><br><p>What websites do you use to bet on?</p><br><p>betonline.ag / Bet365</p>";
 }
 
 function create_bets_page() {
-
+    hide_all();
+    show_bets_page();
+    let bets_section = document.getElementsByClassName('bets_page')[0];
+    bets_section.innerHTML =  "";
 }
 
 function change_team_options(leaguename) {
