@@ -356,3 +356,13 @@ td {
   height:50x;
   line-height:50px;
 }
+
+.about_page {
+  width: 65%;
+  float: left;
+  margin-top: 25px;
+  margin-left: 10%;
+  /* margin: auto; */
+  text-align: center;
+  vertical-align: middle;
+}
