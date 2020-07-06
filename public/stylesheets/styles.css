@@ -240,6 +240,7 @@ td {
   float: left;
   width: 28%; 
   height: 100px;
+  padding: 1%;
 }
 
 .match_column_2 {
@@ -257,10 +258,10 @@ td {
 }
 
 .match_column_3 {
-  margin-right: 3px;
   float: right;
   width: 28%; 
   height: 100px; 
+  padding: 1%;
 }
 
 #league{ display:none; }
