@@ -204,7 +204,7 @@ td {
 }
 
 .upcoming-matches {
-  width: 350px;
+  width: 25%;
   align-items: center;
   justify-content: center;
 }
@@ -376,7 +376,6 @@ td {
   text-align: center;
   vertical-align: middle;
 }
-
 
 .bets_page {
   width: 65%;
