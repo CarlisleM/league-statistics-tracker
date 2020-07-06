@@ -238,14 +238,14 @@ td {
 
 .match_column_1 {
   float: left;
-  width: 28%; 
+  width: 27%; 
   height: 100px;
   padding: 1%;
 }
 
 .match_column_2 {
   float: left;
-  width: 43%; 
+  width: 42%; 
   height: 100px;
   display: table;
 }
@@ -259,7 +259,7 @@ td {
 
 .match_column_3 {
   float: right;
-  width: 28%; 
+  width: 27%; 
   height: 100px; 
   padding: 1%;
 }
