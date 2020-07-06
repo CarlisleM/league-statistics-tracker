@@ -238,14 +238,14 @@ td {
 
 .match_column_1 {
   float: left;
-  width: 27.5% ; 
+  width: 27% ; 
   height: 100px;    
-  margin-left: 1%;
+  margin-left: 2%;
 }
 
 .match_column_2 {
   float: left;
-  width: 42%;
+  width: 41%;
   height: 100px;
   display: table;
   margin-left: 1%;
@@ -260,12 +260,14 @@ td {
 
 .match_column_3 {
   float: right;
-  width: 27.5%; 
+  width: 27%; 
   height: 100px; 
-  margin-right: 1%; 
+  margin-right: 2%; 
 }
 
-#league{ display:none; }
+#league { 
+  display:none; 
+}
 
 th {
   padding: 7px;
