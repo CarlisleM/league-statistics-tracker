@@ -238,7 +238,7 @@ td {
 
 .match_column_1 {
   float: left;
-  width: 27% ; 
+  width: 27.5% ; 
   height: 100px;    
   margin-left: 1%;
 }
@@ -260,7 +260,7 @@ td {
 
 .match_column_3 {
   float: right;
-  width: 27%; 
+  width: 27.5%; 
   height: 100px; 
   margin-right: 1%; 
 }
