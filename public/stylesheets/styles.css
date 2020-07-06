@@ -238,7 +238,7 @@ td {
 
 .match_column_1 {
   float: left;
-  width: 28.5%; 
+  width: 28%; 
   height: 100px;
 }
 
@@ -259,7 +259,7 @@ td {
 .match_column_3 {
   margin-right: 3px;
   float: right;
-  width: 28.5%; 
+  width: 28%; 
   height: 100px; 
 }
 
