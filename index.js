@@ -45,9 +45,9 @@ app.get('/games', async (req, res) => {
   const result = await client.query('SELECT * FROM games, match_results where id = game_id')
   await client.end()
   res.json({ matches: result.rows })
-})
+})  
 
-app.get('https://league-statistics-tracker.herokuapp.com/upcoming', async (req, res) => {
+app.get('/upcoming', async (req, res) => {
   const client = new Client({
     user: 'djpoucmhkewvrh',
     host: 'ec2-174-129-209-212.compute-1.amazonaws.com',
