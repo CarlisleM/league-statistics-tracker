@@ -43,7 +43,6 @@ def get_page_source (link):
 #### THIS SECTION LOGS US IN TO THE LEAGUE OF LEGENDS WEBSITE ###
 
 page_type = 'hi'    
-login_url = 'http://account.riotgames.com/'
 
 options = webdriver.ChromeOptions()
 #options.add_argument("user-data-dir=/Users/Carlisle/Desktop/Chrome")
@@ -53,42 +52,7 @@ options.add_argument('--disable-extensions')
 driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/OmegleV2/chromedriver', options = options)
 #driver_location = str(sys.argv[1])
 #driver = webdriver.Chrome(executable_path=driver_location, options=options)
-driver.get(login_url)
 driver.implicitly_wait(10) # not sure if needed
-
-# login stuff 
-wait_for_login = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'password-field')))
-text_area = driver.find_elements_by_class_name('field__form-input')
-text_area[0].send_keys("KamiStriker")
-text_area[1].send_keys("c04dcfbaceKAMI")
-
-time.sleep(2)
-
-remember_me = driver.find_element_by_xpath("//input[@data-testid='checkbox-remember-me']")
-remember_me.click()
-remember_me.send_keys(Keys.RETURN)
-
-# Allows user to enter the verification code from their e-mail used to login to allow access to the matchhistory
-print("Please enter the verifcation code: ")
-verification_code = input() 
-verify_boxes = driver.find_element_by_class_name('mfafield__input')
-verify_boxes.send_keys(verification_code)
-verify_boxes.send_keys(Keys.RETURN)
-# Perform a check to check if the code is 5 letters/numbers, reask for input if incorrect
-# Check if len() = 5
-
-time.sleep(5)
-
-print("Login complete")
-
-#################################################################
-
-############ THIS SECTION GETS THE MOST CURRENT DATA ############ 
-
-print("Loading match history from database")
-load_db_match_history()
-
-#################################################################
 
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
@@ -98,7 +62,7 @@ list_of_leagues_to_scrape = [
     'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
     'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
     'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    #'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # No schedule yet so now show-all button!
+    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
     'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
     'https://lol.gamepedia.com/Ultraliga/Season_4',
     'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
@@ -164,7 +128,7 @@ for league_url in list_of_leagues_to_scrape:
     current_match_index = 0
 
     # Create a csv file to store upcoming matches
-    tbd_outfile = "./" + league + " Upcoming Games.csv"
+    tbd_outfile = "./Upcoming Matches/" + league + " Upcoming Games.csv"
     tbd_outfile = open(tbd_outfile, "w")
     tbd_writer = csv.writer(tbd_outfile)
 

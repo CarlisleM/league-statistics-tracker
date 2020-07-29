@@ -65,16 +65,15 @@ get_opl_name = {
   'chf' : 'Chiefs Esports Club'
 }
 
-# GameWard and Izi Dream abbreviations not out yet
 get_lfl_name = {
-  'msf.p' : 'Misfits Premier',
+  'msfp' : 'Misfits Premier',
   'sly' : 'Solary',
   'ldlc' : 'LDLC OL',
   'mces' : 'Team MCES',
   'go' : 'GamersOrigin',
   'gw' : 'GameWard',
-  'id' : 'Izi Dream',
-  'vit.b' : 'Vitality.Bee'
+  'izi' : 'Izi Dream',
+  'vitb' : 'Vitality.Bee'
 }
 
 get_pcs_name = {

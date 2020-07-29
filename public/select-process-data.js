@@ -187,14 +187,14 @@ function change_team_options(leaguename) {
         var current_league = 5;
         document.getElementById("league").innerHTML = "LFL";
         var teams = {
-            'msf.p' : 'Misfits Premier',
+            'msfp' : 'Misfits Premier',
             sly : 'Solary',
             ldlc : 'LDLC OL',
             mces : 'Team MCES',
             go : 'GamersOrigin',
             gw : 'GameWard',
-            id : 'Izi Dream',
-            'vit.b' : 'Vitality.Bee'
+            izi : 'Izi Dream',
+            'vitb' : 'Vitality.Bee'
         };
     } else if (leaguename == 'LVP_SuperLiga_Orange') {
         var current_league = 6;

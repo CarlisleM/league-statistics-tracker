@@ -17,9 +17,6 @@ from team_name_mapper import *
 import timeit
 from datetime import datetime
 import pytz
-import time
-
-import re
 
 def get_page_source (link):
     # Load page and grab data
@@ -74,7 +71,7 @@ def process_data (split_objective_data, blue_team, red_team):
                 return red_team
 
 def convert_month(month_name):
-    return get_month[month_name]         
+    return get_month[month_name]
 
 def load_db_match_history ():
     os.system('curl https://league-statistics-tracker.herokuapp.com/games | json_pp > matches_played.json') 
@@ -149,7 +146,7 @@ list_of_leagues_to_scrape = [
     'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
     'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
     'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    #'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season' # No schedule yet so now show-all button!
+    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
     'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
     'https://lol.gamepedia.com/Ultraliga/Season_4',
     'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
@@ -206,14 +203,16 @@ for league_url in list_of_leagues_to_scrape:
         get_team_name_from_league = get_worlds_name
         #get_team_name_from_league = get_name
 
-    outfile = "./" + league + " Data.csv"
+
+    # outfile = "./" + league + " Data.csv"
+    outfile = "./Match Data/" + league + " Data.csv"
     outfile = open(outfile, "w")
     writer = csv.writer(outfile)
     writer.writerow(['League', 'Split', 'Date', 'Game', 'Blue Team', 'Red Team', 'First Blood', 'First Tower',  'First Dragon', 'First Inhibitor', 'First Baron', 'Winner', 'Loser'])
 
     print('Scraping ' + league + ' main page')
 
-    page_source = get_page_source(league_url)    
+    page_source = get_page_source(league_url)
     soup = BeautifulSoup(page_source, 'html.parser')
 
     match_data = []

@@ -21,7 +21,7 @@ input_files = {
     'LCK Upcoming Games.csv',
     'LEC Upcoming Games.csv',
     'OPL Upcoming Games.csv',
-    #'LFL Upcoming Games.csv',
+    'LFL Upcoming Games.csv',
     'LVP_SuperLiga_Orange Upcoming Games.csv',
     'PCS Upcoming Games.csv',
     'LLA Upcoming Games.csv',
@@ -38,7 +38,7 @@ cur.execute("DELETE FROM upcoming;")
 
 for file in input_files:
     print("Adding upcoming matches from " + file + ' to the database')
-    with open(file, 'r') as f:
+    with open("./Upcoming Matches/" + file, 'r') as f:
         reader = csv.reader(f)
         for (index, row) in enumerate(reader):
             print(index)

@@ -34,7 +34,7 @@ input_file = {
     'LCK Data.csv',
     'LEC Data.csv',
     'OPL Data.csv',
-    #'LFL Data.csv',
+    'LFL Data.csv',
     'LVP_SuperLiga_Orange Data.csv',
     'PCS Data.csv',
     'LLA Data.csv',
@@ -49,7 +49,7 @@ input_file = {
 
 for file in input_file:
     print("Adding matches from " + file + ' to the database')
-    with open(file, 'r') as f:
+    with open("./Match Data/" + file, 'r') as f:
         reader = csv.reader(f)
         next(reader) # Skip the header row
         # Do something here to check if file is empty
