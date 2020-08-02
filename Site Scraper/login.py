@@ -439,6 +439,53 @@ for league_url in list_of_leagues_to_scrape:
                         post_na_academy = 'true'
                 else:
                     print ("The page did not load correctly, skipping!")
+
+                    # time.sleep(20)
+
+                    # # page_info = get_page_source(match[5])
+                    # # page_source = page_info[0]
+                    # # page_status = page_info[1]
+
+                    # # Maybe have to do a wait here
+                    # soup = BeautifulSoup(page_source, 'html.parser')
+                    # player_team_names = soup.findAll('div', attrs={'class':'champion-nameplate-name'})
+
+                    # for idx, player in enumerate(player_team_names):
+                    #     if idx == 0:
+                    #         blue_team = player.text.strip().split()[0].lower()
+                    #     if idx == 5:
+                    #         red_team = player.text.strip().split()[0].lower()
+                    
+                    # if blue_team in match[2] and blue_team in match[3]:
+                    #     if red_team in match[3]:
+                    #         blue_team = match[2]
+                    #         red_team = match[3]
+                    #     else:
+                    #         red_team = match[2]
+                    #         blue_team = match[3]
+                    # elif blue_team in str(match[2]):
+                    #     blue_team = match[2]
+                    #     red_team = match[3]
+                    # else:
+                    #     red_team = match[2]
+                    #     blue_team = match[3]
+
+                    # print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
+
+                    # game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
+                    
+                    # print(game_winner)
+
+                    # if str(game_winner).strip() in 'VICTORY':
+                    #     game_winner = blue_team
+                    #     game_loser = red_team
+                    # else:
+                    #     game_winner = red_team
+                    #     game_loser = blue_team
+
+                    # game_data = []
+                    # game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', game_winner, game_loser])
+                    # writer.writerows(game_data)
     else:
         print("It seems a matchhistory link for one of the games is missing")
 

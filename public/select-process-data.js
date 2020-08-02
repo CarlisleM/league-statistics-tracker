@@ -121,6 +121,7 @@ function create_bets_page() {
 }
 
 function change_team_options(leaguename) {
+    console.log(leaguename);
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
 
