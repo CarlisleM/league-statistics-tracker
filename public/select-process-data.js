@@ -530,6 +530,12 @@ function change_team_one_select(selected_team) {
                 table_one_body += data.matches[k].game_date.split("T")[0];
                 table_one_body += '</td>';
 
+                console.log(data.matches[k].length);
+
+                for (i = 0; i < data.matches[k].length; i++) { 
+                    console.log(data.matches[k][i])
+                }
+
                 table_one_body += '<td>';
                 if (selected_team == data.matches[k].blue_team) {
                     table_one_body += data.matches[k].red_team;

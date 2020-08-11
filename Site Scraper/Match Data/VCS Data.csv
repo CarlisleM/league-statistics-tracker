@@ -1,9 +1,16 @@
 League,Split,Date,Game,Blue Team,Red Team,First Blood,First Tower,First Dragon,First Inhibitor,First Baron,Winner,Loser
-15,18,2020/08/01,2,fl,sgb,sgb,fl,sgb,fl,fl,fl,sgb
-15,18,2020/08/01,1,evs,ces,ces,evs,evs,ces,ces,ces,evs
-15,18,2020/08/01,2,ces,evs,ces,ces,ces,ces,ces,evs,ces
-15,18,2020/08/01,3,evs,ces,evs,evs,ces,evs,evs,evs,ces
-15,18,2020/08/02,1,ces,opg,opg,ces,opg,ces,ces,ces,opg
-15,18,2020/08/02,2,opg,ces,ces,ces,opg,ces,ces,ces,opg
-15,18,2020/08/02,1,gam,sgb,gam,gam,sgb,gam,gam,gam,sgb
-15,18,2020/08/02,2,sgb,gam,gam,gam,gam,gam,gam,gam,sgb
+15,18,2020/08/07,1,ts,per,ts,per,ts,per,per,per,ts
+15,18,2020/08/07,2,per,ts,ts,per,ts,ts,ts,ts,per
+15,18,2020/08/07,3,ts,per,per,per,per,per,per,per,ts
+15,18,2020/08/07,1,fl,evs,fl,fl,evs,evs,fl,fl,evs
+15,18,2020/08/07,2,evs,fl,evs,fl,fl,fl,,fl,evs
+15,18,2020/08/08,1,opg,evs,evs,evs,evs,evs,opg,evs,opg
+15,18,2020/08/08,2,evs,opg,evs,evs,opg,evs,evs,evs,opg
+15,18,2020/08/08,1,sgb,ts,ts,sgb,ts,ts,ts,ts,sgb
+15,18,2020/08/08,2,ts,sgb,sgb,ts,ts,sgb,sgb,sgb,ts
+15,18,2020/08/08,3,sgb,ts,ts,sgb,sgb,sgb,ts,ts,sgb
+15,18,2020/08/09,1,per,ces,ces,ces,ces,ces,,ces,per
+15,18,2020/08/09,2,ces,per,ces,ces,per,ces,ces,ces,per
+15,18,2020/08/09,1,gam,fl,gam,gam,fl,fl,fl,fl,gam
+15,18,2020/08/09,2,fl,gam,gam,fl,fl,gam,gam,gam,fl
+15,18,2020/08/09,3,gam,fl,fl,gam,fl,gam,gam,gam,fl

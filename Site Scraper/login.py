@@ -86,7 +86,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--disable-extensions')
-driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/OmegleV2/chromedriver', options = options)
+driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/Projects/Omegle/OmegleV2 Python/chromedriver', options = options)
 #driver_location = str(sys.argv[1])
 #driver = webdriver.Chrome(executable_path=driver_location, options=options)
 driver.get(login_url)
@@ -141,21 +141,21 @@ post_lpl = 'false'
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
-    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
-    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/Ultraliga/Season_4',
-    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
+    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season'
+    # 'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
+    # 'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
+    # 'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
+    # 'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
+    # 'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/Ultraliga/Season_4',
+    # 'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
+    # 'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
+    # 'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -438,39 +438,40 @@ for league_url in list_of_leagues_to_scrape:
                     elif league == 'NA_Academy_League':
                         post_na_academy = 'true'
                 else:
-                    print ("The page did not load correctly, skipping!")
+                    print("The page did not load correctly, skipping!")
 
-                    # time.sleep(20)
+                    print("Attempting to get team names and print blank fillers to file")
+                    time.sleep(20)
 
-                    # # page_info = get_page_source(match[5])
-                    # # page_source = page_info[0]
-                    # # page_status = page_info[1]
+                    page_info = get_page_source(match[5])
+                    page_source = page_info[0]
+                    page_status = page_info[1]
 
-                    # # Maybe have to do a wait here
-                    # soup = BeautifulSoup(page_source, 'html.parser')
-                    # player_team_names = soup.findAll('div', attrs={'class':'champion-nameplate-name'})
+                    # Maybe have to do a wait here
+                    soup = BeautifulSoup(page_source, 'html.parser')
+                    player_team_names = soup.findAll('div', attrs={'class':'champion-nameplate-name'})
 
-                    # for idx, player in enumerate(player_team_names):
-                    #     if idx == 0:
-                    #         blue_team = player.text.strip().split()[0].lower()
-                    #     if idx == 5:
-                    #         red_team = player.text.strip().split()[0].lower()
+                    for idx, player in enumerate(player_team_names):
+                        if idx == 0:
+                            blue_team = player.text.strip().split()[0].lower()
+                        if idx == 5:
+                            red_team = player.text.strip().split()[0].lower()
                     
-                    # if blue_team in match[2] and blue_team in match[3]:
-                    #     if red_team in match[3]:
-                    #         blue_team = match[2]
-                    #         red_team = match[3]
-                    #     else:
-                    #         red_team = match[2]
-                    #         blue_team = match[3]
-                    # elif blue_team in str(match[2]):
-                    #     blue_team = match[2]
-                    #     red_team = match[3]
-                    # else:
-                    #     red_team = match[2]
-                    #     blue_team = match[3]
+                    if blue_team in match[2] and blue_team in match[3]:
+                        if red_team in match[3]:
+                            blue_team = match[2]
+                            red_team = match[3]
+                        else:
+                            red_team = match[2]
+                            blue_team = match[3]
+                    elif blue_team in str(match[2]):
+                        blue_team = match[2]
+                        red_team = match[3]
+                    else:
+                        red_team = match[2]
+                        blue_team = match[3]
 
-                    # print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
+                    print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
 
                     # game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
                     
@@ -483,9 +484,10 @@ for league_url in list_of_leagues_to_scrape:
                     #     game_winner = red_team
                     #     game_loser = blue_team
 
-                    # game_data = []
-                    # game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', game_winner, game_loser])
-                    # writer.writerows(game_data)
+                    game_data = []
+                    game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
+                    #game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', game_winner, game_loser])
+                    writer.writerows(game_data)
     else:
         print("It seems a matchhistory link for one of the games is missing")
 
