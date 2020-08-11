@@ -19,13 +19,12 @@
             time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(); // again, you get the idea
         }    
 
-
         // a cleaner way than string concaten ation
         date = [now.getDate(), 
                 months[now.getMonth()],
                 now.getFullYear()].join(' '); 
 
-        document.getElementById('txt').innerHTML = [date, time].join(' - ') + " (PDT)";
+        document.getElementById('txt').innerHTML = [date, time].join(' - ');
 
         // current_pdt = today.toLocaleString(undefined, {timeZone: 'America/Los_Angeles'})
         // call this function again in 1000ms

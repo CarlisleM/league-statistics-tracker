@@ -555,6 +555,9 @@ function change_team_one_select(selected_team) {
                 if (selected_team == data.matches[k].winner) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
                     table_one_body += '✓';
+                } else if (match_info[i] == '-') {
+                    table_one_body += '<td style="background-color:grey;color:black; border-right: 1px solid black;">';
+                    table_one_body += '✘';
                 } else {
                     table_one_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_one_body += '✘';
@@ -717,13 +720,14 @@ function change_team_two_select(selected_team) {
                 }
                 table_two_body += '</td>';
 
-                for (i = 0; i < match_info.length; i++) { 
+                for (i = 0; i < match_info.length; i++) {
+                    console.log(match_info[i]);
                     if (match_info[i] == selected_team) {
                         table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
                         table_two_body += '✓';
                     } else if (match_info[i] == '-') {
-                        table_two_body += '<td style="background-color:red;color:grey;">';
-                        table_two_body += '✘';
+                        table_two_body += '<td style="background-color:grey;color:black;">';
+                        table_two_body += '-';
                     } else {
                         table_two_body += '<td style="background-color:red;color:black;">';
                         table_two_body += '✘';
@@ -734,6 +738,9 @@ function change_team_two_select(selected_team) {
                 if (selected_team == data.matches[k].winner) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
                     table_two_body += '✓';
+                } else if (match_info[i] == '-') {
+                    table_two_body += '<td style="background-color:grey;color:black; border-right: 1px solid black;">';
+                    table_two_body += '✘';
                 } else {
                     table_two_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_two_body += '✘';
