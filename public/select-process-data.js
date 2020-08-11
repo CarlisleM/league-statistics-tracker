@@ -552,12 +552,12 @@ function change_team_one_select(selected_team) {
                     table_one_body += '</td>';
                 }
 
-                if (selected_team == data.matches[k].winner) {
+                if (data.matches[k].winner == selected_team) {
                     table_one_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
                     table_one_body += '✓';
-                } else if (match_info[i] == '-') {
+                } else if (data.matches[k].winner == '-') {
                     table_one_body += '<td style="background-color:grey;color:black; border-right: 1px solid black;">';
-                    table_one_body += '✘';
+                    table_one_body += '-';
                 } else {
                     table_one_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_one_body += '✘';
@@ -735,12 +735,12 @@ function change_team_two_select(selected_team) {
                     table_two_body += '</td>';
                 }
 
-                if (selected_team == data.matches[k].winner) {
+                if (data.matches[k].winner == selected_team) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
                     table_two_body += '✓';
-                } else if (match_info[i] == '-') {
+                } else if (data.matches[k].winner == '-') {
                     table_two_body += '<td style="background-color:grey;color:black; border-right: 1px solid black;">';
-                    table_two_body += '✘';
+                    table_two_body += '-';
                 } else {
                     table_two_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_two_body += '✘';
