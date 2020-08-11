@@ -529,10 +529,13 @@ function change_team_one_select(selected_team) {
                 table_one_body += data.matches[k].game_date.split("T")[0];
                 table_one_body += '</td>';
 
+                var match_info = ["first_blood", "first_baron", "first_dragon", "first_inhibitor", "first_tower"];
+
                 console.log(data.matches[k].length);
 
                 console.log(data.matches[k].first_blood);
-                console.log(data.matches[k][0]);
+
+                console.log(data.matches[k].match_info[0]);
 
                 console.log("test here");
 
