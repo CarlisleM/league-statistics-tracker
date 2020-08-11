@@ -545,7 +545,7 @@ function change_team_one_select(selected_team) {
                 // console.log("test here");
 
                 for (i = 0; i < match_info.length; i++) { 
-                    console.log(data.matches[i]);
+                    console.log(match_info[i]);
                 }
 
                 table_one_body += '<td>';
