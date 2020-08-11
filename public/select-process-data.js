@@ -537,6 +537,8 @@ function change_team_one_select(selected_team) {
 
                 console.log(match_info[0]);
 
+                console.log(data.matches[k][0]);
+
                 console.log(data.matches[k].match_info[0]);
 
                 console.log("test here");
