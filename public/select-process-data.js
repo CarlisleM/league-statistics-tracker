@@ -530,7 +530,7 @@ function change_team_one_select(selected_team) {
                 table_one_body += '</td>';
 
                 console.log(data.matches[k].blue_team + " vs " + data.matches[k].red_team);
-                var match_info = [data.matches[k].first_blood, data.matches[k].first_dragon, data.matches[k].first_tower, data.matches[k].first_inhibitor, data.matches[k].first_baron];
+                var match_info = [data.matches[k].first_blood, data.matches[k].first_tower, data.matches[k].first_dragon, data.matches[k].first_inhibitor, data.matches[k].first_baron];
 
                 for (i = 0; i < match_info.length; i++) { 
                     console.log(match_info[0]); 
