@@ -533,7 +533,7 @@ function change_team_one_select(selected_team) {
                 console.log(data.matches[k].length);
 
                 for (i = 0; i < data.matches[k].length; i++) { 
-                    console.log(data.matches[k][i])
+                    console.log(data.matches[k][i]);
                 }
 
                 table_one_body += '<td>';
