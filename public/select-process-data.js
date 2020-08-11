@@ -520,7 +520,7 @@ function change_team_one_select(selected_team) {
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
            if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
-                var match_info = [data.matches[k].first_blood, data.matches[k].first_tower, data.matches[k].first_dragon, data.matches[k].first_inhibitor, data.matches[k].first_baron, data.matches[k].winner];
+                var match_info = [data.matches[k].first_blood, data.matches[k].first_tower, data.matches[k].first_dragon, data.matches[k].first_inhibitor, data.matches[k].first_baron];
 
                 number_of_games = number_of_games + 1;
 
@@ -547,6 +547,16 @@ function change_team_one_select(selected_team) {
                     }
                     table_one_body += '</td>';
                 }
+
+                if (selected_team == data.matches[k].winner) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
+                    table_one_body += '✓';
+                } else {
+                    table_one_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
+                    table_one_body += '✘';
+                }
+                table_one_body += '</td>';
+
                 table_one_body += '</tr>';
             }
             k++;
@@ -688,7 +698,7 @@ function change_team_two_select(selected_team) {
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
             if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
-                var match_info = [data.matches[k].first_blood, data.matches[k].first_tower, data.matches[k].first_dragon, data.matches[k].first_inhibitor, data.matches[k].first_baron, data.matches[k].winner];
+                var match_info = [data.matches[k].first_blood, data.matches[k].first_tower, data.matches[k].first_dragon, data.matches[k].first_inhibitor, data.matches[k].first_baron];
 
                 table_two_body += '<tr>';
                 table_two_body += '<td>';
@@ -713,6 +723,16 @@ function change_team_two_select(selected_team) {
                     }
                     table_two_body += '</td>';
                 }
+
+                if (selected_team == data.matches[k].winner) {
+                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
+                    table_two_body += '✓';
+                } else {
+                    table_two_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
+                    table_two_body += '✘';
+                }
+                table_two_body += '</td>';
+
                 table_two_body += '</tr>';
             }
             k++;
