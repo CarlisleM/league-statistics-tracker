@@ -532,21 +532,15 @@ function change_team_one_select(selected_team) {
                 console.log(data.matches[k].blue_team + " vs " + data.matches[k].red_team);
                 var match_info = [data.matches[k].first_blood, data.matches[k].first_dragon, data.matches[k].first_tower, data.matches[k].first_inhibitor, data.matches[k].first_baron];
 
-                // console.log(data.matches[k].length);
-
-                // console.log(data.matches[k].first_blood);
-
-                // console.log(match_info[0]);
-
-                // console.log(data.matches[k][0]);
-
-                // console.log(data.matches[k].match_info[0]);
-
-                // console.log("test here");
-
                 for (i = 0; i < match_info.length; i++) { 
-                    console.log(match_info[i]);
+                    console.log(match_info[0]); 
                 }
+
+                console.log(match_info[0]); 
+                console.log(match_info[1]); 
+                console.log(match_info[2]); 
+                console.log(match_info[3]); 
+                console.log(match_info[4]); 
 
                 table_one_body += '<td>';
                 if (selected_team == data.matches[k].blue_team) {
