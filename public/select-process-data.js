@@ -121,7 +121,6 @@ function create_bets_page() {
 }
 
 function change_team_options(leaguename) {
-    console.log(leaguename);
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
 
@@ -531,6 +530,11 @@ function change_team_one_select(selected_team) {
                 table_one_body += '</td>';
 
                 console.log(data.matches[k].length);
+
+                console.log(data.matches[k].first_blood);
+                console.log(data.matches[k][0]);
+
+                console.log("test here");
 
                 for (i = 0; i < data.matches[k].length; i++) { 
                     console.log(data.matches[k][i]);
