@@ -529,22 +529,23 @@ function change_team_one_select(selected_team) {
                 table_one_body += data.matches[k].game_date.split("T")[0];
                 table_one_body += '</td>';
 
-                var match_info = ["first_blood", "first_baron", "first_dragon", "first_inhibitor", "first_tower"];
+                console.log(data.matches[k].blue_team + " vs " + data.matches[k].red_team);
+                var match_info = [data.matches[k].first_blood, data.matches[k].first_dragon, data.matches[k].first_tower, data.matches[k].first_inhibitor, data.matches[k].first_baron];
 
-                console.log(data.matches[k].length);
+                // console.log(data.matches[k].length);
 
-                console.log(data.matches[k].first_blood);
+                // console.log(data.matches[k].first_blood);
 
-                console.log(match_info[0]);
+                // console.log(match_info[0]);
 
-                console.log(data.matches[k][0]);
+                // console.log(data.matches[k][0]);
 
-                console.log(data.matches[k].match_info[0]);
+                // console.log(data.matches[k].match_info[0]);
 
-                console.log("test here");
+                // console.log("test here");
 
-                for (i = 0; i < data.matches[k].length; i++) { 
-                    console.log(data.matches[k][i]);
+                for (i = 0; i < match_info.length; i++) { 
+                    console.log(data.matches[i]);
                 }
 
                 table_one_body += '<td>';
