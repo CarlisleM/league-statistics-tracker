@@ -30,21 +30,21 @@ unique_id = unique_id[0]
 #Maybe check id of the last entry here to ensure this works even with deleted entries
 
 input_file = {
-    'LCS Data.csv',
-    'LCK Data.csv',
-    'LEC Data.csv',
-    'OPL Data.csv',
-    'LFL Data.csv',
-    'LVP_SuperLiga_Orange Data.csv',
-    'PCS Data.csv',
-    'LLA Data.csv',
-    'Ultraliga Data.csv',
-    'LPL Data.csv',
-    'NA_Academy_League Data.csv',
-    'LJL Data.csv',
-    'TCL Data.csv',
-    'VCS Data.csv',
-    'CBLOL Data.csv'
+    'LCS Data.csv'
+    # 'LCK Data.csv',
+    # 'LEC Data.csv',
+    # 'OPL Data.csv',
+    # 'LFL Data.csv',
+    # 'LVP_SuperLiga_Orange Data.csv',
+    # 'PCS Data.csv',
+    # 'LLA Data.csv',
+    # 'Ultraliga Data.csv',
+    # 'LPL Data.csv',
+    # 'NA_Academy_League Data.csv',
+    # 'LJL Data.csv',
+    # 'TCL Data.csv',
+    # 'VCS Data.csv',
+    # 'CBLOL Data.csv'
 }
 
 for file in input_file:
