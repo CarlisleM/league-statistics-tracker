@@ -42,7 +42,7 @@ app.get('/games', async (req, res) => {
   })
   client.connect()
 
-  const result = await client.query('SELECT * FROM games, match_results where id = game_id')
+  const result = await client.query('SELECT * FROM games, match_results where id = game_id ORDER BY game_date')
   await client.end()
   res.json({ matches: result.rows })
 })  

@@ -141,21 +141,21 @@ post_lpl = 'false'
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season'
-    # 'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
-    # 'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
-    # 'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    # 'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
-    # 'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/Ultraliga/Season_4',
-    # 'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
-    # 'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
-    # 'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
+    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
+    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
+    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/Ultraliga/Season_4',
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
+    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -441,7 +441,7 @@ for league_url in list_of_leagues_to_scrape:
                     print("The page did not load correctly, skipping!")
 
                     print("Attempting to get team names and print blank fillers to file")
-                    time.sleep(20)
+                    # time.sleep()
 
                     page_info = get_page_source(match[5])
                     page_source = page_info[0]
