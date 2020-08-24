@@ -49,7 +49,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--disable-extensions')
-driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/OmegleV2/chromedriver', options = options)
+driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/Projects/chromedriver.exe', options = options)
 #driver_location = str(sys.argv[1])
 #driver = webdriver.Chrome(executable_path=driver_location, options=options)
 driver.implicitly_wait(10) # not sure if needed
@@ -57,21 +57,22 @@ driver.implicitly_wait(10) # not sure if needed
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
-    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
-    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/Ultraliga/Season_4',
-    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
+    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/OPL/2020_Season/Split_2_Playoffs',
+    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Playoffs',
+    'https://lol.gamepedia.com/LFL/2020_Season/EM_Qualification', # Weird cause also blank summer playoffs
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/Ultraliga/Season_4_Playoffs',
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2_Playoffs',
+    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season', # Regular LCK season
+    #'https://lol.gamepedia.com/LCK/2020_Season/Summer_Playoffs', # LCK not yet finished regular season
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Playoffs'
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -129,7 +130,8 @@ for league_url in list_of_leagues_to_scrape:
 
     # Create a csv file to store upcoming matches
     tbd_outfile = "./Upcoming Matches/" + league + " Upcoming Games.csv"
-    tbd_outfile = open(tbd_outfile, "w")
+#    tbd_outfile = open(tbd_outfile, "w") # Works on mac but not on pc!
+    tbd_outfile = open(tbd_outfile, "w", newline='')
     tbd_writer = csv.writer(tbd_outfile)
 
     # Get list of matches for entire split (dates, teams and score)

@@ -38,16 +38,13 @@ def get_page_source (link):
         return driver.page_source, page_status    
 
 def check_if_match_exists (game_date, game_count, blue_team, red_team):
-    with open('matches_played.json') as json_file:
-        data = json.load(json_file)
+    for game in matches_played['matches']:
+        db_date = game['game_date'].split('T')[0]
+        game_number = (game['game_count'])
+        team_one = (game['blue_team'])
+        team_two = (game['red_team'])
 
-        for game in data['matches']:
-            db_date = game['game_date'].split('T')[0]
-            game_number = (game['game_count'])
-            team_one = (game['blue_team'])
-            team_two = (game['red_team'])
-
-            if (db_date == game_date) and ((team_one == blue_team) or (team_two == blue_team)) and (game_number == game_count) and ((team_two == red_team) or (team_one == red_team)):                
+        if (db_date == game_date) and ((team_one == blue_team) or (team_two == blue_team)) and (game_number == game_count) and ((team_two == red_team) or (team_one == red_team)):                
                 print(db_date + ' ' + team_one + ' ' + team_two)
                 does_exist = True
                 return does_exist
@@ -73,11 +70,6 @@ def process_data (split_objective_data, blue_team, red_team):
 def convert_month(month_name):
     return get_month[month_name]
 
-def load_db_match_history ():
-    os.system('curl https://league-statistics-tracker.herokuapp.com/games | json_pp > matches_played.json') 
-
-#### THIS SECTION LOGS US IN TO THE LEAGUE OF LEGENDS WEBSITE ###
-
 page_type = 'hi'    
 login_url = 'http://account.riotgames.com/'
 
@@ -86,7 +78,8 @@ options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--disable-extensions')
-driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/OmegleV2/chromedriver', options = options)
+options.add_argument('--incognito')
+driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/Projects/chromedriver.exe', options = options)
 #driver_location = str(sys.argv[1])
 #driver = webdriver.Chrome(executable_path=driver_location, options=options)
 driver.get(login_url)
@@ -114,48 +107,30 @@ verify_boxes.send_keys(Keys.RETURN)
 # Check if len() = 5
 
 time.sleep(5)
-
 print("Login complete")
 
-#################################################################
+response = requests.get("https://league-statistics-tracker.herokuapp.com/games")
+matches_played = json.loads(response.text)
 
-############ THIS SECTION GETS THE MOST CURRENT DATA ############ 
-
-print("Loading match history from database")
-load_db_match_history()
-
-#################################################################
-
-post_lcs = 'false'
-post_lck = 'false'
-post_lec = 'false'
-post_opl = 'false'
-post_lfl = 'false'
-post_lvp = 'false'
-post_lms = 'false'
-post_na_academy = 'false'
-post_lla = 'false'
-post_ultraliga = 'false'
-post_lpl = 'false'
-
-############ THIS SECTION GATHERS ALL THE MATCH DATA ############ 
+matches_to_post = []
 
 list_of_leagues_to_scrape = [
-    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season', # missing match history links
-    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season', # no games yet
-    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season', # No schedule yet so now show-all button!
-    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/Ultraliga/Season_4',
-    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
-    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
-    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season' 
+    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/OPL/2020_Season/Split_2_Playoffs',
+    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Playoffs',
+    'https://lol.gamepedia.com/LFL/2020_Season/EM_Qualification', # Weird cause also blank summer playoffs
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/Ultraliga/Season_4_Playoffs',
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2_Playoffs',
+    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Playoffs',
+    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season', # Regular LCK season
+    #'https://lol.gamepedia.com/LCK/2020_Season/Summer_Playoffs', # LCK not yet finished regular season
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Playoffs'
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -163,7 +138,6 @@ for league_url in list_of_leagues_to_scrape:
     page_type = "main page"
 
     league = league_url.split("/")
-
     league = league[3]
 
     league_id = get_league_id(league)
@@ -203,10 +177,8 @@ for league_url in list_of_leagues_to_scrape:
         get_team_name_from_league = get_worlds_name
         #get_team_name_from_league = get_name
 
-
-    # outfile = "./" + league + " Data.csv"
     outfile = "./Match Data/" + league + " Data.csv"
-    outfile = open(outfile, "w")
+    outfile = open(outfile, "w", newline='')
     writer = csv.writer(outfile)
     writer.writerow(['League', 'Split', 'Date', 'Game', 'Blue Team', 'Red Team', 'First Blood', 'First Tower',  'First Dragon', 'First Inhibitor', 'First Baron', 'Winner', 'Loser'])
 
@@ -409,68 +381,44 @@ for league_url in list_of_leagues_to_scrape:
                     # Append to file
                     game_data = []
                     game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])
+                    matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])
                     if first_dragon.strip() == '' and first_inhibitor.strip() == '' and first_baron.strip() == '':
                         print("The matchhistory for this match does not load properly and will not be written to file")
                     else:
                         writer.writerows(game_data)
                     print('Completed scraping the match')
-
-                    if league == 'LCK':
-                        post_lck = 'true'
-                    elif league == 'LEC':
-                        post_lec = 'true'
-                    elif league == 'OPL':
-                        post_opl = 'true'
-                    elif league == 'LFL':
-                         post_lfl = 'true'
-                    elif league == 'LVP_SuperLiga_Orange':
-                         post_lvp = 'true'
-                    elif league == 'PCS':
-                         post_lms = 'true'
-                    elif league == 'LCS':
-                        post_lcs = 'true'
-                    elif league == 'LLA_Clausura':
-                        post_lla = 'true'
-                    elif league == 'Ultraliga':
-                        post_ultraliga = 'true'
-                    # elif league == 'LPL':
-                    #     post_lpl = 'true'
-                    elif league == 'NA_Academy_League':
-                        post_na_academy = 'true'
                 else:
-                    print ("The page did not load correctly, skipping!")
+                    print("The page did not load correctly, skipping!")
+                    print("Attempting to get team names and print blank fillers to file")
 
-                    # time.sleep(20)
+                    page_info = get_page_source(match[5])
+                    page_source = page_info[0]
+                    page_status = page_info[1]
 
-                    # # page_info = get_page_source(match[5])
-                    # # page_source = page_info[0]
-                    # # page_status = page_info[1]
+                    soup = BeautifulSoup(page_source, 'html.parser')
+                    player_team_names = soup.findAll('div', attrs={'class':'champion-nameplate-name'})
 
-                    # # Maybe have to do a wait here
-                    # soup = BeautifulSoup(page_source, 'html.parser')
-                    # player_team_names = soup.findAll('div', attrs={'class':'champion-nameplate-name'})
-
-                    # for idx, player in enumerate(player_team_names):
-                    #     if idx == 0:
-                    #         blue_team = player.text.strip().split()[0].lower()
-                    #     if idx == 5:
-                    #         red_team = player.text.strip().split()[0].lower()
+                    for idx, player in enumerate(player_team_names):
+                        if idx == 0:
+                            blue_team = player.text.strip().split()[0].lower()
+                        if idx == 5:
+                            red_team = player.text.strip().split()[0].lower()
                     
-                    # if blue_team in match[2] and blue_team in match[3]:
-                    #     if red_team in match[3]:
-                    #         blue_team = match[2]
-                    #         red_team = match[3]
-                    #     else:
-                    #         red_team = match[2]
-                    #         blue_team = match[3]
-                    # elif blue_team in str(match[2]):
-                    #     blue_team = match[2]
-                    #     red_team = match[3]
-                    # else:
-                    #     red_team = match[2]
-                    #     blue_team = match[3]
+                    if blue_team in match[2] and blue_team in match[3]:
+                        if red_team in match[3]:
+                            blue_team = match[2]
+                            red_team = match[3]
+                        else:
+                            red_team = match[2]
+                            blue_team = match[3]
+                    elif blue_team in str(match[2]):
+                        blue_team = match[2]
+                        red_team = match[3]
+                    else:
+                        red_team = match[2]
+                        blue_team = match[3]
 
-                    # print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
+                    print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
 
                     # game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
                     
@@ -483,23 +431,25 @@ for league_url in list_of_leagues_to_scrape:
                     #     game_winner = red_team
                     #     game_loser = blue_team
 
-                    # game_data = []
-                    # game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', game_winner, game_loser])
-                    # writer.writerows(game_data)
+                    game_data = []
+                    game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
+                    matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
+                    #game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', game_winner, game_loser])
+                    writer.writerows(game_data)
     else:
         print("It seems a matchhistory link for one of the games is missing")
 
 print('Finished scraping!')
 
-# Close the browser
 driver.close() 
 driver.quit()
+
+for match_stats in matches_to_post:
+    print(match_stats)
 
 # print("Would you like to post the new data to the database (y/n)? ")
 
 # post_data = input() 
-
-# print(post_data)
 
 # if post_data == "y" or post_data == "Y":
 #     print('Posting to the database')
@@ -530,34 +480,20 @@ driver.quit()
 #         'CBLOL Data.csv'
 #     }
 
-#     # print(post_lck)
-#     # print(post_lec)
-#     # print(post_opl)
-#     # print(post_lfl)
-#     # print(post_lvp)
-#     # print(post_lms)
-#     # print(post_lcs)
-#     # print(post_na_academy)
-#     # print(post_lla)
-#     # print(post_ultraliga)
-
-#     for file in input_file:
-#     # if ((file == 'LCK Data.csv' and post_lck == 'true') or (file == 'LEC Data.csv' and post_lec == 'true') or (file == 'OPL Data.csv' and post_opl == 'true') or (file == 'LFL Data.csv' and post_lfl == 'true') or (file == 'LVP_SuperLiga_Orange Data.csv' and post_lvp == 'true') or (file == 'PCS Data.csv' and post_lms == 'true') or (file == 'LCS Data.csv' and post_lcs == 'true') or (file == 'LLA Data.csv' and post_lla == 'true') or (file == 'Ultraliga Data.csv' and post_ultraliga == 'true')):
-#             print("Adding matches from " + file + ' to the database')
-#             with open(file, 'r') as f:
-#                 reader = csv.reader(f)
-#                 next(reader) # Skip the header row
-#                 # Do something here to check if file is empty
-#                 for (index, row) in enumerate(reader):
-#                     print(index)
-#                     unique_id = unique_id+1
-#                     cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)", row[:6])
-#                     cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")", row[6:])
+    # for file in input_file:
+    #     print("Adding matches from " + file + ' to the database')
+    #     with open(file, 'r') as f:
+    #         reader = csv.reader(f)
+    #         next(reader) # Skip the header row
+    #         # Do something here to check if file is empty
+    #         for (index, row) in enumerate(reader):
+    #             print(index)
+    #             unique_id = unique_id+1
+    #             cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)", row[:6])
+    #             cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")", row[6:])
 
 #     print("Commiting files to the database")
 #     conn.commit()
 # else:
 #     print("Not posting")
 
-# Current issues
-    # Cant post straight to db after scraping games

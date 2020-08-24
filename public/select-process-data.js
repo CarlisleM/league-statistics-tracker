@@ -26,7 +26,7 @@ function fetchJSONFile(path, callback) {
         }
     };
 
-    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/games');
+    httpRequest.open('GET', '/games');
     httpRequest.send();
 }
 
@@ -41,7 +41,7 @@ function fetchUpcomingGames(path, callback) {
         }
     };
 
-    httpRequest.open('GET', 'https://league-statistics-tracker.herokuapp.com/upcoming');
+    httpRequest.open('GET', '/upcoming');
     httpRequest.send();
 }
 
@@ -121,7 +121,6 @@ function create_bets_page() {
 }
 
 function change_team_options(leaguename) {
-    console.log(leaguename);
     var number_of_options = document.querySelector('#team_one_select').options;
     var options_length = number_of_options.length;
 
@@ -521,11 +520,11 @@ function change_team_one_select(selected_team) {
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
            if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
-            // if (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team) {
+                var match_info = [data.matches[k].first_blood, data.matches[k].first_tower, data.matches[k].first_dragon, data.matches[k].first_inhibitor, data.matches[k].first_baron];
+
                 number_of_games = number_of_games + 1;
 
                 table_one_body += '<tr>';
-
                 table_one_body += '<td>';
                 table_one_body += data.matches[k].game_date.split("T")[0];
                 table_one_body += '</td>';
@@ -538,54 +537,27 @@ function change_team_one_select(selected_team) {
                 }
                 table_one_body += '</td>';
 
-                if (selected_team == data.matches[k].first_blood) {
-                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_one_body += '✓';
-                } else {
-                    table_one_body += '<td style="background-color:red;color:black;">';
-                    table_one_body += '✘';
+                for (i = 0; i < match_info.length; i++) {
+                    console.log(match_info[i]);
+                    if (match_info[i] == selected_team) {
+                        table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                        table_one_body += '✓';
+                    } else if (match_info[i] == '-') {
+                        table_one_body += '<td style="background-color:grey;color:black;">';
+                        table_one_body += '-';
+                    } else {
+                        table_one_body += '<td style="background-color:red;color:black;">';
+                        table_one_body += '✘';
+                    }
+                    table_one_body += '</td>';
                 }
-                table_one_body += '</td>';
 
-                if (selected_team == data.matches[k].first_tower) {
-                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                if (data.matches[k].winner == selected_team) {
+                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
                     table_one_body += '✓';
-                } else {
-                    table_one_body += '<td style="background-color:red;color:black;">';
-                    table_one_body += '✘';
-                }
-                table_one_body += '</td>';
-
-                if (selected_team == data.matches[k].first_dragon) {
-                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_one_body += '✓';
-                } else {
-                    table_one_body += '<td style="background-color:red;color:black;">';
-                    table_one_body += '✘';
-                }
-                table_one_body += '</td>';
-
-                if (selected_team == data.matches[k].first_inhibitor) {
-                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_one_body += '✓';
-                } else {
-                    table_one_body += '<td style="background-color:red;color:black;">';
-                    table_one_body += '✘';
-                }
-                table_one_body += '</td>';
-
-                if (selected_team == data.matches[k].first_baron) {
-                    table_one_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_one_body += '✓';
-                } else {
-                    table_one_body += '<td style="background-color:red;color:black;">';
-                    table_one_body += '✘';
-                }
-                table_one_body += '</td>';
-
-                if (selected_team == data.matches[k].winner) {
-                    table_one_body += '<td style="background-color: DeepSkyBlue; color:black; border-right: 1px solid black;">';
-                    table_one_body += '✓';
+                } else if (data.matches[k].winner == '-') {
+                    table_one_body += '<td style="background-color:grey;color:black; border-right: 1px solid black;">';
+                    table_one_body += '-';
                 } else {
                     table_one_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_one_body += '✘';
@@ -650,28 +622,16 @@ function change_team_one_select(selected_team) {
             }
         }
 
+        var column_stats = [fb_count, ft_count, fd_count, fi_count, fbaron_count];
+
         table_one_body += '<tr>';
         table_one_body += '<td colspan=2></td>';
 
-        table_one_body += '<td>';
-        table_one_body += fb_count + '0%';
-        table_one_body += '</td>'
-        
-        table_one_body += '<td>';
-        table_one_body += ft_count + '0%';
-        table_one_body += '</td>'
-
-        table_one_body += '<td>';
-        table_one_body += fd_count + '0%';
-        table_one_body += '</td>'
-
-        table_one_body += '<td>';
-        table_one_body += fi_count + '0%';
-        table_one_body += '</td>'
-
-        table_one_body += '<td>';
-        table_one_body += fbaron_count + '0%';
-        table_one_body += '</td>'
+        for (i = 0; i < column_stats.length; i++) { 
+            table_one_body += '<td>';
+            table_one_body += column_stats[i] + '0%';
+            table_one_body += '</td>'
+        }
 
         table_one_body += '<td style="border-right: 1px solid black;">';
         table_one_body += win_count + '0%';
@@ -745,8 +705,9 @@ function change_team_two_select(selected_team) {
     fetchJSONFile('my_data_dump.json', function(data) {
         for(j in data.matches) {
             if (((league == data.matches[k].league_id) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team)) || ((league == 0) && (data.matches[k].blue_team == selected_team || data.matches[k].red_team == selected_team))) {
-                table_two_body += '<tr>';
+                var match_info = [data.matches[k].first_blood, data.matches[k].first_tower, data.matches[k].first_dragon, data.matches[k].first_inhibitor, data.matches[k].first_baron];
 
+                table_two_body += '<tr>';
                 table_two_body += '<td>';
                 table_two_body += data.matches[k].game_date.split("T")[0];
                 table_two_body += '</td>';
@@ -759,54 +720,27 @@ function change_team_two_select(selected_team) {
                 }
                 table_two_body += '</td>';
 
-                if (selected_team == data.matches[k].first_blood) {
-                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_two_body += '✓';
-                } else {
-                    table_two_body += '<td style="background-color:red;color:black;">';
-                    table_two_body += '✘';
+                for (i = 0; i < match_info.length; i++) {
+                    console.log(match_info[i]);
+                    if (match_info[i] == selected_team) {
+                        table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
+                        table_two_body += '✓';
+                    } else if (match_info[i] == '-') {
+                        table_two_body += '<td style="background-color:grey;color:black;">';
+                        table_two_body += '-';
+                    } else {
+                        table_two_body += '<td style="background-color:red;color:black;">';
+                        table_two_body += '✘';
+                    }
+                    table_two_body += '</td>';
                 }
-                table_two_body += '</td>';
 
-                if (selected_team == data.matches[k].first_tower) {
-                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_two_body += '✓';
-                } else {
-                    table_two_body += '<td style="background-color:red;color:black;">';
-                    table_two_body += '✘';
-                }
-                table_two_body += '</td>';
-
-                if (selected_team == data.matches[k].first_dragon) {
-                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_two_body += '✓';
-                } else {
-                    table_two_body += '<td style="background-color:red;color:black;">';
-                    table_two_body += '✘';
-                }
-                table_two_body += '</td>';
-
-                if (selected_team == data.matches[k].first_inhibitor) {
-                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_two_body += '✓';
-                } else {
-                    table_two_body += '<td style="background-color:red;color:black;">';
-                    table_two_body += '✘';
-                }
-                table_two_body += '</td>';
-
-                if (selected_team == data.matches[k].first_baron) {
-                    table_two_body += '<td style="background-color:DeepSkyBlue;color:black;">';
-                    table_two_body += '✓';
-                } else {
-                    table_two_body += '<td style="background-color:red;color:black;">';
-                    table_two_body += '✘';
-                }
-                table_two_body += '</td>';
-
-                if (selected_team == data.matches[k].winner) {
+                if (data.matches[k].winner == selected_team) {
                     table_two_body += '<td style="background-color:DeepSkyBlue;color:black; border-right: 1px solid black;">';
                     table_two_body += '✓';
+                } else if (data.matches[k].winner == '-') {
+                    table_two_body += '<td style="background-color:grey;color:black; border-right: 1px solid black;">';
+                    table_two_body += '-';
                 } else {
                     table_two_body += '<td style="background-color:red;color:black; border-right: 1px solid black;">';
                     table_two_body += '✘';
@@ -871,28 +805,16 @@ function change_team_two_select(selected_team) {
             }
         }
 
+        var column_stats = [fb_count, ft_count, fd_count, fi_count, fbaron_count];
+
         table_two_body += '<tr>';
         table_two_body += '<td colspan=2></td>';
 
-        table_two_body += '<td>';
-        table_two_body += fb_count + '0%';
-        table_two_body += '</td>'
-        
-        table_two_body += '<td>';
-        table_two_body += ft_count + '0%';
-        table_two_body += '</td>'
-
-        table_two_body += '<td>';
-        table_two_body += fd_count + '0%';
-        table_two_body += '</td>'
-
-        table_two_body += '<td>';
-        table_two_body += fi_count + '0%';
-        table_two_body += '</td>'
-
-        table_two_body += '<td>';
-        table_two_body += fbaron_count + '0%';
-        table_two_body += '</td>'
+        for (i = 0; i < column_stats.length; i++) { 
+            table_two_body += '<td>';
+            table_two_body += column_stats[i] + '0%';
+            table_two_body += '</td>'
+        }
 
         table_two_body += '<td style="border-right: 1px solid black;">';
         table_two_body += win_count + '0%';
