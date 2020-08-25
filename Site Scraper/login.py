@@ -17,6 +17,7 @@ from team_name_mapper import *
 import timeit
 from datetime import datetime
 import pytz
+from getpass import getpass
 
 def get_page_source (link):
     # Load page and grab data
@@ -45,9 +46,8 @@ def check_if_match_exists (game_date, game_count, blue_team, red_team):
         team_two = (game['red_team'])
 
         if (db_date == game_date) and ((team_one == blue_team) or (team_two == blue_team)) and (game_number == game_count) and ((team_two == red_team) or (team_one == red_team)):                
-                print(db_date + ' ' + team_one + ' ' + team_two)
-                does_exist = True
-                return does_exist
+            does_exist = True
+            return does_exist
 
 def process_data (split_objective_data, blue_team, red_team):
     split_data = []
@@ -79,17 +79,25 @@ options.add_argument('--headless')
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--disable-extensions')
 options.add_argument('--incognito')
-driver = webdriver.Chrome(executable_path = '/Users/Carlisle/Desktop/Projects/chromedriver.exe', options = options)
-#driver_location = str(sys.argv[1])
-#driver = webdriver.Chrome(executable_path=driver_location, options=options)
+options.add_argument('--hide-scrollbars')
+options.add_argument('--disable-gpu')
+options.add_argument("--log-level=3")
+driver_location = str(sys.argv[1])
+driver = webdriver.Chrome(executable_path=driver_location, options=options)
 driver.get(login_url)
 driver.implicitly_wait(10) # not sure if needed
 
 # login stuff 
 wait_for_login = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'password-field')))
 text_area = driver.find_elements_by_class_name('field__form-input')
-text_area[0].send_keys("KamiStriker")
-text_area[1].send_keys("c04dcfbaceKAMI")
+
+lol_username = input("Please enter your League of Legends username: ")
+text_area[0].send_keys(lol_username)
+
+lol_password = getpass("Please enter your League of Legends password: ")
+text_area[1].send_keys(lol_password)
+
+# Insert check here to see if the login was sucessful. Otherwise prompt to re-enter account info
 
 time.sleep(2)
 
@@ -98,13 +106,18 @@ remember_me.click()
 remember_me.send_keys(Keys.RETURN)
 
 # Allows user to enter the verification code from their e-mail used to login to allow access to the matchhistory
-print("Please enter the verifcation code: ")
-verification_code = input() 
+while True:
+    verification_code = input("Please enter the verifcation code: ")
+    if len(verification_code) > 5:
+        print("The verification code you entered is too long")
+    elif len(verification_code) < 5:
+        print("The verification code you entered is too short")
+    else:
+        break
+
 verify_boxes = driver.find_element_by_class_name('mfafield__input')
 verify_boxes.send_keys(verification_code)
 verify_boxes.send_keys(Keys.RETURN)
-# Perform a check to check if the code is 5 letters/numbers, reask for input if incorrect
-# Check if len() = 5
 
 time.sleep(5)
 print("Login complete")
@@ -251,8 +264,7 @@ for league_url in list_of_leagues_to_scrape:
             match_data[idx].append("don't scrape")
         else:
             match_data[idx].append("scrape")
-            print("New data")
-            print(match)
+            # print(match)
 
     # Compile a list of matchhistory links
     print('Starting to scrape individual ' + league + ' games')
@@ -315,8 +327,6 @@ for league_url in list_of_leagues_to_scrape:
                         red_team = match[2]
                         blue_team = match[3]
 
-                    print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
-
                     game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
                     
                     if str(game_winner).strip() in 'VICTORY':
@@ -378,18 +388,13 @@ for league_url in list_of_leagues_to_scrape:
                     else:
                         first_inhibitor = process_data(inhibitor_data, blue_team, red_team)
 
-                    # Append to file
-                    game_data = []
-                    game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])
+                    # game_data = []
+                    # game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])                    
+                    # if first_dragon.strip() != '' and first_inhibitor.strip() != '' and first_baron.strip() != '':
+                    #     writer.writerows(game_data)
                     matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])
-                    if first_dragon.strip() == '' and first_inhibitor.strip() == '' and first_baron.strip() == '':
-                        print("The matchhistory for this match does not load properly and will not be written to file")
-                    else:
-                        writer.writerows(game_data)
-                    print('Completed scraping the match')
                 else:
-                    print("The page did not load correctly, skipping!")
-                    print("Attempting to get team names and print blank fillers to file")
+                    print("The page ^ did not load correctly, skipping!" )
 
                     page_info = get_page_source(match[5])
                     page_source = page_info[0]
@@ -418,24 +423,10 @@ for league_url in list_of_leagues_to_scrape:
                         red_team = match[2]
                         blue_team = match[3]
 
-                    print("Date: " + match[0] + " Blue team: " + blue_team + " Red team: " + red_team)
-
-                    # game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
-                    
-                    # print(game_winner)
-
-                    # if str(game_winner).strip() in 'VICTORY':
-                    #     game_winner = blue_team
-                    #     game_loser = red_team
-                    # else:
-                    #     game_winner = red_team
-                    #     game_loser = blue_team
-
-                    game_data = []
-                    game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
                     matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
-                    #game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', game_winner, game_loser])
-                    writer.writerows(game_data)
+                    # game_data = []
+                    # game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
+                    # writer.writerows(game_data)
     else:
         print("It seems a matchhistory link for one of the games is missing")
 
@@ -444,56 +435,25 @@ print('Finished scraping!')
 driver.close() 
 driver.quit()
 
+# Confirm if the user wants to post to the database or not
+
 for match_stats in matches_to_post:
     print(match_stats)
 
-# print("Would you like to post the new data to the database (y/n)? ")
+print('Posting to the database')
 
-# post_data = input() 
+conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
+cur = conn.cursor()
 
-# if post_data == "y" or post_data == "Y":
-#     print('Posting to the database')
+cur.execute("SELECT COUNT(*) FROM games")
+unique_id = cur.fetchone()
+unique_id = unique_id[0]
+#Maybe check id of the last entry here to ensure this works even with deleted entries
 
-#     conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
-#     cur = conn.cursor()
+for idx, match_stats in enumerate(matches_to_post):
+    unique_id = unique_id+1
+    cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)", match_stats[:6])
+    cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")", match_stats[6:])
 
-#     cur.execute("SELECT COUNT(*) FROM games")
-#     unique_id = cur.fetchone()
-#     unique_id = unique_id[0]
-#     #Maybe check id of the last entry here to ensure this works even with deleted entries
-
-#     input_file = {
-#         'LCS Data.csv',
-#         'LCK Data.csv',
-#         'LEC Data.csv',
-#         'OPL Data.csv',
-#         #'LFL Data.csv',
-#         'LVP_SuperLiga_Orange Data.csv',
-#         'PCS Data.csv',
-#         'LLA Data.csv',
-#         'Ultraliga Data.csv',
-#         'LPL Data.csv',
-#         'NA_Academy_League Data.csv',
-#         'LJL Data.csv',
-#         'TCL Data.csv',
-#         'VCS Data.csv',
-#         'CBLOL Data.csv'
-#     }
-
-    # for file in input_file:
-    #     print("Adding matches from " + file + ' to the database')
-    #     with open(file, 'r') as f:
-    #         reader = csv.reader(f)
-    #         next(reader) # Skip the header row
-    #         # Do something here to check if file is empty
-    #         for (index, row) in enumerate(reader):
-    #             print(index)
-    #             unique_id = unique_id+1
-    #             cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)", row[:6])
-    #             cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")", row[6:])
-
-#     print("Commiting files to the database")
-#     conn.commit()
-# else:
-#     print("Not posting")
-
+print("Files were committed to the database")
+conn.commit()

@@ -18,20 +18,20 @@ cur = conn.cursor()
 
 input_files = {
     'LCS Upcoming Games.csv',
-    #'LCK Upcoming Games.csv',
+    'LCK Upcoming Games.csv',
     'LEC Upcoming Games.csv',
     'OPL Upcoming Games.csv',
     'LFL Upcoming Games.csv',
     'LVP_SuperLiga_Orange Upcoming Games.csv',
-    #'PCS Upcoming Games.csv',
+    'PCS Upcoming Games.csv',
     'LLA Upcoming Games.csv',
     'Ultraliga Upcoming Games.csv',
     'LPL Upcoming Games.csv',
     'NA_Academy_League Upcoming Games.csv',
-    #'LJL Upcoming Games.csv',
-    #'TCL Upcoming Games.csv',
-    #'VCS Upcoming Games.csv',
-    #'CBLOL Upcoming Games.csv'
+    'LJL Upcoming Games.csv',
+    'TCL Upcoming Games.csv',
+    'VCS Upcoming Games.csv',
+    'CBLOL Upcoming Games.csv'
 }
 
 cur.execute("DELETE FROM upcoming;")
