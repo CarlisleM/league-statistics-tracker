@@ -273,14 +273,14 @@ function change_team_options(leaguename) {
         var current_league = 9;
         document.getElementById("league").innerHTML = "Ultraliga";
         var teams = {
-            ago : 'AGO ROGUE',
-            '7pt' : '7more7 Pompa Team',
+            rgo : 'AGO ROGUE',
+            'pt7' : '7more7 Pompa Team',
             prd : 'PRIDE',
             gg : "Gentlemen's Gaming",
             ihg : 'Illuminar Gaming',
             arr : 'piratesports',
             hit : 'Komputronik H34T',
-            'k1ck' : 'K1CK Neosurf'
+            'k1' : 'K1CK Neosurf'
         };
     } else if (leaguename == 'LJL') {
         var current_league = 13;

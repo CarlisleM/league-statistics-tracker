@@ -1,0 +1,105 @@
+
+
+Schedule
+	match_week // Might be able to just calculate this based on season start date...
+	league_id
+	split_year
+	split_type
+	match_day
+	game_date
+	match_time
+	blue_team // team 1?
+	red_team // team 2?
+
+	Example:
+		match_week: 3
+		league_id: 1
+		split_year: 2020
+		split_type: Split 2
+		match_day: Monday
+		game_date: 09/08/2020
+		blue_team: c9
+		red_team: tsm
+
+Teams
+	team_id
+	team_name
+	team_name_abv
+	team_league
+
+	Example:
+		team_id: 1
+		team_name: Team SoloMid
+		team_name_abv: tsm
+		team_league: lcs
+
+Games
+	game_id
+	date
+	team_one
+	team_two
+
+Game Data
+	game_id
+    first_blood
+    first_tower
+    first_dragon
+    first_riftherald
+    first_inhibitor
+    first_baron
+    team_one_total_kills
+    team_two_total_kills
+    winner
+    loser
+
+    Example:
+    	game_id: 1
+	    first_blood: eg 
+	    first_tower: eg
+	    first_dragon: c9
+	    first_riftherald: eg 
+	    first_inhibitor: c9
+	    first_baron: c9
+    	team_one_total_kills: 12
+    	team_two_total_kills: 10
+	    winner: c9
+	    loser: eg
+
+Game Odds
+	game_id
+    first_blood_t1_odds
+    first_blood_t2_odds 
+    first_tower_t1_odds
+    first_tower_t2_odds
+    first_dragon_t1_odds
+    first_dragon_t2_odds
+    first_riftherald_t1_odds 
+    first_riftherald_t2_odds 
+    first_inhibitor_t1_odds
+    first_inhibitor_t2_odds
+    first_baron_t1_odds
+    first_baron_t2_odds
+    winner_t1_odds
+    winner_t2_odds
+
+Splits
+	split_id
+	league_id
+	split_year
+	split_type
+
+	Example: 
+		split_id: 1
+		split_league: lcs
+		split_year: 2020
+		splt_type: Split 2 (Summer)
+
+Leagues
+	league_id
+	league_name
+	region
+
+	Example:
+		league_id: 1 
+		league_name: lcs 
+		region: North America

@@ -1,4 +1,3 @@
-import csv
 import psycopg2
 import requests
 import re
@@ -20,16 +19,14 @@ import pytz
 from getpass import getpass
 
 def get_page_source (link):
-    # Load page and grab data
     driver.get(link)
-
     if page_type == "main page":
         show_all = driver.find_element_by_xpath('//*[@id="matchlist-show-all"]')
         show_all.click()
         time.sleep(5)   # Probably not needed at all or can be greatly reduced
         return driver.page_source
     else:    
-        wait = 15 # Give the page 10 seconds to load the graph before timing out
+        wait = 15 # Give the page 15 seconds to load the graph before timing out
         try:
             time.sleep(10)
             wait_for_graph = WebDriverWait(driver, wait).until(EC.presence_of_element_located((By.CLASS_NAME, 'event-graph')))
@@ -44,10 +41,9 @@ def check_if_match_exists (game_date, game_count, blue_team, red_team):
         game_number = (game['game_count'])
         team_one = (game['blue_team'])
         team_two = (game['red_team'])
-
         if (db_date == game_date) and ((team_one == blue_team) or (team_two == blue_team)) and (game_number == game_count) and ((team_two == red_team) or (team_one == red_team)):                
-            does_exist = True
-            return does_exist
+            return True
+    return False
 
 def process_data (split_objective_data, blue_team, red_team):
     split_data = []
@@ -74,9 +70,9 @@ page_type = 'hi'
 login_url = 'http://account.riotgames.com/'
 
 options = webdriver.ChromeOptions()
-#options.add_argument("user-data-dir=/Users/Carlisle/Desktop/Chrome")
 options.add_argument('--headless')
 options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
 options.add_argument('--disable-extensions')
 options.add_argument('--incognito')
 options.add_argument('--hide-scrollbars')
@@ -128,12 +124,28 @@ matches_played = json.loads(response.text)
 matches_to_post = []
 
 list_of_leagues_to_scrape = [
+    'https://lol.gamepedia.com/LCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LEC/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/OPL/2020_Season/Split_2',
+    # # 'https://lol.gamepedia.com/LPL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LLA/2020_Season/Closing_Season',
+    'https://lol.gamepedia.com/LFL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/Ultraliga/Season_4',
+    'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/TCL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2',
+    'https://lol.gamepedia.com/LJL/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/VCS/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season',
+    'https://lol.gamepedia.com/PCS/2020_Season/Summer_Season',
+
     'https://lol.gamepedia.com/LCS/2020_Season/Summer_Playoffs',
     'https://lol.gamepedia.com/LEC/2020_Season/Summer_Playoffs',
     'https://lol.gamepedia.com/OPL/2020_Season/Split_2_Playoffs',
-    'https://lol.gamepedia.com/LPL/2020_Season/Summer_Playoffs',
+    # # 'https://lol.gamepedia.com/LPL/2020_Season/Summer_Playoffs',
     'https://lol.gamepedia.com/LLA/2020_Season/Closing_Playoffs',
-    'https://lol.gamepedia.com/LFL/2020_Season/EM_Qualification', # Weird cause also blank summer playoffs
+    'https://lol.gamepedia.com/LFL/2020_Season/EM_Qualification',
     'https://lol.gamepedia.com/LVP_SuperLiga_Orange/2020_Season/Summer_Playoffs',
     'https://lol.gamepedia.com/Ultraliga/Season_4_Playoffs',
     'https://lol.gamepedia.com/NA_Academy_League/2020_Season/Summer_Playoffs',
@@ -141,8 +153,7 @@ list_of_leagues_to_scrape = [
     'https://lol.gamepedia.com/CBLOL/2020_Season/Split_2_Playoffs',
     'https://lol.gamepedia.com/LJL/2020_Season/Summer_Playoffs',
     'https://lol.gamepedia.com/VCS/2020_Season/Summer_Playoffs',
-    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Season', # Regular LCK season
-    #'https://lol.gamepedia.com/LCK/2020_Season/Summer_Playoffs', # LCK not yet finished regular season
+    'https://lol.gamepedia.com/LCK/2020_Season/Summer_Playoffs',
     'https://lol.gamepedia.com/PCS/2020_Season/Summer_Playoffs'
 ]
 
@@ -189,11 +200,6 @@ for league_url in list_of_leagues_to_scrape:
     else:
         get_team_name_from_league = get_worlds_name
         #get_team_name_from_league = get_name
-
-    outfile = "./Match Data/" + league + " Data.csv"
-    outfile = open(outfile, "w", newline='')
-    writer = csv.writer(outfile)
-    writer.writerow(['League', 'Split', 'Date', 'Game', 'Blue Team', 'Red Team', 'First Blood', 'First Tower',  'First Dragon', 'First Inhibitor', 'First Baron', 'Winner', 'Loser'])
 
     print('Scraping ' + league + ' main page')
 
@@ -247,24 +253,16 @@ for league_url in list_of_leagues_to_scrape:
                 if team_2_string[-idx:].lower() in get_team_name_from_league:
                     red_team = team_2_string[-idx:].lower()      
 
-            # Team 1 starts blue side and alternates for each game after the first
-            match_data.append([game_date, '1', blue_team, red_team]) 
-            if set_game_count >= 2:
-                match_data.append([game_date, '2', red_team, blue_team])
-            if set_game_count >= 3:
-                match_data.append([game_date, '3', blue_team, red_team])
-            if set_game_count >= 4:
-                match_data.append([game_date, '4', red_team, blue_team])
-            if set_game_count == 5:
-                match_data.append([game_date, '5', blue_team, red_team])
+            for idx, _ in enumerate(range(set_game_count)):
+                #if check_if_match_exists(game_date, (idx+1), blue_team, red_team) == False:
+                match_data.append([game_date, (idx+1), blue_team, red_team])
 
     for idx, match in enumerate(match_data):
         does_match_already_exist = check_if_match_exists(match[0], int(match[1]), match[2], match[3])
         if does_match_already_exist == True:
-            match_data[idx].append("don't scrape")
+            match_data[idx].append(0) # Dont scrape
         else:
-            match_data[idx].append("scrape")
-            # print(match)
+            match_data[idx].append(1) # Scrape
 
     # Compile a list of matchhistory links
     print('Starting to scrape individual ' + league + ' games')
@@ -281,16 +279,29 @@ for league_url in list_of_leagues_to_scrape:
         else:
             print("Dont increase")
             altered = altered+1
+    number_of_match_links = len(soup.find_all('a', attrs={'href': re.compile("matchhistory")}))-altered
+
+    # This section can be used to get all of the LPL match history links, however they use a different website so cannot be scraped the same
+    # if number_of_match_links == 0:
+    #     altered = 0
+    #     counter = 0
+    #     for link in soup.find_all('a', attrs={'href': re.compile("stats")}):
+    #         if link.text == "Link":
+    #             match_data[counter].append(link.get('href'))
+    #             counter = counter+1
+    #         else:
+    #             print("Dont increase")
+    #             altered = altered+1
+    #     number_of_match_links = len(soup.find_all('a', attrs={'href': re.compile("stats")}))-altered
 
     page_type = "matchhistory page"
 
     # Collect match statistics (First blood, riftherald, dragon, tower, baron, inhibitor, winner)
-    if len(soup.find_all('a', attrs={'href': re.compile("matchhistory")}))-altered == len(match_data):
+    if number_of_match_links == len(match_data):
         print("Continue because the number of match links matches the number of games found")
         # Retrieve data from each match history link
         for match in match_data:
-            if match[4] == 'scrape':
-                print('Scraping...')
+            if match[4] == 1:
                 print(match)
 
                 # Reset variables to avoid wrong team being printed if the data cannot be found
@@ -312,87 +323,78 @@ for league_url in list_of_leagues_to_scrape:
                             blue_team = player.text.strip().split()[0].lower()
                         if idx == 5:
                             red_team = player.text.strip().split()[0].lower()
-                    
-                    if blue_team in match[2] and blue_team in match[3]:
-                        if red_team in match[3]:
-                            blue_team = match[2]
-                            red_team = match[3]
-                        else:
-                            red_team = match[2]
-                            blue_team = match[3]
-                    elif blue_team in str(match[2]):
+
+                    if 'Academy' in league:
+                        blue_team = blue_team + '.a'
+                        red_team = red_team + '.a'
+
+                    if (blue_team not in match[2] and blue_team not in match[3]) or (red_team not in match[2] and red_team not in match[3]):
                         blue_team = match[2]
                         red_team = match[3]
+                        matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
                     else:
-                        red_team = match[2]
-                        blue_team = match[3]
+                        game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
 
-                    game_winner = soup.find('div', attrs={'class':'game-conclusion'}).text # Winner/Loser
-                    
-                    if str(game_winner).strip() in 'VICTORY':
-                        game_winner = blue_team
-                        game_loser = red_team
-                    else:
-                        game_winner = red_team
-                        game_loser = blue_team
+                        if str(game_winner).strip() in 'VICTORY':
+                            game_winner = blue_team
+                            game_loser = red_team
+                        else:
+                            game_winner = red_team
+                            game_loser = blue_team
 
-                    # Obtain first blood, riftherald, dragon, tower, inhibitor, and baron info
-                    objective_data = []
-                    victim_data = []
+                        # Obtain first blood, riftherald, dragon, tower, inhibitor, and baron info
+                        objective_data = []
+                        victim_data = []
 
-                    for lines in soup.findAll('image'):
-                        objective_data.append(str(lines))
+                        for lines in soup.findAll('image'):
+                            objective_data.append(str(lines))
 
-                    riftherald_data = [a for a in objective_data if "riftherald" in a]
-                    dragon_data = [b for b in objective_data if "dragon" in b]
-                    baron_data = [c for c in objective_data if "baron" in c]
-                    inhibitor_data = [d for d in objective_data if "inhibitor" in d]
+                        riftherald_data = [a for a in objective_data if "riftherald" in a]
+                        dragon_data = [b for b in objective_data if "dragon" in b]
+                        baron_data = [c for c in objective_data if "baron" in c]
+                        inhibitor_data = [d for d in objective_data if "inhibitor" in d]
 
-                    # First Blood
-                    first_blood = []
+                        # First Blood
+                        first_blood = []
 
-                    rows = soup.find_all('tr')
-                    for row in rows:
-                        first_blood.append(row.get_text())
+                        rows = soup.find_all('tr')
+                        for row in rows:
+                            first_blood.append(row.get_text())
 
-                    first_blood = re.sub(r'[a-zA-Z]+', '', first_blood[5], re.I)
-                    first_blood = first_blood.split('●')[0]
+                        first_blood = re.sub(r'[a-zA-Z]+', '', first_blood[5], re.I)
+                        first_blood = first_blood.split('●')[0]
 
-                    if int(first_blood.count('○')) < 5:
-                        first_blood = blue_team
-                    else:
-                        first_blood = red_team
+                        if int(first_blood.count('○')) < 5:
+                            first_blood = blue_team
+                        else:
+                            first_blood = red_team
 
-                    # First Tower
-                    for victim in soup.findAll('div', attrs={'class':'victim'}):
-                        victim_data.append(victim)
+                        # First Tower
+                        for victim in soup.findAll('div', attrs={'class':'victim'}):
+                            victim_data.append(victim)
 
-                    for victim in victim_data:
-                        if 'turret_100' in str(victim_data): # Red team got first tower
-                            first_tower = red_team
-                        elif 'turret_200' in str(victim_data): # Blue team got first tower
-                            first_tower = blue_team   
+                        for victim in victim_data:
+                            if 'turret_100' in str(victim_data): # Red team got first tower
+                                first_tower = red_team
+                            elif 'turret_200' in str(victim_data): # Blue team got first tower
+                                first_tower = blue_team   
 
-                    if not dragon_data:
-                        first_dragon = ' '
-                    else: 
-                        first_dragon = process_data(dragon_data, blue_team, red_team)
+                        if not dragon_data:
+                            first_dragon = ' '
+                        else: 
+                            first_dragon = process_data(dragon_data, blue_team, red_team)
 
-                    if not baron_data:
-                        first_baron = ' '
-                    else:
-                        first_baron = process_data(baron_data, blue_team, red_team)
+                        if not baron_data:
+                            first_baron = ' '
+                        else:
+                            first_baron = process_data(baron_data, blue_team, red_team)
 
-                    if not inhibitor_data:
-                        first_inhibitor = ' '
-                    else:
-                        first_inhibitor = process_data(inhibitor_data, blue_team, red_team)
+                        if not inhibitor_data:
+                            first_inhibitor = ' '
+                        else:
+                            first_inhibitor = process_data(inhibitor_data, blue_team, red_team)
 
-                    # game_data = []
-                    # game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])                    
-                    # if first_dragon.strip() != '' and first_inhibitor.strip() != '' and first_baron.strip() != '':
-                    #     writer.writerows(game_data)
-                    matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])
+                        matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, first_blood, first_tower, first_dragon.strip(), first_inhibitor.strip(), first_baron.strip(), game_winner, game_loser])
                 else:
                     print("The page ^ did not load correctly, skipping!" )
 
@@ -405,28 +407,19 @@ for league_url in list_of_leagues_to_scrape:
 
                     for idx, player in enumerate(player_team_names):
                         if idx == 0:
-                            blue_team = player.text.strip().split()[0].lower()
+                            blue_team = player.text.strip().split()[0].lower()                            
                         if idx == 5:
                             red_team = player.text.strip().split()[0].lower()
+
+                    if 'Academy' in league:
+                        blue_team = blue_team + '.a'
+                        red_team = red_team + '.a'    
                     
-                    if blue_team in match[2] and blue_team in match[3]:
-                        if red_team in match[3]:
-                            blue_team = match[2]
-                            red_team = match[3]
-                        else:
-                            red_team = match[2]
-                            blue_team = match[3]
-                    elif blue_team in str(match[2]):
+                    if (blue_team not in match[2] and blue_team not in match[3]) or (red_team not in match[2] and red_team not in match[3]):
                         blue_team = match[2]
                         red_team = match[3]
-                    else:
-                        red_team = match[2]
-                        blue_team = match[3]
 
                     matches_to_post.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
-                    # game_data = []
-                    # game_data.append([league_id, split_id, match[0].replace('-','/'), match[1], blue_team, red_team, '-', '-', '-', '-', '-', '-', '-'])
-                    # writer.writerows(game_data)
     else:
         print("It seems a matchhistory link for one of the games is missing")
 
@@ -440,20 +433,24 @@ driver.quit()
 for match_stats in matches_to_post:
     print(match_stats)
 
-print('Posting to the database')
+print("Would you like to post the new data to the database (y/n)? ")
+post_data = input() 
 
-conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
-cur = conn.cursor()
+if post_data == "y" or post_data == "Y":
+    print('Posting to the database')
 
-cur.execute("SELECT COUNT(*) FROM games")
-unique_id = cur.fetchone()
-unique_id = unique_id[0]
-#Maybe check id of the last entry here to ensure this works even with deleted entries
+    conn = psycopg2.connect(user = "djpoucmhkewvrh", password = "e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c", host = "ec2-174-129-209-212.compute-1.amazonaws.com", port = "5432", database = "d24ubplectbqas", sslmode = 'require')
+    cur = conn.cursor()
 
-for idx, match_stats in enumerate(matches_to_post):
-    unique_id = unique_id+1
-    cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)", match_stats[:6])
-    cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")", match_stats[6:])
+    cur.execute("SELECT COUNT(*) FROM games")
+    unique_id = cur.fetchone()
+    unique_id = unique_id[0]
+    #Maybe check id of the last entry here to ensure this works even with deleted entries
 
-print("Files were committed to the database")
-conn.commit()
+    for idx, match_stats in enumerate(matches_to_post):
+        unique_id = unique_id+1
+        cur.execute("INSERT INTO games VALUES (" + str(unique_id) + " , %s, %s, %s, %s, %s, %s)", match_stats[:6])
+        cur.execute("INSERT INTO match_results VALUES (%s, %s, %s, %s, %s, %s, %s, " + str(unique_id) + ")", match_stats[6:])
+
+    print("Files were committed to the database")
+    conn.commit()
