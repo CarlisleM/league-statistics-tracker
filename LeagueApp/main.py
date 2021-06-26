@@ -5,6 +5,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QCheckBox, QRadioButton
 from PyQt5 import QtCore
 
+
 class App(QMainWindow):
 
     def __init__(self):
@@ -16,30 +17,31 @@ class App(QMainWindow):
         self.height = 200
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        
+
         self.table_widget = MyTableWidget(self)
         self.setCentralWidget(self.table_widget)
-        
+
         self.show()
-    
+
+
 class MyTableWidget(QWidget):
-    
+
     def __init__(self, parent):
         super(MyTableWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
-        
+
         # Initialize tab screen
         self.tabs = QTabWidget()
         self.tab1 = QWidget()
         self.tab2 = QWidget()
-        self.tabs.resize(300,200)
-        
+        self.tabs.resize(300, 200)
+
         # Add tabs
-        self.tabs.addTab(self.tab1,"Scrape Data")
-        self.tabs.addTab(self.tab2,"About")
-        
+        self.tabs.addTab(self.tab1, "Scrape Data")
+        self.tabs.addTab(self.tab2, "About")
+
         # Create first tab
-        self.tab1.layout = QVBoxLayout() # used to be QVBoxLayout(self)
+        self.tab1.layout = QVBoxLayout()  # used to be QVBoxLayout(self)
         self.pushButton1 = QPushButton("Scrape Matches")
         self.tab1.layout.addWidget(self.pushButton1)
         self.pushButton1.clicked.connect(self.checkWhatToScrape)
@@ -60,7 +62,7 @@ class MyTableWidget(QWidget):
         self.leagueLCS = QCheckBox("LCS")
         self.leagueLEC = QCheckBox("LEC")
         self.leagueLCK = QCheckBox("LCK")
-        self.leagueOPL = QCheckBox("OPL")
+        self.leagueLCO = QCheckBox("LCO")
         self.leagueLPL = QCheckBox("LPL")
         self.leagueLLA = QCheckBox("LLA")
         self.leagueLFL = QCheckBox("LFL")
@@ -73,7 +75,8 @@ class MyTableWidget(QWidget):
         self.leagueVCS = QCheckBox("VCS")
         self.leaguePCS = QCheckBox("PCS")
 
-        self.checkboxes = [self.leagueLCS, self.leagueLEC, self.leagueLCK, self.leagueOPL, self.leagueLPL, self.leagueLLA, self.leagueLFL, self.leagueLVP, self.leagueUltraliga, self.leagueNAA ,self.leagueTCL, self.leagueCBLOL, self.leagueLJL, self.leagueVCS, self.leaguePCS]
+        self.checkboxes = [self.leagueLCS, self.leagueLEC, self.leagueLCK, self.leagueLCO, self.leagueLPL, self.leagueLLA, self.leagueLFL,
+                           self.leagueLVP, self.leagueUltraliga, self.leagueNAA, self.leagueTCL, self.leagueCBLOL, self.leagueLJL, self.leagueVCS, self.leaguePCS]
 
         for box in self.checkboxes:
             self.tab1.layout.addWidget(box)
@@ -81,7 +84,7 @@ class MyTableWidget(QWidget):
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
-        
+
     # Toggle league selection using radio buttons
     def selectLeagues(self):
         if self.manualSelect.isChecked() == True:
@@ -94,9 +97,10 @@ class MyTableWidget(QWidget):
                 box.setChecked(True)
                 box.setAttribute(QtCore.Qt.WA_TransparentForMouseEvents, True)
 
-    def checkWhatToScrape(self): 
+    def checkWhatToScrape(self):
         for box in self.checkboxes:
             print(box.isChecked())
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

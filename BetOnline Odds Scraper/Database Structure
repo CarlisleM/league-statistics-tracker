@@ -102,7 +102,7 @@ INSERT INTO match_odds VALUES ('Team SoloMid', 'Team Liquid', 1.86, 1.55, 1.72, 
 
 INSERT INTO leagues VALUES (1, 'LCK');
 INSERT INTO leagues VALUES (2, 'LEC');
-INSERT INTO leagues VALUES (3, 'OPL');
+INSERT INTO leagues VALUES (3, 'LCO');
 INSERT INTO leagues VALUES (4, 'LFL');
 INSERT INTO leagues VALUES (5, 'LVP');
 INSERT INTO leagues VALUES (6, 'LMS');
