@@ -283,7 +283,7 @@ function change_team_options(leaguename) {
             k1: 'K1CK'
         };
     } else if (leaguename == 'LJL') {
-        var current_league = 13;
+        var current_league = 12;
         document.getElementById("league").innerHTML = "LJL";
         var teams = {
             'v3': 'V3 Esports',
@@ -296,7 +296,7 @@ function change_team_options(leaguename) {
             rj: 'Rascal Jester'
         };
     } else if (leaguename == 'TCL') {
-        var current_league = 14;
+        var current_league = 13;
         document.getElementById("league").innerHTML = "TCL";
         var teams = {
             bjk: 'Beşiktaş Esports',
@@ -311,7 +311,7 @@ function change_team_options(leaguename) {
             aur: 'Team AURORA'
         };
     } else if (leaguename == 'CBLOL') {
-        var current_league = 16;
+        var current_league = 15;
         document.getElementById("league").innerHTML = "CBLOL";
         var teams = {
             vrx: 'Vorax Liberty',
@@ -326,7 +326,7 @@ function change_team_options(leaguename) {
             nmg: 'Netshoes Miners'
         };
     // } else if (leaguename == 'VCS') {
-    //     var current_league = 15;
+    //     var current_league = 14;
     //     document.getElementById("league").innerHTML = "VCS";
     //     var teams = {
     //         per : 'Percent Esports',
