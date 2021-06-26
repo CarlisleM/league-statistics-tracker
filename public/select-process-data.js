@@ -502,13 +502,13 @@ function change_team_one_select(selected_team) {
     }  else if (document.getElementById("league").innerHTML == "NA_Academy_League") { 
         var league = 11;
     }  else if (document.getElementById("league").innerHTML == "LJL") { 
-        var league = 13;
+        var league = 12;
     }  else if (document.getElementById("league").innerHTML == "TCL") { 
-        var league = 14;
+        var league = 13;
     }  else if (document.getElementById("league").innerHTML == "VCS") { 
-        var league = 15;
+        var league = 14;
     }  else if (document.getElementById("league").innerHTML == "CBLOL") { 
-        var league = 16;
+        var league = 15;
     }  else {
         var league = 0;
     }
@@ -689,13 +689,13 @@ function change_team_two_select(selected_team) {
     }  else if (document.getElementById("league").innerHTML == "NA_Academy_League") { 
         var league = 11;
     }  else if (document.getElementById("league").innerHTML == "LJL") { 
-        var league = 13;
+        var league = 12;
     }  else if (document.getElementById("league").innerHTML == "TCL") { 
-        var league = 14;
+        var league = 13;
     }  else if (document.getElementById("league").innerHTML == "VCS") { 
-        var league = 15;
+        var league = 14;
     }  else if (document.getElementById("league").innerHTML == "CBLOL") { 
-        var league = 16;
+        var league = 15;
     }  else {
         var league = 0;
     }
