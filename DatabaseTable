@@ -57,6 +57,7 @@ INSERT INTO leagues VALUES (14, 'VCS', 'Vietnam', 'https://upload.wikimedia.org/
 INSERT INTO leagues VALUES (15, 'CBLOL', 'Brazil', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/4/4e/CBLOL_2020_Logo.png/revision/latest/scale-to-width-down/2000?cb=20201125212403');
 
 
+
 CREATE TABLE teams (
     id INTEGER NOT NULL,
     name TEXT NOT NULL,
@@ -141,9 +142,6 @@ To kill Rift Herald (Map 1),Invictus Gaming,1.86,FunPlus Phoenix,1.86
 First Elemental Dragon (Map 1),Infernal Dragon,3.33,Mountain Dragon,3.33,Ocean Dragon,3.33,Cloud Dragon,3.33
 Most Kills #1 (Map 1),Rookie,1.87,TheShy,1.87
 Most Kills #2 (Map 1),Doinb,1.92,Lwx,1.82
-
-
-
 
 CREATE TABLE players (
     id INTEGER NOT NULL,
@@ -353,7 +351,6 @@ INSERT INTO teams VALUES (149, '⁠LOUD', 15);
 INSERT INTO teams VALUES (150, 'Netshoes Miners', 15);
 
 
-
 INSERT INTO games VALUES (1, '2019-03-31', 1, 'SK Telecom T1', 'Afreeca Freecs', 1);
 
 INSERT INTO match_data VALUES ('Afreeca Freecs', 'Afreeca Freecs', 'Afreeca Freecs', 'Afreeca Freecs', 'SK Telecom T1', 'SK Telecom T1', 'SK Telecom T1', 'Afreeca Freecs', 1);
@@ -404,8 +401,8 @@ with t(
 select json_agg(t) from t \g '/Users/Carlisle/Desktop/League Database Project/matches_played.json'
 
 
-UPDATE match_results SET first_blood = '-', first_tower = '-', first_dragon = '-', first_inhibitor = '-', first_baron = '-', winner = '-' FROM games WHERE game_date = '2020-08-01' AND id = game_id AND game_count = '1' AND (blue_team = 'fly' OR red_team = 'fly') AND (blue_team = '100' OR red_team = '');
 
+UPDATE match_results SET first_blood = '-', first_tower = '-', first_dragon = '-', first_inhibitor = '-', first_baron = '-', winner = '-' FROM games WHERE game_date = '2020-08-01' AND id = game_id AND game_count = '1' AND (blue_team = 'fly' OR red_team = 'fly') AND (blue_team = '100' OR red_team = '');
 
 SELECT league_id, game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_results WHERE id = game_id ORDER BY game_date;
 
@@ -426,4 +423,3 @@ SELECT league_id, game_date, game_count, blue_team, red_team, first_blood, first
 SELECT * FROM upcoming WHERE game_date > NOW();
 
 SELECT league_id, game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_results WHERE id = game_id;
-

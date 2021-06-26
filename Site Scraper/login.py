@@ -115,6 +115,7 @@ options.add_argument('--ignore-ssl-errors')
 options.add_argument("--log-level=3")
 driver_location = str(sys.argv[1])
 driver = webdriver.Chrome(executable_path=driver_location, options=options)
+
 driver.get(login_url)
 driver.implicitly_wait(10)  # not sure if needed
 
@@ -487,6 +488,7 @@ driver.quit()
 
 for match_stats in matches_to_post:
     print(match_stats)
+
 
 print("Would you like to post the new data to the database (y/n)? ")
 post_data = input()
