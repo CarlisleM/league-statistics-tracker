@@ -29,6 +29,8 @@ def get_page_source(link):
     if page_type == "main page":
         print(
             len(soup.find_all('a', attrs={'href': re.compile("matchhistory")})))
+        number_of_games = len(soup.find_all(
+            'a', attrs={'href': re.compile("matchhistory")}))
 #        time.sleep(10)   # Probably not needed at all or can be greatly reduced
         wait = 15
         try:
@@ -140,9 +142,9 @@ remember_me.send_keys(Keys.RETURN)
 # Allows user to enter the verification code from their e-mail used to login to allow access to the matchhistory
 while True:
     verification_code = input("Please enter the verifcation code: ")
-    if len(verification_code) > 5:
+    if len(verification_code) > 6:
         print("The verification code you entered is too long")
-    elif len(verification_code) < 5:
+    elif len(verification_code) < 6:
         print("The verification code you entered is too short")
     else:
         break
@@ -161,8 +163,14 @@ except TimeoutException:
 # time.sleep(5)
 print("Login complete")
 
+# league-statistics-tracker
+# response = requests.get(
+#     "https://league-statistics-tracker.herokuapp.com/games")
+
+# lol-betting
 response = requests.get(
-    "https://league-statistics-tracker.herokuapp.com/games")
+    "https://lol-betting.herokuapp.com/api/scrapegames")
+
 matches_played = json.loads(response.text)
 
 matches_to_post = []
@@ -171,22 +179,21 @@ list_of_leagues_to_scrape = [
     'https://lol.fandom.com/wiki/LCS/2021_Season/Summer_Season',
     'https://lol.fandom.com/wiki/LEC/2021_Season/Summer_Season',
     'https://lol.fandom.com/wiki/LCO/2021_Season/Split_2',
-    'https://lol.fandom.com/wiki/LPL/2021_Season/Summer_Season',
+    # 'https://lol.fandom.com/wiki/LPL/2021_Season/Summer_Season',
     'https://lol.fandom.com/wiki/LLA/2021_Season/Closing_Season',
     'https://lol.fandom.com/wiki/LVP_SuperLiga/2021_Season/Summer_Season',
     'https://lol.fandom.com/wiki/Ultraliga/Season_6',
-    'https://lol.fandom.com/wiki/NA_Academy_League/2021_Season/Summer_Season',
+    # 'https://lol.fandom.com/wiki/NA_Academy_League/2021_Season/Summer_Season',
     'https://lol.fandom.com/wiki/TCL/2021_Season/Summer_Season',
     'https://lol.fandom.com/wiki/CBLOL/2021_Season/Split_2',
-    'https://lol.fandom.com/wiki/LJL/2021_Season/Summer_Season'
+    'https://lol.fandom.com/wiki/LJL/2021_Season/Summer_Season',
+    # 'https://lol.fandom.com/wiki/PCS/2021_Season/Summer_Season'
 
-    # Check this
     # 'https://lol.fandom.com/wiki/LCK/2021_Season/Summer_Season'
 
     # Not yet started
     # 'https://lol.gamepedia.com/LFL/2020_Season/EM_Qualification',
     # 'https://lol.gamepedia.com/VCS/2020_Season/Summer_Playoffs',
-    # 'https://lol.gamepedia.com/PCS/2020_Season/Summer_Playoffs'
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -209,8 +216,8 @@ for league_url in list_of_leagues_to_scrape:
     #     get_team_name_from_league = get_lfl_name
     elif league == 'LVP_SuperLiga':
         get_team_name_from_league = get_lvp_name
-    # elif league == 'PCS':
-    #     get_team_name_from_league = get_pcs_name
+    elif league == 'PCS':
+        get_team_name_from_league = get_pcs_name
     elif league == 'LCS':
         get_team_name_from_league = get_lcs_name
     elif league == 'LLA':
@@ -340,9 +347,10 @@ for league_url in list_of_leagues_to_scrape:
         print(
             "Continue because the number of match links matches the number of games found")
         # Retrieve data from each match history link
-        for match in match_data:
+        # for match in match_data:
+        for idx, match in enumerate(match_data):
             if match[4] == 1:
-                print(match)
+                # print(idx + '/' + number_of_games + ' : ' + match)
 
                 # Reset variables to avoid wrong team being printed if the data cannot be found
                 first_blood = ' '
@@ -496,8 +504,13 @@ post_data = input()
 if post_data == "y" or post_data == "Y":
     print('Posting to the database')
 
-    conn = psycopg2.connect(user="djpoucmhkewvrh", password="e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c",
-                            host="ec2-174-129-209-212.compute-1.amazonaws.com", port="5432", database="d24ubplectbqas", sslmode='require')
+    # league-statistics-tracker
+    # conn = psycopg2.connect(user="djpoucmhkewvrh", password="e1a533e45aa586bf82ff18dcc021969e6fb438333e501973f5236ab9257aea9c",
+    #                         host="ec2-174-129-209-212.compute-1.amazonaws.com", port="5432", database="d24ubplectbqas", sslmode='require')
+
+    # lol-betting
+    conn = psycopg2.connect(user="ezcmimgzrrckca", password="f2a321242d195f37a75a5beefc494bd6fa93729059889e554fffdece504d5f00",
+                            host="ec2-34-232-191-133.compute-1.amazonaws.com", port="5432", database="ddpnab9lbjao5d", sslmode='require')
     cur = conn.cursor()
 
     cur.execute("SELECT COUNT(*) FROM games")

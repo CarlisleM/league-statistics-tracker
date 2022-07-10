@@ -1,15 +1,5 @@
-import csv
 import psycopg2
-import requests
-import re
-import time
-import sys
-import json
-import os
 from team_name_mapper import *
-from datetime import datetime
-import pytz
-import time
 
 print('Editing database')
 

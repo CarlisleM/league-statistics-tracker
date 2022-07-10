@@ -1,23 +1,18 @@
 import psycopg2
 import requests
 import re
-import time
 import sys
-import json
-import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
 from team_name_mapper import *
-import timeit
-from datetime import datetime
-# import pytz
 from getpass import getpass
-
+import time
+import json
+import mwclient
 
 def get_page_source(link):
     driver.get(link)
@@ -94,14 +89,82 @@ def process_data(split_objective_data, blue_team, red_team):
 
 def convert_month(month_name):
     return get_month[month_name]
+site = mwclient.Site('lol.fandom.com', path='/')
 
+blue_team_id = 100
+red_team_id = 200
 
-page_type = 'hi'
+response = site.api('query',
+    format = 'json',
+    prop = 'revisions',
+    rvprop = 'content',
+    rvslots = 'main',
+    titles = 'V5_data:ESPORTSTMNT03_2790919/Timeline'
+    # titles = 'V5 data:ESPORTSTMNT03 2790886/Timeline',
+)
+
+pageId = ""
+
+for key in response["query"]["pages"].keys(): 
+    pageId = key
+
+data = response["query"]["pages"][pageId]["revisions"][0]["slots"]["main"]["*"]
+
+data_obj = json.loads(data)
+
+firstTowerKilledByTeam = -1
+firstInhibitorKilledByTeam = -1
+firstDragonKilledByTeam = -1
+firstBaronKilledByTeam = -1
+firstBloodKilledByTeam = -1
+winningTeam = -1
+losingTeam = -1
+
+for event in data_obj["frames"]:
+    for specificEvent in event["events"]:
+        if ("monsterType" in specificEvent) and (specificEvent["monsterType"] == "DRAGON") and (firstDragonKilledByTeam == -1):
+            firstDragonKilledByTeam = specificEvent["killerTeamId"]
+        if ("monsterType" in specificEvent) and (specificEvent["monsterType"] == "BARON_NASHOR") and (firstBaronKilledByTeam == -1):
+            firstBaronKilledByTeam = specificEvent["killerTeamId"]
+        if ("killType" in specificEvent) and (specificEvent["killType"] == "KILL_FIRST_BLOOD") and (firstBloodKilledByTeam == -1):
+            if specificEvent["killerId"] > 5:
+                firstBloodKilledByTeam = 200
+            else:
+                firstBloodKilledByTeam = 100
+        if ("type" in specificEvent) and (specificEvent["type"] == "BUILDING_KILL"):
+            if ("towerType" in specificEvent) and (specificEvent["towerType"] == "OUTER_TURRET") and (firstTowerKilledByTeam == -1):
+                if specificEvent["teamId"] == 100:
+                    firstTowerKilledByTeam = 200
+                else:
+                    firstTowerKilledByTeam = 100
+            if ("buildingType" in specificEvent) and (specificEvent["buildingType"] == "INHIBITOR_BUILDING") and (firstInhibitorKilledByTeam == -1):
+                if specificEvent["teamId"] == 100:
+                    firstInhibitorKilledByTeam = 200
+                else:
+                    firstInhibitorKilledByTeam = 100
+        if ("type" in specificEvent) and (specificEvent["type"] == "GAME_END"):
+            winningTeam = specificEvent["winningTeam"]
+            if winningTeam == 100:
+                losingTeam = 200
+            else:
+                losingTeam = 100
+
+print("firstTowerKilledByTeam: " + str(firstTowerKilledByTeam))
+print("firstInhibitorKilledByTeam: " + str(firstInhibitorKilledByTeam))
+print("firstDragonKilledByTeam: " + str(firstDragonKilledByTeam))
+print("firstBaronKilledByTeam: " + str(firstBaronKilledByTeam))
+print("firstBloodKilledByTeam: " + str(firstBloodKilledByTeam)) 
+print("winningTeam: " + str(winningTeam))
+print("losingTeam: " + str(losingTeam))
+
+time.sleep(300) # TODO: Remove after
+
+page_type = ''
 login_url = 'http://account.riotgames.com/'
 
 options = webdriver.ChromeOptions()
 
-options.add_argument('--headless')
+# options.add_argument('--headless')
 options.add_argument('--incognito')
 options.add_argument("--start-maximized")
 options.add_argument("--disable-popup-blocking")
@@ -127,26 +190,29 @@ text_area[0].send_keys(lol_username)
 lol_password = getpass("Please enter your League of Legends password: ")
 text_area[1].send_keys(lol_password)
 
+driver.implicitly_wait(2)
+time.sleep(2)
+
 # Insert check here to see if the login was sucessful. Otherwise prompt to re-enter account info
 
-remember_me = driver.find_element_by_xpath(
-    "//input[@data-testid='checkbox-remember-me']")
-remember_me.click()
-remember_me.send_keys(Keys.RETURN)
+# remember_me = driver.find_element_by_xpath(
+#     "//input[@data-testid='checkbox-remember-me']")
+# remember_me.click()
+# remember_me.send_keys(Keys.RETURN)
 
 # Allows user to enter the verification code from their e-mail used to login to allow access to the matchhistory
 while True:
     verification_code = input("Please enter the verifcation code: ")
-    if len(verification_code) > 5:
+    if len(verification_code) > 6:
         print("The verification code you entered is too long")
-    elif len(verification_code) < 5:
+    elif len(verification_code) < 6:
         print("The verification code you entered is too short")
     else:
         break
 
-verify_boxes = driver.find_element_by_class_name('mfafield__input')
-verify_boxes.send_keys(verification_code)
-verify_boxes.send_keys(Keys.RETURN)
+# verify_boxes = driver.find_element_by_class_name('mfafield__input')
+# verify_boxes.send_keys(verification_code)
+# verify_boxes.send_keys(Keys.RETURN)
 
 wait = 15
 try:
@@ -164,21 +230,21 @@ print("Login complete")
 matches_to_post = []
 
 list_of_leagues_to_scrape = [
-    'https://lol.fandom.com/wiki/LCS/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/LEC/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/LCO/2021_Season/Split_2',
-    'https://lol.fandom.com/wiki/LPL/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/LLA/2021_Season/Closing_Season',
-    'https://lol.fandom.com/wiki/LVP_SuperLiga/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/Ultraliga/Season_6',
-    'https://lol.fandom.com/wiki/NA_Academy_League/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/TCL/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/CBLOL/2021_Season/Split_2',
-    'https://lol.fandom.com/wiki/LJL/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/LCK/2021_Season/Summer_Season'
-    # 'https://lol.gamepedia.com/LFL/2020_Season/EM_Qualification',
-    # 'https://lol.gamepedia.com/VCS/2020_Season/Summer_Playoffs',
-    # 'https://lol.gamepedia.com/PCS/2020_Season/Summer_Playoffs'
+    # 'https://lol.fandom.com/wiki/LCK/2022_Season/Summer_Season', # LCK 1 
+    # 'https://lol.fandom.com/wiki/LEC/2022_Season/Summer_Season', # LEC 2 
+    # 'https://lol.fandom.com/wiki/LVP_SuperLiga/2022_Season/Summer_Season', # LVP 3 
+    # 'https://lol.fandom.com/wiki/LCO/2022_Season/Split_2', # LCO (Oceania) 4
+    # # 'https://lol.fandom.com/wiki/LFL/2022_Season/Summer_Season', # LFL 5 TODO:
+    # 'https://lol.fandom.com/wiki/PCS/2022_Season/Summer_Season', # PCS 6
+    'https://lol.fandom.com/wiki/LCS/2022_Season/Summer_Season', # LCS 7
+    # 'https://lol.fandom.com/wiki/NA_Academy_League/2022_Season/Summer_Season', # NA Academy 8
+    # 'https://lol.fandom.com/wiki/LLA/2022_Season/Closing_Season', # LLA 9 
+    # 'https://lol.fandom.com/wiki/Ultraliga/Season_8', # Ultraliga 10
+    # 'https://lol.fandom.com/wiki/LPL/2022_Season/Summer_Season', # LPL 11 
+    # # 'https://lol.fandom.com/wiki/LJL/2022_Season/Summer_Season', # LJL 12 TODO:
+    # 'https://lol.fandom.com/wiki/TCL/2022_Season/Summer_Season', # TCL 13
+    # # 'https://lol.fandom.com/wiki/VCS/2022_Season/Summer_Season', # VCS 14 TODO:
+    # 'https://lol.fandom.com/wiki/CBLOL/2022_Season/Split_2', # CBLOL 15
 ]
 
 for league_url in list_of_leagues_to_scrape:
@@ -186,7 +252,8 @@ for league_url in list_of_leagues_to_scrape:
     page_type = "main page"
 
     league = league_url.split("/")
-    league = league[3]
+
+    league = league[4]
 
     league_id = get_league_id(league)
     split_id = get_split_id(league)
@@ -302,7 +369,8 @@ for league_url in list_of_leagues_to_scrape:
     altered = 0
     counter = 0
 
-    for link in soup.find_all('a', attrs={'href': re.compile("matchhistory")}):
+    for link in soup.find_all('a', attrs={'href': re.compile("wiki/V5_metadata")}):
+        print(link)
         if link.text == "Link":
             match_data[counter].append(link.get('href'))
             counter = counter+1
@@ -310,11 +378,17 @@ for league_url in list_of_leagues_to_scrape:
             print("Dont increase")
             altered = altered+1
     number_of_match_links = len(soup.find_all(
-        'a', attrs={'href': re.compile("matchhistory")}))-altered
+        'a', attrs={'href': re.compile("wiki/V5_metadata")}))-altered
 
     page_type = "matchhistory page"
 
     # Collect match statistics (First blood, riftherald, dragon, tower, baron, inhibitor, winner)
+    print("number_of_match_links")
+    print(number_of_match_links)
+    print("len(match_data)")
+    print(len(match_data))
+    
+
     if number_of_match_links == len(match_data):
         print(
             "Continue because the number of match links matches the number of games found")

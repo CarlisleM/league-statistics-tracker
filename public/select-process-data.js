@@ -306,7 +306,7 @@ function change_team_options(leaguename) {
             fb: '1907 Fenerbahçe',
             gs: 'Galatasaray Esports',
             '5r': '5 Ronin',
-            sup: 'SuperMassive Blaze',
+            smb: 'SuperMassive Blaze',
             nsr: 'NASR eSports Turkey',
             aur: 'Team AURORA'
         };

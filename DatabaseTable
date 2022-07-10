@@ -14,23 +14,7 @@ sudo pkill -u postgres
 heroku pg:psql postgresql-triangular-50492 --app lck-tracking
 heroku pg:psql postgresql-polished-61622 --app league-statistics-tracker
 
-
 sudo pkill -u postgres
-
-starbucks: c04dcfbaceKAMI!
-
-DELETE FROM games;
-
-
-CREATE TABLE upcoming (
-    match_week INTEGER NOT NULL,
-    league_id INTEGER REFERENCES leagues (id) NOT NULL,
-    match_day TEXT NOT NULL,
-    game_date DATE NOT NULL,
-    match_time TEXT NOT NULL,
-    blue_team TEXT NOT NULL,
-    red_team TEXT NOT NULL
-);
     
 CREATE TABLE leagues (
     id INTEGER NOT NULL,
@@ -40,23 +24,16 @@ CREATE TABLE leagues (
     PRIMARY KEY (id)
 );
 
-INSERT INTO leagues VALUES (1, 'LCS', 'North America', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/c/c8/LCS_2020_Logo.png/revision/latest/scale-to-width-down/1200?cb=20200127120628');
-INSERT INTO leagues VALUES (2, 'LCK', 'Korea', 'https://upload.wikimedia.org/wikipedia/en/thumb/1/13/League_of_Legends_Champions_Korea_logo.svg/1200px-League_of_Legends_Champions_Korea_logo.svg.png');
-INSERT INTO leagues VALUES (3, 'LEC', 'Europe', 'https://toppng.com/uploads/preview/lec-logo-league-of-legends-lec-logo-11563335137pu09vlug7t.png');
-INSERT INTO leagues VALUES (4, 'LCO', 'Oceania', 'https://upload.wikimedia.org/wikipedia/en/0/0f/Oceanic_Pro_League_logo.png');
-INSERT INTO leagues VALUES (5, 'LFL', 'French', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/6/63/LFL_Logo.png/revision/latest?cb=20190403113259');
-INSERT INTO leagues VALUES (6, 'LVP_SuperLiga', 'Spanish', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/3/33/LVP_SLO_Logo.png/revision/latest/scale-to-width-down/220?cb=20170802034952');
-INSERT INTO leagues VALUES (7, 'PCS', 'South East Asia', 'https://tips.gg/wp-content/themes/assets/image/tournaments/lol-pcs.png');
-INSERT INTO leagues VALUES (8, 'LLA', 'Latin America', 'https://liquipedia.net/commons/images/thumb/8/8c/LLA_logo.png/600px-LLA_logo.png');
-INSERT INTO leagues VALUES (9, 'Ultraliga', 'Polish', 'https://esportspedia-lol.s3.amazonaws.com/thumb/9/9a/UltraligaLogo.png/300px-UltraligaLogo.png');
-INSERT INTO leagues VALUES (10, 'LPL', 'China', 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/League_of_legends_pro_league_logo.svg/1200px-League_of_legends_pro_league_logo.svg.png');
-INSERT INTO leagues VALUES (11, 'NA_Academy_League', 'North America', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/c/c8/LCS_2020_Logo.png/revision/latest/scale-to-width-down/1200?cb=20200127120628');
-INSERT INTO leagues VALUES (12, 'LJL', 'Japan', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/1/16/LJL_2020_logo.png/revision/latest?cb=20200727155121');
-INSERT INTO leagues VALUES (13, 'TCL', 'Turkish', 'https://esportspedia-lol.s3.amazonaws.com/thumb/e/e0/TCL_2019_logo.png/300px-TCL_2019_logo.png');
-INSERT INTO leagues VALUES (14, 'VCS', 'Vietnam', 'https://upload.wikimedia.org/wikipedia/en/a/ae/Vietnam_Championship_Series_logo.png');
-INSERT INTO leagues VALUES (15, 'CBLOL', 'Brazil', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/4/4e/CBLOL_2020_Logo.png/revision/latest/scale-to-width-down/2000?cb=20201125212403');
-
-
+CREATE TABLE upcoming (
+    id INTEGER NOT NULL,
+    match_week INTEGER NOT NULL,
+    league_id INTEGER REFERENCES leagues (id) NOT NULL,
+    match_day TEXT NOT NULL,
+    game_date DATE NOT NULL,
+    match_time TEXT NOT NULL,
+    blue_team TEXT NOT NULL,
+    red_team TEXT NOT NULL
+);
 
 CREATE TABLE teams (
     id INTEGER NOT NULL,
@@ -82,15 +59,18 @@ CREATE TABLE games (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE match_data (
+CREATE TABLE match_results (
+    game_id INTEGER REFERENCES games (id) NOT NULL,
     first_blood TEXT,
     first_tower TEXT,
     first_dragon TEXT,
     first_inhibitor TEXT,
     first_baron TEXT,
+    first_rift_herald TEXT,
+    blue_team_kills INTEGER,
+    red_team_kills INTEGER,
     winner TEXT NOT NULL,
-    loser TEXT NOT NULL,
-    game_id INTEGER REFERENCES games (id) NOT NULL
+    loser TEXT NOT NULL
 );
 
 CREATE TABLE match_odds (
@@ -108,67 +88,36 @@ CREATE TABLE match_odds (
     even_kills FLOAT
 );
 
-team_one_match_odds
-
-Odd Kills       Even Kills      Team 1 First Dragon         Team 2 First Dragon
-
-Team 1 First Tower      Team 2 First Tower      Team 1 First Baron      Team 2 First Baron      Team 1 First Rift Herald      Team 2 First Rift Herald      
-
-First Elemental Dragon (Infernal)       First Elemental Dragon (Mountain)       First Elemental Dragon (Ocean)       First Elemental Dragon (Cloud)
-
-
-Store total kills
-Store total time of game
-
-
-
-Match Winner,Invictus Gaming,1.61,FunPlus Phoenix,2.35
-Map Advantage,Invictus Gaming -1.5,2.24,FunPlus Phoenix +1.5,1.63,Invictus Gaming +1.5,1.33,FunPlus Phoenix -1.5,3.24,Invictus Gaming -2.5,4.25,FunPlus Phoenix +2.5,1.21,Invictus Gaming +2.5,1.11,FunPlus Phoenix -2.5,6.30
-Correct Score,3:0,4.18,3:1,3.70,3:2,4.51,0:3,6.19,1:3,4.79,2:3,5.04
-Total Maps Played,Under 4.5,1.48,Over 4.5,2.61,Under 3.5,3.43,Over 3.5,1.30
-Invictus Gaming to win at least 1 map,Yes,1.11,No,6.30
-FunPlus Phoenix to win at least 1 map,Yes,1.21,No,4.25
-Winner Map 1,Invictus Gaming,1.73,FunPlus Phoenix,2.08
-First Blood (Map 1),Invictus Gaming,1.96,FunPlus Phoenix,1.80
-First to 5 Kills (Map 1),Invictus Gaming,1.88,FunPlus Phoenix,1.88
-First to 10 Kills (Map 1),Invictus Gaming,1.82,FunPlus Phoenix,1.94
-Total Kills (Map 1),Over 27.5,1.74,Under 27.5,2.04
-Total Time (Map 1),Over 33:00,1.80,Under 33:00,1.97
-Odd / Even Kills (Map 1),Odd,1.88,Even,1.88
-Destroy First Tower (Map 1),Invictus Gaming,1.86,FunPlus Phoenix,1.86
-Kill First Dragon (Map 1),Invictus Gaming,1.86,FunPlus Phoenix,1.86
-Kill First Baron (Map 1),Invictus Gaming,1.86,FunPlus Phoenix,1.86
-To kill Rift Herald (Map 1),Invictus Gaming,1.86,FunPlus Phoenix,1.86
-First Elemental Dragon (Map 1),Infernal Dragon,3.33,Mountain Dragon,3.33,Ocean Dragon,3.33,Cloud Dragon,3.33
-Most Kills #1 (Map 1),Rookie,1.87,TheShy,1.87
-Most Kills #2 (Map 1),Doinb,1.92,Lwx,1.82
-
-CREATE TABLE players (
+CREATE TABLE bet_history (
     id INTEGER NOT NULL,
-    name TEXT NOT NULL,
-    team_id INTEGER REFERENCES teams (id),
-    team TEXT NOT NULL,
-    PRIMARY KEY (id)
+    league_id INTEGER REFERENCES leagues (id),
+    game_id INTEGER REFERENCES upcoming (id) NOT NULL
+    blue_team TEXT NOT NULL,
+    red_team TEXT NOT NULL
+	bet_on_team TEXT NOT NULL,
+	objective TEXT NOT NULL,
+	odds: FLOAT NOT NULL,
+	date: DATE NOT NULL,
+    map: FLOAT NOT NULL,
+	bet_amount: FLOAT NOT NULL,
 );
 
-ALTER TABLE match_data
-  RENAME TO match_results;
-
-INSERT INTO leagues VALUES (1, 'LCS', 'North America', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/c/c8/LCS_2020_Logo.png/revision/latest/scale-to-width-down/1200?cb=20200127120628');
-INSERT INTO leagues VALUES (2, 'LCK', 'Korea', 'https://upload.wikimedia.org/wikipedia/en/thumb/1/13/League_of_Legends_Champions_Korea_logo.svg/1200px-League_of_Legends_Champions_Korea_logo.svg.png');
-INSERT INTO leagues VALUES (3, 'LEC', 'Europe', 'https://toppng.com/uploads/preview/lec-logo-league-of-legends-lec-logo-11563335137pu09vlug7t.png');
+INSERT INTO leagues VALUES (1, 'LCK', 'Korea', 'https://upload.wikimedia.org/wikipedia/en/thumb/1/13/League_of_Legends_Champions_Korea_logo.svg/1200px-League_of_Legends_Champions_Korea_logo.svg.png');
+INSERT INTO leagues VALUES (2, 'LEC', 'Europe', 'https://toppng.com/uploads/preview/lec-logo-league-of-legends-lec-logo-11563335137pu09vlug7t.png');
+INSERT INTO leagues VALUES (3, 'LVP_SuperLiga', 'Spanish', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/3/33/LVP_SLO_Logo.png/revision/latest/scale-to-width-down/220?cb=20170802034952');
 INSERT INTO leagues VALUES (4, 'LCO', 'Oceania', 'https://upload.wikimedia.org/wikipedia/en/0/0f/Oceanic_Pro_League_logo.png');
 INSERT INTO leagues VALUES (5, 'LFL', 'French', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/6/63/LFL_Logo.png/revision/latest?cb=20190403113259');
-INSERT INTO leagues VALUES (6, 'LVP_SuperLiga', 'Spanish', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/3/33/LVP_SLO_Logo.png/revision/latest/scale-to-width-down/220?cb=20170802034952');
-INSERT INTO leagues VALUES (7, 'PCS', 'South East Asia', 'https://tips.gg/wp-content/themes/assets/image/tournaments/lol-pcs.png');
-INSERT INTO leagues VALUES (8, 'LLA', 'Latin America', 'https://liquipedia.net/commons/images/thumb/8/8c/LLA_logo.png/600px-LLA_logo.png');
-INSERT INTO leagues VALUES (9, 'Ultraliga', 'Polish', 'https://esportspedia-lol.s3.amazonaws.com/thumb/9/9a/UltraligaLogo.png/300px-UltraligaLogo.png');
-INSERT INTO leagues VALUES (10, 'LPL', 'China', 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/League_of_legends_pro_league_logo.svg/1200px-League_of_legends_pro_league_logo.svg.png');
-INSERT INTO leagues VALUES (11, 'NA_Academy_League', 'North America', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/c/c8/LCS_2020_Logo.png/revision/latest/scale-to-width-down/1200?cb=20200127120628');
+INSERT INTO leagues VALUES (6, 'PCS', 'South East Asia', 'https://tips.gg/wp-content/themes/assets/image/tournaments/lol-pcs.png');
+INSERT INTO leagues VALUES (7, 'LCS', 'North America', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/c/c8/LCS_2020_Logo.png/revision/latest/scale-to-width-down/1200?cb=20200127120628');
+INSERT INTO leagues VALUES (8, 'NA_Academy_League', 'North America', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/c/c8/LCS_2020_Logo.png/revision/latest/scale-to-width-down/1200?cb=20200127120628');
+INSERT INTO leagues VALUES (9, 'LLA', 'Latin America', 'https://liquipedia.net/commons/images/thumb/8/8c/LLA_logo.png/600px-LLA_logo.png');
+INSERT INTO leagues VALUES (10, 'Ultraliga', 'Polish', 'https://esportspedia-lol.s3.amazonaws.com/thumb/9/9a/UltraligaLogo.png/300px-UltraligaLogo.png');
+INSERT INTO leagues VALUES (11, 'LPL', 'China', 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/League_of_legends_pro_league_logo.svg/1200px-League_of_legends_pro_league_logo.svg.png');
 INSERT INTO leagues VALUES (12, 'LJL', 'Japan', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/1/16/LJL_2020_logo.png/revision/latest?cb=20200727155121');
 INSERT INTO leagues VALUES (13, 'TCL', 'Turkish', 'https://esportspedia-lol.s3.amazonaws.com/thumb/e/e0/TCL_2019_logo.png/300px-TCL_2019_logo.png');
 INSERT INTO leagues VALUES (14, 'VCS', 'Vietnam', 'https://upload.wikimedia.org/wikipedia/en/a/ae/Vietnam_Championship_Series_logo.png');
 INSERT INTO leagues VALUES (15, 'CBLOL', 'Brazil', 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/4/4e/CBLOL_2020_Logo.png/revision/latest/scale-to-width-down/2000?cb=20201125212403');
+-- LCL
 
 INSERT INTO splits VALUES (1, 1);
 INSERT INTO splits VALUES (2, 2);
@@ -186,185 +135,184 @@ INSERT INTO splits VALUES (13, 13);
 INSERT INTO splits VALUES (14, 14);
 INSERT INTO splits VALUES (15, 15);
 
-INSERT INTO teams VALUES (1, 'Dignitas', 1);
-INSERT INTO teams VALUES (2, 'Immortals', 1);
-INSERT INTO teams VALUES (3, 'Evil Geniuses', 1);
-INSERT INTO teams VALUES (4, 'Team Liquid', 1);
-INSERT INTO teams VALUES (5, 'Counter Logic Gaming', 1);
-INSERT INTO teams VALUES (6, 'Cloud9', 1);
-INSERT INTO teams VALUES (7, 'Team SoloMid', 1);
-INSERT INTO teams VALUES (8, 'Golden Guardians', 1);
-INSERT INTO teams VALUES (9, '100 Thieves', 1);
-INSERT INTO teams VALUES (10, 'FlyQuest', 1);
+-- LCK
+INSERT INTO teams VALUES (1, 'Gen.G', 1);
+INSERT INTO teams VALUES (2, 'T1', 1);
+INSERT INTO teams VALUES (3, 'DRX', 1);
+INSERT INTO teams VALUES (4, 'Liiv SANDBOX', 1);
+INSERT INTO teams VALUES (5, 'DWG KIA', 1);
+INSERT INTO teams VALUES (6, 'Kwangdong Freecs', 1);
+INSERT INTO teams VALUES (7, 'KT Rolster', 1);
+INSERT INTO teams VALUES (8, 'Nongshim RedForce', 1);
+INSERT INTO teams VALUES (9, 'Hanwha Life Esports', 1);
+INSERT INTO teams VALUES (10, 'Fredit BRION', 1);
 
-INSERT INTO teams VALUES (11, 'DRX', 2);
-INSERT INTO teams VALUES (12, 'Nongshim RedForce', 2);
-INSERT INTO teams VALUES (13, 'Gen.G', 2);
-INSERT INTO teams VALUES (14, 'Liiv SANDBOX', 2);
-INSERT INTO teams VALUES (15, 'T1', 2);
-INSERT INTO teams VALUES (16, 'KT Rolster', 2);
-INSERT INTO teams VALUES (17, 'DWG KIA', 2);
-INSERT INTO teams VALUES (18, 'Hanwha Life Esports', 2);
-INSERT INTO teams VALUES (19, 'Afreeca Freecs', 2);
-INSERT INTO teams VALUES (20, '⁠Fredit BRION', 2);
+-- LEC
+INSERT INTO teams VALUES (11, 'Excel Esports', 2);
+INSERT INTO teams VALUES (12, 'Fnatic', 2);
+INSERT INTO teams VALUES (13, 'Rogue', 2);
+INSERT INTO teams VALUES (14, 'G2 Esports', 2);
+INSERT INTO teams VALUES (15, 'MAD Lions', 2);
+INSERT INTO teams VALUES (16, 'Team Vitality', 2);
+INSERT INTO teams VALUES (17, 'Astralis', 2);
+INSERT INTO teams VALUES (18, 'Misfits Gaming', 2);
+INSERT INTO teams VALUES (19, 'SK Gaming', 2);
+INSERT INTO teams VALUES (20, 'Team BDS', 2);
 
-INSERT INTO teams VALUES (21, 'Misfits Gaming', 3);
-INSERT INTO teams VALUES (22, 'Excel Esports', 3);
-INSERT INTO teams VALUES (23, 'Rogue', 3);
-INSERT INTO teams VALUES (24, 'Team Vitality', 3);
-INSERT INTO teams VALUES (25, 'Fnatic', 3);
-INSERT INTO teams VALUES (26, 'Astralis', 3);
-INSERT INTO teams VALUES (27, 'G2 Esports', 3);
-INSERT INTO teams VALUES (28, 'SK Gaming', 3);
-INSERT INTO teams VALUES (29, 'FC Schalke 04', 3);
-INSERT INTO teams VALUES (30, 'MAD Lions', 3);
+-- LVP
+INSERT INTO teams VALUES (21, 'Team Heretics', 3);
+INSERT INTO teams VALUES (22, 'Fnatic T', 3);
+INSERT INTO teams VALUES (23, 'BISONS ECLUB', 3);
+INSERT INTO teams VALUES (24, 'G2 Arctic', 3);
+INSERT INTO teams VALUES (25, 'Giants', 3);
+INSERT INTO teams VALUES (26, 'Barça eSports', 3);
+INSERT INTO teams VALUES (27, 'KOI', 3);
+INSERT INTO teams VALUES (28, 'MAD Lions Madrid', 3);
+INSERT INTO teams VALUES (29, 'UCAM Tokiers', 3);
+INSERT INTO teams VALUES (30, 'Movistar Riders', 3);
 
-INSERT INTO teams VALUES (31, 'Legacy', 4);
-INSERT INTO teams VALUES (32, 'Gravitas', 4);
-INSERT INTO teams VALUES (33, 'MAMMOTH', 4);
-INSERT INTO teams VALUES (34, 'Pentanet.GG', 4);
-INSERT INTO teams VALUES (35, '⁠PEACE', 4);
-INSERT INTO teams VALUES (36, 'ORDER', 4);
-INSERT INTO teams VALUES (37, 'Dire Wolves', 4);
-INSERT INTO teams VALUES (38, 'Chiefs Esports Club', 4);
+-- OPL
+INSERT INTO teams VALUES (31, 'Chiefs Esports Club', 4);
+INSERT INTO teams VALUES (32, 'Dire Wolves', 4);
+INSERT INTO teams VALUES (33, 'ORDER', 4);
+INSERT INTO teams VALUES (34, 'PEACE', 4);
+INSERT INTO teams VALUES (35, 'Pentanet.GG', 4);
+INSERT INTO teams VALUES (36, 'Kanga Esports', 4);
+INSERT INTO teams VALUES (37, 'MAMMOTH', 4);
+INSERT INTO teams VALUES (38, 'Gravitas', 4);
 
-INSERT INTO teams VALUES (39, 'Test', 5);
-INSERT INTO teams VALUES (40, 'Test', 5);
-INSERT INTO teams VALUES (41, 'Test', 5);
-INSERT INTO teams VALUES (42, 'Test', 5);
-INSERT INTO teams VALUES (43, 'Test', 5);
-INSERT INTO teams VALUES (44, 'Test', 5);
-INSERT INTO teams VALUES (45, 'Test', 5);
-INSERT INTO teams VALUES (46, 'Test', 5);
-INSERT INTO teams VALUES (47, 'Test', 5);
-INSERT INTO teams VALUES (48, 'Test', 5);
+-- LFL
+INSERT INTO teams VALUES (39, 'LDLC OL', 5);
+INSERT INTO teams VALUES (40, 'GameWard', 5);
+INSERT INTO teams VALUES (41, 'Vitality.Bee', 5);
+INSERT INTO teams VALUES (42, 'Karmine Corp', 5);
+INSERT INTO teams VALUES (43, 'Misfits Premier', 5);
+INSERT INTO teams VALUES (44, 'Team BDS Academy', 5);
+INSERT INTO teams VALUES (45, 'Team GO', 5);
+INSERT INTO teams VALUES (46, 'Solary', 5);
+INSERT INTO teams VALUES (47, 'Team Oplon', 5);
+INSERT INTO teams VALUES (48, 'Mirage Elyandra', 5);
 
-INSERT INTO teams VALUES (49, 'Cream Real Betis', 6);
-INSERT INTO teams VALUES (50, 'eMonkeyz', 6);
-INSERT INTO teams VALUES (51, 'Movistar Riders', 6);
-INSERT INTO teams VALUES (52, 'G2 Arctic', 6);
-INSERT INTO teams VALUES (53, 'Vodafone Giants', 6);
-INSERT INTO teams VALUES (54, 'MAD Lions Madrid', 6);
-INSERT INTO teams VALUES (55, 'BCN Squad', 6);
-INSERT INTO teams VALUES (56, 'S2V Esports', 6);
-INSERT INTO teams VALUES (57, 'UCAM Esports Club', 6);
-INSERT INTO teams VALUES (58, 'Team Queso', 6);
+-- PCS
+INSERT INTO teams VALUES (49, 'Beyond Gaming', 6);
+INSERT INTO teams VALUES (50, 'J Team', 6);
+INSERT INTO teams VALUES (51, 'CTBC Flying Oyster', 6);
+INSERT INTO teams VALUES (52, 'PSG Talon', 6);
+INSERT INTO teams VALUES (53, 'Deep Cross Gaming', 6);
+INSERT INTO teams VALUES (54, 'Frank Esports', 6);
+INSERT INTO teams VALUES (55, 'Impunity', 6);
+INSERT INTO teams VALUES (56, 'Meta Falcon Team', 6);
+INSERT INTO teams VALUES (57, 'Dewish Team', 6);
+INSERT INTO teams VALUES (58, 'SEM9', 6);
 
-INSERT INTO teams VALUES (59, 'Test', 7);
-INSERT INTO teams VALUES (60, 'Test', 7);
-INSERT INTO teams VALUES (61, 'Test', 7);
-INSERT INTO teams VALUES (62, 'Test', 7);
-INSERT INTO teams VALUES (63, 'Test', 7);
-INSERT INTO teams VALUES (64, 'Test', 7);
-INSERT INTO teams VALUES (65, 'Test', 7);
-INSERT INTO teams VALUES (66, 'Test', 7);
-INSERT INTO teams VALUES (67, 'Test', 7);
-INSERT INTO teams VALUES (68, 'Test', 7);
+-- LCS
+INSERT INTO teams VALUES (59, 'Evil Geniuses', 7);
+INSERT INTO teams VALUES (60, '100 Thieves', 7);
+INSERT INTO teams VALUES (61, 'Team Liquid', 7);
+INSERT INTO teams VALUES (62, 'Counter Logic Gaming', 7);
+INSERT INTO teams VALUES (63, 'FlyQuest', 7);
+INSERT INTO teams VALUES (64, 'Cloud9', 7);
+INSERT INTO teams VALUES (65, 'Golden Guardians', 7);
+INSERT INTO teams VALUES (66, 'Dignitas', 7);
+INSERT INTO teams VALUES (67, 'Team SoloMid', 7);
+INSERT INTO teams VALUES (68, 'Immortals', 7);
 
-INSERT INTO teams VALUES (69, 'Isurus Gaming', 8);
-INSERT INTO teams VALUES (70, 'All Knights', 8);
-INSERT INTO teams VALUES (71, 'Furious Gaming', 8);
-INSERT INTO teams VALUES (72, 'Infinity Esports', 8);
-INSERT INTO teams VALUES (73, 'Rainbow7', 8);
-INSERT INTO teams VALUES (74, 'XTEN Esports', 8);
-INSERT INTO teams VALUES (75, 'Kaos Latin Gamers', 8);
-INSERT INTO teams VALUES (76, 'Estral Esports', 8);
+-- NA Academy
+INSERT INTO teams VALUES (69, 'Team Liquid Academy', 8);
+INSERT INTO teams VALUES (70, '100 Thieves Academy', 8);
+INSERT INTO teams VALUES (71, 'Dignitas Academy', 8);
+INSERT INTO teams VALUES (72, 'Counter Logic Gaming Academy', 8);
+INSERT INTO teams VALUES (73, 'Immortals Academy', 8);
+INSERT INTO teams VALUES (74, 'Cloud9 Academy', 8);
+INSERT INTO teams VALUES (75, 'FlyQuest Academy', 8);
+INSERT INTO teams VALUES (76, 'Evil Geniuses Academy', 8);
+INSERT INTO teams VALUES (77, 'Golden Guardians Academy', 8);
+INSERT INTO teams VALUES (78, 'Team SoloMid Academy', 8);
 
-INSERT INTO teams VALUES (77, 'AGO ROGUE', 9);
-INSERT INTO teams VALUES (78, 'Team ESCA Gaming', 9);
-INSERT INTO teams VALUES (79, 'PDW', 9);
-INSERT INTO teams VALUES (80, 'Gentlemen''s Gaming', 9);
-INSERT INTO teams VALUES (81, 'Illuminar Gaming', 9);
-INSERT INTO teams VALUES (82, '⁠Komil&Friends', 9);
-INSERT INTO teams VALUES (83, '⁠devils.one', 9);
-INSERT INTO teams VALUES (84, 'K1CK', 9);
+-- LLA
+INSERT INTO teams VALUES (79, 'Isurus', 9);
+INSERT INTO teams VALUES (80, 'Estral Esports', 9);
+INSERT INTO teams VALUES (81, 'All Knights', 9);
+INSERT INTO teams VALUES (82, 'Infinity Esports', 9);
+INSERT INTO teams VALUES (83, 'Rainbow7', 9);
+INSERT INTO teams VALUES (84, 'Team Aze', 9);
+INSERT INTO teams VALUES (85, 'XTEN Esports', 9);
+INSERT INTO teams VALUES (86, 'Globant Emerald', 9);
 
-INSERT INTO teams VALUES (85, 'FunPlus Phoenix', 10);
-INSERT INTO teams VALUES (86, 'Top Esports', 10);
-INSERT INTO teams VALUES (87, 'Royal Never Give Up', 10);
-INSERT INTO teams VALUES (88, 'Bilibili Gaming', 10);
-INSERT INTO teams VALUES (89, 'Suning', 10);
-INSERT INTO teams VALUES (90, 'EDward Gaming', 10);
-INSERT INTO teams VALUES (91, 'Invictus Gaming', 10);
-INSERT INTO teams VALUES (92, 'LNG Esports', 10);
-INSERT INTO teams VALUES (93, 'Team WE', 10);
-INSERT INTO teams VALUES (94, 'JD Gaming', 10);
-INSERT INTO teams VALUES (95, 'Rare Atom', 10);
-INSERT INTO teams VALUES (96, 'Rogue Warriors', 10);
-INSERT INTO teams VALUES (97, 'Victory Five', 10);
-INSERT INTO teams VALUES (98, 'LGD Gaming', 10);
-INSERT INTO teams VALUES (99, 'Oh My God', 10);
-INSERT INTO teams VALUES (100, 'Ultra Prime', 10);
-INSERT INTO teams VALUES (101, 'ThunderTalk Gaming', 10);
+-- Ultraliga
+INSERT INTO teams VALUES (87, 'AGO ROGUE', 10);
+INSERT INTO teams VALUES (88, 'Illuminar Gaming', 10);
+INSERT INTO teams VALUES (89, 'Zero Tenacity', 10);
+INSERT INTO teams VALUES (90, 'Goskilla', 10);
+INSERT INTO teams VALUES (91, 'Forsaken', 10);
+INSERT INTO teams VALUES (92, 'Iron Wolves', 10);
+INSERT INTO teams VALUES (93, 'devils.one', 10);
+INSERT INTO teams VALUES (94, 'Komil&Friends', 10);
+INSERT INTO teams VALUES (95, 'Team ESCA Gaming', 10);
+INSERT INTO teams VALUES (96, 'Gentlemen''s Gaming', 10);
 
-INSERT INTO teams VALUES (102, 'Team Liquid Academy', 11);
-INSERT INTO teams VALUES (103, 'Counter Logic Gaming Academy', 11);
-INSERT INTO teams VALUES (104, 'Cloud9 Academy', 11);
-INSERT INTO teams VALUES (105, 'Team SoloMid Academy', 11);
-INSERT INTO teams VALUES (106, 'Golden Guardians Academy', 11);
-INSERT INTO teams VALUES (107, 'Evil Geniuses Academy', 11);
-INSERT INTO teams VALUES (108, '100 Thieves Academy', 11);
-INSERT INTO teams VALUES (109, 'Dignitas Academy', 11);
-INSERT INTO teams VALUES (110, 'FlyQuest Academy', 11);
-INSERT INTO teams VALUES (111, 'Immortals Academy', 11);
+-- LPL
+INSERT INTO teams VALUES (97, 'Victory Five', 11);
+INSERT INTO teams VALUES (98, 'JD Gaming', 11);
+INSERT INTO teams VALUES (99, 'Top Esports', 11);
+INSERT INTO teams VALUES (100, 'EDward Gaming', 11);
+INSERT INTO teams VALUES (101, 'Royal Never Give Up', 11);
+INSERT INTO teams VALUES (102, 'LNG Esports', 11);
+INSERT INTO teams VALUES (103, 'Anyone''s Legend', 11);
+INSERT INTO teams VALUES (104, 'Oh My God', 11);
+INSERT INTO teams VALUES (105, 'Weibo Gaming', 11);
+INSERT INTO teams VALUES (106, 'FunPlus Phoenix', 11);
+INSERT INTO teams VALUES (107, 'Ultra Prime', 11);
+INSERT INTO teams VALUES (108, 'ThunderTalk Gaming', 11);
+INSERT INTO teams VALUES (109, 'Bilibili Gaming', 11);
+INSERT INTO teams VALUES (110, 'Rare Atom', 11);
+INSERT INTO teams VALUES (111, 'LGD Gaming', 11);
+INSERT INTO teams VALUES (112, 'Invictus Gaming', 11);
+INSERT INTO teams VALUES (113, 'Team WE', 11);
 
-INSERT INTO teams VALUES (112, 'V3 Esports', 12);
-INSERT INTO teams VALUES (113, 'Sengoku Gaming', 12);
-INSERT INTO teams VALUES (114, 'Crest Gaming Act', 12);
+-- LJL
+INSERT INTO teams VALUES (114, 'Sengoku Gaming', 12);
 INSERT INTO teams VALUES (115, 'DetonatioN FocusMe', 12);
 INSERT INTO teams VALUES (116, 'Fukuoka SoftBank Hawks gaming', 12);
-INSERT INTO teams VALUES (117, 'AXIZ', 12);
-INSERT INTO teams VALUES (118, 'Burning Core', 12);
+INSERT INTO teams VALUES (117, 'Burning Core', 12);
+INSERT INTO teams VALUES (118, 'Crest Gaming Act', 12);
 INSERT INTO teams VALUES (119, 'Rascal Jester', 12);
+INSERT INTO teams VALUES (120, 'AXIZ', 12);
+INSERT INTO teams VALUES (121, 'V3 Esports', 12);
 
-INSERT INTO teams VALUES (120, 'Beşiktaş Esports', 13);
-INSERT INTO teams VALUES (121, 'Dark Passage', 13);
-INSERT INTO teams VALUES (122, 'Galakticos', 13);
-INSERT INTO teams VALUES (123, 'İstanbul Wildcats', 13);
-INSERT INTO teams VALUES (124, '1907 Fenerbahçe', 13);
-INSERT INTO teams VALUES (125, 'Galatasaray Esports', 13);
-INSERT INTO teams VALUES (126, '5 Ronin', 13);
-INSERT INTO teams VALUES (127, 'SuperMassive Blaze', 13);
-INSERT INTO teams VALUES (128, 'NASR eSports Turkey', 13);
+-- TCL
+INSERT INTO teams VALUES (122, 'NASR eSports Turkey', 13);
+INSERT INTO teams VALUES (123, 'Dark Passage', 13);
+INSERT INTO teams VALUES (124, 'İstanbul Wildcats', 13);
+INSERT INTO teams VALUES (125, 'Galakticos', 13);
+INSERT INTO teams VALUES (126, 'SuperMassive Blaze', 13);
+INSERT INTO teams VALUES (127, 'Beşiktaş Esports', 13);
+INSERT INTO teams VALUES (128, 'Galatasaray Esports', 13);
 INSERT INTO teams VALUES (129, 'Team AURORA', 13);
+INSERT INTO teams VALUES (130, 'Fenerbahçe Esports', 13);
+INSERT INTO teams VALUES (131, '5 Ronin', 13);
 
-INSERT INTO teams VALUES (130, 'Test', 14);
-INSERT INTO teams VALUES (131, 'Test', 14);
-INSERT INTO teams VALUES (132, 'Test', 14);
-INSERT INTO teams VALUES (133, 'Test', 14);
-INSERT INTO teams VALUES (134, 'Test', 14);
-INSERT INTO teams VALUES (135, 'Test', 14);
-INSERT INTO teams VALUES (136, 'Test', 14);
-INSERT INTO teams VALUES (137, 'Test', 14);
-INSERT INTO teams VALUES (138, 'Test', 14);
-INSERT INTO teams VALUES (139, 'Test', 14);
+-- VCS
+INSERT INTO teams VALUES (132, 'CERBERUS Esports', 14);
+INSERT INTO teams VALUES (133, 'Team Whales', 14);
+INSERT INTO teams VALUES (134, 'SBTC Esports', 14);
+INSERT INTO teams VALUES (135, 'Team Secret', 14);
+INSERT INTO teams VALUES (136, 'GAM Esports', 14);
+INSERT INTO teams VALUES (137, 'Genius Esports', 14);
+INSERT INTO teams VALUES (138, 'AS Esports', 14);
+INSERT INTO teams VALUES (139, 'Saigon Buffalo', 14);
 
-INSERT INTO teams VALUES (140, 'Vorax Liberty', 15);
-INSERT INTO teams VALUES (141, 'KaBuM! e-Sports', 15);
+-- CB LoL
+INSERT INTO teams VALUES (140, 'RED Canids', 15);
+INSERT INTO teams VALUES (141, 'FURIA Esports', 15);
 INSERT INTO teams VALUES (142, 'paiN Gaming', 15);
-INSERT INTO teams VALUES (143, 'INTZ', 15);
-INSERT INTO teams VALUES (145, 'Flamengo eSports', 15);
-INSERT INTO teams VALUES (146, 'FURIA Esports', 15);
-INSERT INTO teams VALUES (147, 'RED Canids', 15);
-INSERT INTO teams VALUES (148, 'Rensga Esports', 15);
-INSERT INTO teams VALUES (149, '⁠LOUD', 15);
-INSERT INTO teams VALUES (150, 'Netshoes Miners', 15);
-
-
-INSERT INTO games VALUES (1, '2019-03-31', 1, 'SK Telecom T1', 'Afreeca Freecs', 1);
-
-INSERT INTO match_data VALUES ('Afreeca Freecs', 'Afreeca Freecs', 'Afreeca Freecs', 'Afreeca Freecs', 'SK Telecom T1', 'SK Telecom T1', 'SK Telecom T1', 'Afreeca Freecs', 1);
-
-select game_date, blue_team, red_team from games;
-
-
-    
-ALTER TABLE splits
-ADD COLUMN name TEXT;
-
-
-
-
+INSERT INTO teams VALUES (143, 'LOUD', 15);
+INSERT INTO teams VALUES (145, 'KaBuM! e-Sports', 15);
+INSERT INTO teams VALUES (146, 'Liberty', 15);
+INSERT INTO teams VALUES (147, 'Flamengo Los Grandes', 15);
+INSERT INTO teams VALUES (148, 'Miners', 15);
+INSERT INTO teams VALUES (149, 'INTZ', 15);
+INSERT INTO teams VALUES (150, 'Rensga Esports', 15);
 
 
 SETTINGS BEFORE GETTING THE DATA
@@ -401,11 +349,9 @@ with t(
 select json_agg(t) from t \g '/Users/Carlisle/Desktop/League Database Project/matches_played.json'
 
 
-
 UPDATE match_results SET first_blood = '-', first_tower = '-', first_dragon = '-', first_inhibitor = '-', first_baron = '-', winner = '-' FROM games WHERE game_date = '2020-08-01' AND id = game_id AND game_count = '1' AND (blue_team = 'fly' OR red_team = 'fly') AND (blue_team = '100' OR red_team = '');
 
 SELECT league_id, game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_results WHERE id = game_id ORDER BY game_date;
-
 
 SELECT league_id, game_date, game_count, blue_team, red_team, first_blood, first_tower, first_dragon, first_inhibitor, first_baron, winner FROM games, match_results WHERE id = game_id AND game_date = '2020-08-01' AND game_count = '1' AND (blue_team = 'fly' OR red_team = 'fly') AND (blue_team = '100' OR red_team = '100');
 

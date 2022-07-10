@@ -1,26 +1,14 @@
 import csv
-import psycopg2
-import requests
 import re
 import time
-import sys
-import json
-import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
 from team_name_mapper import *
-import timeit
-from datetime import datetime
-# import pytz
 import time
-
-import re
-
 
 def get_page_source(link):
     # Load page and grab data
@@ -45,8 +33,7 @@ def get_page_source(link):
 
 #### THIS SECTION LOGS US IN TO THE LEAGUE OF LEGENDS WEBSITE ###
 
-
-page_type = 'hi'
+page_type = ''
 
 options = webdriver.ChromeOptions()
 # options.add_argument("user-data-dir=/Users/Carlisle/Desktop/Chrome")
@@ -62,27 +49,43 @@ driver.implicitly_wait(10)  # not sure if needed
 ############ THIS SECTION GATHERS ALL THE MATCH DATA ############
 
 list_of_leagues_to_scrape = [
+    # 2022
+    # 'https://lol.fandom.com/wiki/LCK/2022_Season/Summer_Season', # LCK 1 
+    # 'https://lol.fandom.com/wiki/LEC/2022_Season/Summer_Season', # LEC 2 
+    # 'https://lol.fandom.com/wiki/LVP_SuperLiga/2022_Season/Summer_Season', # LVP 3 
+    # 'https://lol.fandom.com/wiki/LCO/2022_Season/Split_2', # LCO (Oceania) 4
+    # 'https://lol.fandom.com/wiki/LFL/2022_Season/Summer_Season', # LFL 5
+    # 'https://lol.fandom.com/wiki/PCS/2022_Season/Summer_Season', # PCS 6
+    # 'https://lol.fandom.com/wiki/LCS/2022_Season/Summer_Season', # LCS 7
+    # 'https://lol.fandom.com/wiki/NA_Academy_League/2022_Season/Summer_Season', # NA Academy 8
+    # 'https://lol.fandom.com/wiki/LLA/2022_Season/Closing_Season', # LLA 9 
+    # 'https://lol.fandom.com/wiki/Ultraliga/Season_8', # Ultraliga 10
+    # 'https://lol.fandom.com/wiki/LPL/2022_Season/Summer_Season', # LPL 11 
+    # 'https://lol.fandom.com/wiki/LJL/2022_Season/Summer_Season', # LJL 12
+    'https://lol.fandom.com/wiki/TCL/2022_Season/Summer_Season', # TCL 13
+    # 'https://lol.fandom.com/wiki/VCS/2022_Season/Summer_Season', # VCS 14 
+    # 'https://lol.fandom.com/wiki/CBLOL/2022_Season/Split_2', # CBLOL 15
+    # '', # LCL
+
+    # 2021
     # 'https://lol.fandom.com/wiki/LCS/2021_Season/Summer_Season',
     # 'https://lol.fandom.com/wiki/LEC/2021_Season/Summer_Season',
     # 'https://lol.fandom.com/wiki/LCO/2021_Season/Split_2',
     # 'https://lol.fandom.com/wiki/LPL/2021_Season/Summer_Season',
     # 'https://lol.fandom.com/wiki/LLA/2021_Season/Closing_Season',
-
-
-    # Broken
-    'https://lol.fandom.com/wiki/LVP_SuperLiga/2021_Season/Summer_Season',
-
-
-    'https://lol.fandom.com/wiki/Ultraliga/Season_6',
-    'https://lol.fandom.com/wiki/NA_Academy_League/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/TCL/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/CBLOL/2021_Season/Split_2',
-    'https://lol.fandom.com/wiki/LJL/2021_Season/Summer_Season',
-    'https://lol.fandom.com/wiki/LCK/2021_Season/Summer_Season'
+    # # 'https://lol.fandom.com/wiki/LVP_SuperLiga/2021_Season/Summer_Season', # Broken
+    # 'https://lol.fandom.com/wiki/Ultraliga/Season_6',
+    # 'https://lol.fandom.com/wiki/NA_Academy_League/2021_Season/Summer_Season',
+    # 'https://lol.fandom.com/wiki/TCL/2021_Season/Summer_Season',
+    # 'https://lol.fandom.com/wiki/CBLOL/2021_Season/Split_2',
+    # 'https://lol.fandom.com/wiki/LJL/2021_Season/Summer_Season',
+    # 'https://lol.fandom.com/wiki/LCK/2021_Season/Summer_Season',
+    # 'https://lol.fandom.com/wiki/PCS/2021_Season/Summer_Season',
     # 'https://lol.gamepedia.com/LFL/2020_Season/EM_Qualification',
     # 'https://lol.gamepedia.com/VCS/2020_Season/Summer_Playoffs',
-    # 'https://lol.gamepedia.com/PCS/2020_Season/Summer_Playoffs'
 ]
+
+id = 1
 
 for league_url in list_of_leagues_to_scrape:
 
@@ -99,12 +102,12 @@ for league_url in list_of_leagues_to_scrape:
         get_team_name_from_league = get_lec_name
     elif league == 'LCO':
         get_team_name_from_league = get_lco_name
-    # elif league == 'LFL':
-    #     get_team_name_from_league = get_lfl_name
+    elif league == 'LFL':
+        get_team_name_from_league = get_lfl_name
     elif league == 'LVP_SuperLiga':
         get_team_name_from_league = get_lvp_name
-    # elif league == 'PCS':
-    #     get_team_name_from_league = get_pcs_name
+    elif league == 'PCS':
+        get_team_name_from_league = get_pcs_name
     elif league == 'LCS':
         get_team_name_from_league = get_lcs_name
     elif league == 'LLA':
@@ -119,8 +122,8 @@ for league_url in list_of_leagues_to_scrape:
         get_team_name_from_league = get_ljl_name
     elif league == 'TCL':
         get_team_name_from_league = get_tcl_name
-    # elif league == 'VCS':
-    #     get_team_name_from_league = get_vcs_name
+    elif league == 'VCS':
+        get_team_name_from_league = get_vcs_name
     elif league == 'CBLOL':
         get_team_name_from_league = get_cblol_name
     else:
@@ -142,7 +145,9 @@ for league_url in list_of_leagues_to_scrape:
     tbd_writer = csv.writer(tbd_outfile)
 
     # Get list of matches for entire split (dates, teams and score)
-    for week in range(1, 15):
+    for week in range(1, 22): # TODO: was 15
+        print('week: ' + str(week))
+
         match_counter = 0
 
         class_string_1 = 'ml-allw ml-w' + str(week) + ' ml-row'
@@ -159,7 +164,11 @@ for league_url in list_of_leagues_to_scrape:
             final_match_t1 = final_match[0]
             final_match_t2 = final_match[4]
 
+            print("final_match_t1:", final_match_t1)
+            print("final_match_t2:", final_match_t2)
+
             for idx, character in enumerate(final_match_t1):
+                print("final_match_t1[:idx].lower():", final_match_t1[:idx].lower())
                 if final_match_t1[:idx].lower() in get_team_name_from_league:
                     most_recent_game_t1 = final_match_t1[:idx].lower()
                     most_recent_game_t1 = most_recent_game_t1.strip()
@@ -279,6 +288,8 @@ for league_url in list_of_leagues_to_scrape:
                             for idx, character in enumerate(tbd_team_name):
                                 if tbd_team_name[:idx].lower() in get_team_name_from_league:
                                     tbd_team_1 = tbd_team_name[:idx].lower()
+                            # Add the id of the match
+                            date_team_vs.append(id)
                             # Add the week of the match
                             date_team_vs.append(str(week))
                             # Add what league the match is from
@@ -292,6 +303,7 @@ for league_url in list_of_leagues_to_scrape:
                                 match_times[match_counter].text)
                             date_team_vs.append(tbd_team_1)  # Add team 1
                             match_counter += 1
+                            id += 1
                         else:
                             for idx, character in enumerate(tbd_team_name):
                                 if tbd_team_name[-idx:].lower() in get_team_name_from_league:
