@@ -38,6 +38,7 @@ CREATE TABLE upcoming (
 CREATE TABLE teams (
     id INTEGER NOT NULL,
     name TEXT NOT NULL,
+    abbreviation TEXT,
     league_id INTEGER NOT NULL REFERENCES leagues (id),
     PRIMARY KEY(id)
 );
