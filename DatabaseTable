@@ -92,9 +92,9 @@ CREATE TABLE match_odds (
 CREATE TABLE bet_history (
     id INTEGER NOT NULL,
     league_id INTEGER REFERENCES leagues (id),
-    game_id INTEGER REFERENCES upcoming (id) NOT NULL
+    game_id INTEGER REFERENCES upcoming (id) NOT NULL,
     blue_team TEXT NOT NULL,
-    red_team TEXT NOT NULL
+    red_team TEXT NOT NULL,
 	bet_on_team TEXT NOT NULL,
 	objective TEXT NOT NULL,
 	odds: FLOAT NOT NULL,

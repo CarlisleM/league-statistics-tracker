@@ -206,9 +206,9 @@ for league_url in list_of_leagues_to_scrape:
                 else:
                     losing_team = "-"
 
-                matches_to_post.append([league_id, split_id, game_date, game_number, blue_team, red_team, first_blood_killed_by_team, first_tower_killed_by_team, first_dragon_killed_by_team, first_rift_herald_killed_by_team, first_inhibitor_killed_by_team, first_baron_killed_by_team, blue_team_kill_count, red_team_kill_count, winning_team, losing_team])
+                matches_to_post.append([league_id, split_id, game_date, game_number, blue_team, red_team, first_blood_killed_by_team, first_tower_killed_by_team, first_dragon_killed_by_team, first_inhibitor_killed_by_team, first_baron_killed_by_team, first_rift_herald_killed_by_team, blue_team_kill_count, red_team_kill_count, winning_team, losing_team])
             else:
-                matches_to_post.append([league_id, split_id, game_date, game_number, blue_team, red_team, "-", "-", "-", "-", "-", "-", 0, 0, winning_team, losing_team])
+                matches_to_post.append([league_id, split_id, game_date, game_number, blue_team, red_team, "-", "-", "-", "-", "-", "-", 0, 0, "-", "-"])
 
 print('Finished scraping!')
 
